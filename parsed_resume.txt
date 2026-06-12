@@ -1,0 +1,64 @@
+NISHANT PRASAD
++91-8882614767 · Noida, Uttar Pradesh
+nishant10prasad10@gmail.com · LinkedIn · GitHub
+Education
+B.Tech in Information Technology, NIT Jalandhar
+2023–2027
+Higher Secondary Education, Amity International School, Noida, Uttar Pradesh
+2023
+Percentage: 93%
+Experience
+Software Engineering Trainee – Intern
+June 2025 – July 2025
+Vitana Private Limited, New Delhi (Remote)
+• Contributed to the frontend development of a mental wellness platform featuring 4+ user-facing modules
+including journaling, AI chatbot interactions, recommendations, and wellness tools.
+• Developed reusable React.js components and responsive user interfaces, improving maintainability and en-
+abling faster feature development across application modules.
+• Integrated 10+ RESTful API endpoints and implemented asynchronous data handling to support seamless
+communication between frontend interfaces and backend services.
+Projects
+CAF-MAI (Unbiased AI) – FastAPI, React.js, Scikit-learn, Gemini AI
+Source Code
+• Architected and deployed a FastAPI + React Responsible AI platform with an 11-module ML pipeline
+for data profiling, bias discovery, model training, fairness evaluation, explainable AI, and model monitoring.
+• Developed fairness auditing and debiasing modules for automated bias detection, subgroup analysis, and
+AI model evaluation.
+• Engineered a debiasing framework using sample reweighing, probability adjustment and Gemini API
+integration, achieving 15–35% reduction in bias disparities.
+MENTALAI (Mental Wellness Platform) – React.js, Express.js, MongoDB, GeminiAI Source Code
+• Developed a full-stack mental wellness platform featuring 5+ user-facing modules, including journaling,
+mood analytics, AI-powered chat assistance, personalized recommendations, and wellness engagement tools.
+• Engineered a recommendation system delivering personalized content across 5 recommendation categories
+by leveraging mood trends, user interests, interaction history, and recency-based scoring.
+• Implemented 15+ RESTful API endpoints, JWT-based authentication, Gemini AI integration, and
+MongoDB-backed data management to support personalized experiences and recommendation tracking.
+LinkShrink Pro – Node.js, Express.js, MongoDB, NanoID
+Source Code
+• Developed a URL shortening application using Node.js, Express.js, and MongoDB, enabling efficient genera-
+tion and management of shortened links.
+• Engineered 8-character NanoID-based URL generation supporting over 2.8 × 1014 unique combina-
+tions while minimizing collision probability.
+• Implemented URL redirection workflows and validated RESTful APIs for concurrent URL creation and re-
+trieval operations with a 99% success rate.
+Technical Skills
+Languages: C, C++, Java, Python, JavaScript, TypeScript, HTML/CSS, SQL (MySQL)
+ML Libraries: NumPy, Pandas, Scikit-learn, PyTorch, LightGBM, Matplotlib, Seaborn
+Tools: Git, GitHub, Postman, Docker, VS Code, IntelliJ IDEA, Jupyter Notebook, Google Colab
+Technologies & Frameworks: React.js, Node.js, Express.js, FastAPI, REST APIs, JWT Authentication,
+MongoDB, MySQL, AWS, Linux
+Coursework: DSA, OOP, DBMS, Operating Systems, Computer Networks, System Design
+Achievements
+• Top-100, Ethereum IV Quant Forecasting
+Competition
+2026
+• Top-50, Magicpin Vera AI Challenge
+2026
+• Meta AI Hackathon Finalist (Top 200)
+2026
+• Solved 500+ DSA Problems (LeetCode &
+GeeksforGeeks)
+• AIR 15120, JEE Main
+2023
+• AIR 16380, JEE Advanced
+2023
