@@ -72,10 +72,10 @@ def main():
         print("[+] Check 'logs/resume_parser.log' for detailed execution logs.")
         
     except MissingAPIKeyError:
-        print("\n[!] Configuration Error: OpenAI API Key is missing.")
-        print("    Please set the OPENAI_API_KEY environment variable and run again.")
-        print("    Example (PowerShell): $env:OPENAI_API_KEY=\"sk-proj-YourKeyHere\"")
-        print("    Example (CMD prompt): set OPENAI_API_KEY=sk-proj-YourKeyHere")
+        print("\n[!] Configuration Error: Gemini API Key is missing.")
+        print("    Please set the GEMINI_API_KEY environment variable and run again.")
+        print("    Example (PowerShell): $env:GEMINI_API_KEY=\"your_key_here\"")
+        print("    Example (CMD prompt): set GEMINI_API_KEY=your_key_here")
         sys.exit(1)
     except Exception as e:
         print(f"\n[-] Extraction failed: {type(e).__name__} - {e}")

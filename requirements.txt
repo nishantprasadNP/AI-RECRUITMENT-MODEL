@@ -1,5 +1,5 @@
 pdfplumber==0.11.1
 pymupdf==1.27.2.3
 pytest==8.2.2
-openai>=1.0.0
+google-generativeai
 pydantic>=2.0.0

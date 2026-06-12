@@ -1,9 +1,10 @@
 import json
 import logging
-from openai import OpenAI
+import re
+import google.generativeai as genai
 from pydantic import ValidationError
 
-from app.config import OPENAI_API_KEY, OPENAI_MODEL
+from app.config import GEMINI_API_KEY, GEMINI_MODEL
 from app.models.resume_schema import ResumeProfile
 from app.prompts.extraction_prompt import SYSTEM_PROMPT, USER_PROMPT_TEMPLATE
 
@@ -20,11 +21,11 @@ class EmptyResumeTextError(ResumeExtractorError):
     pass
 
 class MissingAPIKeyError(ResumeExtractorError):
-    """Exception raised when the OpenAI API key is missing."""
+    """Exception raised when the Gemini API key is missing."""
     pass
 
-class OpenAIAPIError(ResumeExtractorError):
-    """Exception raised when OpenAI API call fails or times out."""
+class GeminiAPIError(ResumeExtractorError):
+    """Exception raised when Gemini API call fails or times out."""
     pass
 
 class InvalidJSONResponseError(ResumeExtractorError):
@@ -38,15 +39,32 @@ class ProfileValidationError(ResumeExtractorError):
 class ResumeInformationExtractor:
     """
     Service to extract structured profile information from raw resume text
-    using OpenAI API and Pydantic validation.
+    using Google Gemini API and Pydantic validation.
     """
 
     def __init__(self, api_key: str = None, model: str = None):
         """
         Initializes the extractor with API credentials and model configuration.
         """
-        self.api_key = api_key if api_key is not None else OPENAI_API_KEY
-        self.model = model if model is not None else OPENAI_MODEL
+        self.api_key = api_key if api_key is not None else GEMINI_API_KEY
+        self.model = model if model is not None else GEMINI_MODEL
+
+    def _clean_json_response(self, raw_text: str) -> str:
+        """
+        Cleans raw response from Gemini to extract JSON string.
+        Strips markdown code blocks (e.g. ```json ... ```) if present.
+        """
+        if not raw_text:
+            return ""
+        
+        cleaned = raw_text.strip()
+        
+        # Regex to strip ```json ... ``` or ``` ... ```
+        match = re.match(r"^```(?:json)?\s*(.*?)\s*```$", cleaned, re.DOTALL | re.IGNORECASE)
+        if match:
+            cleaned = match.group(1).strip()
+            
+        return cleaned
 
     def extract(self, resume_text: str) -> ResumeProfile:
         """
@@ -60,8 +78,8 @@ class ResumeInformationExtractor:
 
         Raises:
             EmptyResumeTextError: If resume_text is empty or whitespace only.
-            MissingAPIKeyError: If OpenAI API Key is not configured.
-            OpenAIAPIError: If the OpenAI client call fails.
+            MissingAPIKeyError: If Gemini API Key is not configured.
+            GeminiAPIError: If the Gemini client call fails.
             InvalidJSONResponseError: If the model output is not valid JSON.
             ProfileValidationError: If the parsed JSON fails Pydantic validation.
         """
@@ -73,44 +91,56 @@ class ResumeInformationExtractor:
             raise EmptyResumeTextError("Resume text cannot be empty.")
 
         if not self.api_key:
-            logger.error("Extraction failed: Missing OpenAI API Key")
-            raise MissingAPIKeyError("OpenAI API Key is missing. Please set the OPENAI_API_KEY environment variable.")
+            logger.error("Extraction failed: Missing Gemini API Key")
+            raise MissingAPIKeyError("Gemini API Key is missing. Please set the GEMINI_API_KEY environment variable.")
 
-        # 2. Build prompt
+        # 2. Build prompts
         system_prompt = SYSTEM_PROMPT
         user_prompt = USER_PROMPT_TEMPLATE.format(resume_text=resume_text)
         logger.info("Prompt generated")
 
-        # 3. Call OpenAI API
+        # 3. Call Google Gemini API
         try:
-            client = OpenAI(api_key=self.api_key)
-            logger.info("API request sent")
+            genai.configure(api_key=self.api_key)
             
-            # Use JSON mode to guarantee a JSON object back
-            response = client.chat.completions.create(
-                model=self.model,
-                response_format={"type": "json_object"},
-                messages=[
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": user_prompt}
-                ]
+            # Setup the generative model with the system instruction
+            model = genai.GenerativeModel(
+                model_name=self.model,
+                system_instruction=system_prompt
             )
             
-            raw_response = response.choices[0].message.content
+            logger.info("API request sent")
+            
+            response = model.generate_content(
+                user_prompt,
+                generation_config={"response_mime_type": "application/json"}
+            )
+            
+            raw_response = response.text
+            
+            if not raw_response:
+                logger.error("API request failed: Empty response received")
+                raise GeminiAPIError("Empty response received from Gemini.")
+                
             logger.info("API response received")
             
         except Exception as e:
+            if isinstance(e, GeminiAPIError):
+                raise
             logger.error(f"API request failed: {str(e)}")
-            raise OpenAIAPIError(f"OpenAI API call failed: {str(e)}") from e
+            raise GeminiAPIError(f"Gemini API call failed: {str(e)}") from e
 
-        # 4. Parse JSON response
+        # 4. Clean response text (handles markdown formatting)
+        cleaned_response = self._clean_json_response(raw_response)
+
+        # 5. Parse JSON response
         try:
-            json_data = json.loads(raw_response)
+            json_data = json.loads(cleaned_response)
         except json.JSONDecodeError as e:
             logger.error(f"Invalid JSON response from LLM: {raw_response}")
             raise InvalidJSONResponseError(f"LLM did not return valid JSON: {str(e)}") from e
 
-        # 5. Validate with Pydantic
+        # 6. Validate with Pydantic
         try:
             profile = ResumeProfile.model_validate(json_data)
             logger.info("Validation successful")
