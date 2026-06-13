@@ -1,0 +1,26 @@
+Title: Senior Software Engineer - FinTech Platform
+
+About Us:
+We are a fast-growing FinTech startup building next-generation payment systems. We operate in a highly collaborative, fast-paced environment where software developers take extreme ownership of their products.
+
+Role Description:
+We are looking for a Senior Software Engineer to design, build, and maintain our high-throughput backend APIs. In this role, you will lead a small team of engineers, mentor junior developers, and drive architectural decisions. You will work independently to solve complex technical problems and must be comfortable making decisions with minimal guidance.
+
+Required Qualifications:
+- Bachelor's or Master's degree in Computer Science, Software Engineering, or a related field.
+- 5+ years of hands-on experience building production backend systems.
+- Strong proficiency in Python or Go.
+- Proficient with SQL databases like PostgreSQL or MySQL.
+- Extensive experience designing RESTful APIs.
+
+Preferred Qualifications:
+- Experience with AWS (Amazon Web Services) cloud infrastructure.
+- Familiarity with containerization tools like Docker and Kubernetes.
+- Previous experience in the FinTech or payment processing domain is a huge plus.
+- Adaptability and a strong willingness to learn new technologies as our stack evolves.
+
+Key Responsibilities:
+- Design, develop, and optimize high-concurrency payment APIs.
+- Mentor junior engineers and perform code reviews.
+- Drive backend development and database schema designs.
+- Troubleshoot production issues and improve system reliability.
