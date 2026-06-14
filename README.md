@@ -247,12 +247,26 @@ Defined in [job_schema.py](file:///e:/AI%20Recruitment%20Model/app/models/job_sc
 
 ## Advanced Extraction Quality Rules
 
-The Job Description Intelligence Engine enforces advanced validation heuristics to improve data quality:
-- **Evidence-Based Extraction**: Limits extraction to items explicitly supported by the JD text. Non-evident properties are initialized to `null`, `[]`, or `false` (no hallucinations).
-- **Entity Normalization**: Standardizes technology and programming language terms to normalized industry names (e.g. `JS` to `JavaScript`, `K8s` to `Kubernetes`).
-- **Deduplication**: Filters out semantic duplicates and aliases from arrays (e.g. merging `communication skills` and `communication` into `Communication`).
-- **Prioritization Rules**: Orders `critical_skills` prioritizing mandatory requirements over preferred/bonus skills.
-- **Consistency Verification**: Ensures `critical_skills` exist in required/preferred/tech lists, complexity score aligns with the seniority level, and leadership properties contain contextual evidence.
+The Job Description Intelligence Engine enforces rigorous extraction boundaries to guarantee profile precision:
+
+- **The Golden Rule**: Every extracted data point must belong to either an *Explicit Fact* (directly stated) or a *Supported Inference* (implied by multiple pieces of evidence). When evidence is insufficient, fields must default to `null`, `[]`, or `false`. Accuracy is strictly favored over completeness.
+- **Required & Preferred Skills Criteria**:
+  - Skills are only extracted if the exact term or its valid normalization appears in the JD.
+  - Normalization is limited to industry-standard mappings (e.g., `K8s` $\rightarrow$ `Kubernetes`, `Postgres` $\rightarrow$ `PostgreSQL`, `TS` $\rightarrow$ `TypeScript`, `JS` $\rightarrow$ `JavaScript`).
+  - Common skills associated with job titles or industries are **never** inferred if they are not explicitly mentioned in the text.
+- **Strict People Leadership Definition**: `leadership` is set to `true` **only** when there is direct evidence of people management, supervision, or mentorship of individuals. Technical leadership (e.g., owning architectures, driving roadmap execution, project delivery ownership) is explicitly classified as `leadership = false`.
+- **Hallucination Prevention**: Forbids outputting unmentioned technologies, frameworks, databases, or AI models. For example, if `OpenAI` is mentioned, the engine is explicitly prohibited from generating competing models like `Anthropic` or `Gemini` unless they also appear in the text.
+- **Hidden Hiring Signal Triggers**:
+  - `autonomy_required`: Triggered by terms like `minimal supervision`, `work independently`.
+  - `client_facing`: Triggered by `meetings with clients`, `present to customers`.
+  - `research_oriented`: Triggered by `experimentation`, `scientific investigation`.
+  - `innovation_focused`: Triggered by `prototype new solutions`, `develop novel approaches`.
+  - `startup_environment`: Triggered by `fast-paced startup`, `wear multiple hats`.
+  - `high_ownership`: Triggered by `own outcomes`, `end-to-end ownership`.
+- **Deduplication & Consistency Verification**:
+  - Filters duplicate values and aliases from all output arrays.
+  - Verifies that `critical_skills` are a strict subset of previously extracted required/preferred/tool list skills.
+  - Validates that `job_summary` is a pure synthesis of extracted information and introduces no new terms or requirements.
 
 ---
 

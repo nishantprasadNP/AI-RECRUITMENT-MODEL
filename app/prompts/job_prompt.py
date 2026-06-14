@@ -67,75 +67,153 @@ When uncertain:
 
 Accuracy is more important than completeness.
 
-# EXTRACTION RULES
-
 ## 1. REQUIRED SKILLS
 
-Extract ONLY skills, technologies, frameworks,
-databases, methodologies, tools, platforms,
-programming languages, or competencies that are
-explicitly mentioned in the Job Description.
+Extract ONLY skills, technologies, frameworks, databases, methodologies, tools, platforms, programming languages, or competencies that are explicitly mentioned in the Job Description.
 
-Do NOT add skills because they are commonly
-associated with the role.
+A skill may only be extracted if:
 
-Example:
+1. The exact term appears in the JD.
+2. The term is a valid normalization of a term appearing in the JD.
+
+Examples of allowed normalization:
+
+* Postgres → PostgreSQL
+* K8s → Kubernetes
+* JS → JavaScript
+* TS → TypeScript
+
+Do NOT infer skills based on job title, responsibilities, industry, or common knowledge.
+
+Incorrect Example:
 
 JD:
-Strong Python and SQL knowledge.
+"Senior Backend Engineer"
 
 Output:
-["Python","SQL"]
+[
+"Python",
+"SQL",
+"Docker"
+]
 
-Incorrect:
-["Python","SQL","Docker","System Design"]
-Indicators include:
+Reason:
+These technologies are commonly associated with backend engineering but are not explicitly mentioned.
+
+Correct Output:
+
+[]
+
+unless those technologies are explicitly present in the JD.
+
+Indicators that a skill is required include:
 
 * must have
 * required
 * mandatory
 * essential
 * minimum qualifications
-* qualifications
-* responsibilities requiring the skill
+* required qualifications
 
 Examples:
 
-"Must know Python and SQL"
+JD:
+"Must know Python and SQL."
 
 Output:
-
 [
 "Python",
 "SQL"
 ]
 
----
+JD:
+"Experience with PostgreSQL and Docker is required."
+
+Output:
+[
+"PostgreSQL",
+"Docker"
+]
+
+When uncertain, do not extract the skill.
 
 ## 2. PREFERRED SKILLS
 
-Extract skills that are beneficial but not mandatory.
+Extract ONLY skills, technologies, frameworks, databases, methodologies, tools, platforms, programming languages, or competencies that are explicitly identified as preferred rather than required.
 
 Indicators include:
 
 * preferred
+* preferred qualifications
 * nice to have
 * good to have
 * bonus
-* plus point
-* advantage
+* plus
+* advantageous
+* desired qualifications
 
-Example:
+A skill may be included in preferred_skills ONLY if the Job Description explicitly indicates that it is optional, preferred, beneficial, or advantageous.
 
+Do NOT infer preferred skills.
+
+Do NOT move inferred concepts into preferred_skills.
+
+Do NOT create preferred skills based on:
+
+* job responsibilities
+* job title
+* industry assumptions
+* common knowledge
+* hidden hiring signals
+
+Examples:
+
+JD:
 "Experience with Docker is a plus."
 
 Output:
-
 [
 "Docker"
 ]
 
----
+JD:
+"Experience with AWS is preferred."
+
+Output:
+[
+"AWS"
+]
+
+JD:
+"Knowledge of Kubernetes is nice to have."
+
+Output:
+[
+"Kubernetes"
+]
+
+Incorrect Example:
+
+JD:
+"Work with stakeholders across multiple teams."
+
+Incorrect Output:
+[
+"Communication",
+"Leadership",
+"Product Management"
+]
+
+Reason:
+These skills were inferred and were not explicitly identified as preferred.
+
+When uncertain:
+
+Output:
+[]
+
+Favor precision over completeness.
+
 
 ## 3. EXPERIENCE REQUIREMENT
 
@@ -199,24 +277,90 @@ null
 
 ## 5. LEADERSHIP REQUIREMENT
 
-Determine whether the role requires leadership capability.
+Determine whether the role requires people leadership.
 
-Set leadership=true if the JD contains concepts such as:
+Set `leadership = true` ONLY when there is clear evidence that the role involves leading, mentoring, managing, supervising, or directing other people.
 
-* Team Lead
-* Mentoring
+Strong leadership indicators include:
+
+* Leading a team
 * Managing engineers
-* Driving projects
-* Ownership
+* Managing employees
+* Supervising team members
+* Mentoring junior developers
+* Coaching team members
+* Technical team leadership
+* Engineering management
+* Performance management
+* Hiring responsibilities
+* Team development responsibilities
+
+Examples:
+
+JD:
+"Lead a team of backend engineers."
+
+Output:
+true
+
+JD:
+"Mentor junior developers and conduct code reviews."
+
+Output:
+true
+
+JD:
+"Manage a cross-functional engineering team."
+
+Output:
+true
+
+Do NOT classify a role as leadership based solely on technical ownership or responsibility.
+
+The following are NOT sufficient evidence of leadership:
+
+* Owning projects
+* Driving technical initiatives
+* Driving architecture decisions
+* End-to-end ownership
 * Stakeholder management
-* Project leadership
-* Cross-functional leadership
+* Working independently
+* Influencing decisions
+* Technical expertise alone
 
-Otherwise:
+Examples:
 
+JD:
+"Own the backend architecture."
+
+Output:
 false
 
----
+JD:
+"Drive technical roadmap execution."
+
+Output:
+false
+
+JD:
+"Take ownership of critical systems."
+
+Output:
+false
+
+JD:
+"Work independently and influence stakeholders."
+
+Output:
+false
+
+When evidence is ambiguous or weak:
+
+Output:
+false
+
+Favor precision over over-classifying leadership roles.
+
 
 ## 6. SENIORITY LEVEL
 
@@ -333,29 +477,178 @@ PostgreSQL
 
 ## 11. HIDDEN HIRING SIGNALS
 
-Many recruiters indirectly communicate what they want.
+## 11. HIDDEN HIRING SIGNALS
 
-Infer:
+Many recruiters communicate hiring preferences indirectly.
 
-* autonomy_required
-* client_facing
-* research_oriented
-* innovation_focused
-* startup_environment
-* high_ownership
+Infer hidden hiring signals ONLY when there is strong and explicit supporting evidence in the Job Description.
 
-Example:
+Do NOT infer signals based on job title, seniority, industry, or assumptions.
 
-"Work independently and drive projects."
+When evidence is weak, ambiguous, or indirect:
 
 Output:
+false
 
+Supported hidden hiring signals:
+
+### autonomy_required
+
+Set true only when there is evidence such as:
+
+* work independently
+* minimal supervision
+* minimal guidance
+* self-directed
+* self-starter
+* operate autonomously
+
+Examples:
+
+"Work independently with minimal guidance."
+
+Output:
 {
-"autonomy_required":true,
-"high_ownership":true
+"autonomy_required": true
 }
 
 ---
+
+### client_facing
+
+Set true only when there is evidence such as:
+
+* interact with customers
+* communicate with clients
+* customer meetings
+* client presentations
+* customer relationship management
+
+Examples:
+
+"Present technical solutions to customers."
+
+Output:
+{
+"client_facing": true
+}
+
+---
+
+### research_oriented
+
+Set true only when there is evidence such as:
+
+* experimentation
+* research activities
+* exploratory work
+* prototype evaluation
+* scientific investigation
+* model evaluation
+
+Examples:
+
+"Conduct experiments to evaluate model performance."
+
+Output:
+{
+"research_oriented": true
+}
+
+---
+
+### innovation_focused
+
+Set true only when there is evidence such as:
+
+* prototype new solutions
+* develop novel approaches
+* challenge existing processes
+* innovation initiatives
+* exploratory product development
+
+Examples:
+
+"Prototype new AI-powered solutions."
+
+Output:
+{
+"innovation_focused": true
+}
+
+---
+
+### startup_environment
+
+Set true only when there is evidence such as:
+
+* startup
+* fast-paced environment
+* wear multiple hats
+* ambiguity
+* rapidly changing priorities
+
+Examples:
+
+"Thrives in a fast-paced startup environment."
+
+Output:
+{
+"startup_environment": true
+}
+
+---
+
+### high_ownership
+
+Set true only when there is evidence such as:
+
+* own outcomes
+* end-to-end ownership
+* drive initiatives
+* accountable for results
+* responsible for delivery
+
+Examples:
+
+"Own end-to-end delivery of critical systems."
+
+Output:
+{
+"high_ownership": true
+}
+
+---
+
+Incorrect Examples:
+
+JD:
+"Senior Software Engineer"
+
+Output:
+{
+"high_ownership": false,
+"autonomy_required": false,
+"innovation_focused": false
+}
+
+Reason:
+Job title alone is insufficient evidence.
+
+JD:
+"5+ years experience required"
+
+Output:
+{
+"autonomy_required": false
+}
+
+Reason:
+Experience level alone is insufficient evidence.
+
+Infer hidden signals only when supported by direct textual evidence.
+Favor false negatives over false positives.
+
 
 ## 12. ROLE COMPLEXITY SCORE
 
@@ -379,23 +672,94 @@ Strategic leadership roles
 
 ## 13. CRITICAL SKILLS
 
-Identify the TOP 5 MOST IMPORTANT skills.
+I## 13. CRITICAL SKILLS
 
-These will later receive higher ranking weights.
+Identify the TOP 5 MOST IMPORTANT skills for success in the role.
 
-Order them by importance.
+Critical skills represent the highest-priority requirements that should receive greater weighting during candidate ranking.
 
-Example:
+IMPORTANT:
 
+critical_skills must be selected ONLY from skills already extracted into:
+
+* required_skills
+* preferred_skills
+* tools_and_technologies
+
+Do NOT introduce new skills.
+
+Do NOT infer additional skills.
+
+Do NOT create critical skills that were not previously extracted.
+
+Selection Priority:
+
+1. Explicitly required skills
+2. Skills appearing multiple times in the JD
+3. Skills central to key responsibilities
+4. Skills appearing in required qualifications
+5. Skills directly tied to business outcomes
+
+Order the skills from highest importance to lowest importance.
+
+Examples:
+
+Required Skills:
 [
 "Python",
+"SQL",
 "Machine Learning",
+"AWS",
+"Docker"
+]
+
+Output:
+[
+"Machine Learning",
+"Python",
 "SQL",
 "AWS",
 "Docker"
 ]
 
 ---
+
+Incorrect Example:
+
+Required Skills:
+[
+"Python",
+"SQL"
+]
+
+Output:
+[
+"Python",
+"System Design",
+"Leadership",
+"Architecture",
+"SQL"
+]
+
+Reason:
+System Design, Leadership, and Architecture were never extracted.
+
+---
+
+Validation Rule:
+
+Every item in critical_skills must already exist in at least one of:
+
+* required_skills
+* preferred_skills
+* tools_and_technologies
+
+If fewer than 5 eligible skills exist:
+
+Return only the available skills.
+
+Favor precision over completeness.
+
 
 ## 14. FUTURE POTENTIAL SIGNALS
 
@@ -552,18 +916,148 @@ set the value to false.
 
 ## CONSISTENCY CHECK
 
-Before generating the final JSON:
+## CONSISTENCY CHECK
+
+Before generating the final JSON, perform the following validation checks.
+
+### Skill Validation
 
 Verify that:
 
-* critical_skills is a subset of required_skills, preferred_skills, or tools_and_technologies
-* experience_required is logically consistent with seniority_level
-* leadership=true only when leadership evidence exists
-* role_complexity_score aligns with responsibilities and seniority
-* no field contains duplicated information
-* all arrays are unique and normalized
+* critical_skills is a subset of:
+
+  * required_skills
+  * preferred_skills
+  * tools_and_technologies
+
+* No skill appears more than once.
+
+* Skills are normalized according to the normalization rules.
+
+* No inferred skill has been added to:
+
+  * required_skills
+  * preferred_skills
+  * tools_and_technologies
+
+* Technologies are only included if explicitly mentioned in the Job Description or are valid normalizations.
 
 ---
+
+### Experience Validation
+
+Verify that:
+
+* experience_required reflects the minimum years required by the JD.
+
+* experience_required is null when no experience requirement exists.
+
+* seniority_level is logically consistent with experience_required.
+
+Examples:
+
+0–1 years → entry
+
+2–4 years → junior
+
+5–7 years → mid
+
+8–12 years → senior
+
+12+ years → lead / manager / director
+
+If experience is not specified:
+
+Infer seniority only from responsibilities and role expectations.
+
+---
+
+### Leadership Validation
+
+Verify that:
+
+* leadership=true only when evidence of people leadership exists.
+
+Acceptable evidence includes:
+
+* managing people
+* mentoring people
+* supervising people
+* leading teams
+* hiring responsibilities
+* performance management
+
+Technical ownership alone is insufficient.
+
+---
+
+### Hidden Hiring Signal Validation
+
+Verify that:
+
+* autonomy_required=true only when autonomy evidence exists.
+* client_facing=true only when customer or client interaction evidence exists.
+* research_oriented=true only when research or experimentation evidence exists.
+* innovation_focused=true only when innovation evidence exists.
+* startup_environment=true only when startup or ambiguity evidence exists.
+* high_ownership=true only when ownership evidence exists.
+
+If evidence is weak or ambiguous:
+
+Set the value to false.
+
+---
+
+### Data Quality Validation
+
+Verify that:
+
+* No field contains duplicate values.
+* Arrays contain only unique items.
+* Empty fields use:
+
+  * []
+  * null
+  * false
+
+as appropriate.
+
+* No placeholder values are used.
+
+* No field contains information unsupported by the JD.
+
+---
+
+### Summary Validation
+
+Verify that:
+
+* job_summary contains only information already represented in the extracted profile.
+
+* job_summary introduces:
+
+  * no new skills
+  * no new technologies
+  * no new requirements
+  * no new responsibilities
+
+The summary must be a concise synthesis of extracted information, not a source of new information.
+
+---
+
+### Final Validation Rule
+
+If a value cannot be supported by evidence from the Job Description:
+
+Do NOT generate it.
+
+Favor correctness over completeness.
+
+When uncertain:
+
+* use []
+* use null
+* use false
 
 ## QUALITY OBJECTIVE
 
