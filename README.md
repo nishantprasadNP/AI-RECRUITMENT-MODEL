@@ -57,6 +57,15 @@ graph TD
     A2[Unstructured Job Description] --> B2[Gemini JD Extractor]
     B2 -->|Talent Analyst System Prompt| C2[Pydantic Validation]
     C2 -->|Valid JSON| D2[Save to data/extracted_jobs/]
+
+    %% Embedding & Matcher Pipeline
+    F1 --> G1[Resume Text Builder]
+    D2 --> G2[JD Text Builder]
+    G1 -->|Clean Semantic Text| H1[Local / API Embeddings]
+    G2 -->|Clean Semantic Text| H2[Local / API Embeddings]
+    H1 --> I1[Semantic Matcher]
+    H2 --> I1
+    I1 -->|Cosine Similarity| J1[Match Score]
 ```
 
 ---
@@ -66,9 +75,15 @@ graph TD
 ```text
 AI-RECRUITMENT-MODEL/
 ├── app/
+│   ├── embeddings/
+│   │   ├── embedding_generator.py           # Local SentenceTransformer Embedding Generator
+│   │   ├── embedder.py                      # Gemini API-based Embedding Service
+│   │   └── text_builder.py                  # Resume & JD JSON-to-text semantic compiler
 │   ├── extractors/
 │   │   ├── job_extractor.py                 # Job Description LLM Extraction Service
 │   │   └── resume_information_extractor.py  # Resume LLM Extraction Service
+│   ├── matcher/
+│   │   └── semantic_matcher.py              # Cosine Similarity score engine using scikit-learn
 │   ├── models/
 │   │   ├── job_schema.py                    # Pydantic schemas (JobProfile)
 │   │   └── resume_schema.py                 # Pydantic schemas (ResumeProfile)
@@ -94,17 +109,25 @@ AI-RECRUITMENT-MODEL/
 │   ├── resume.pdf                           # Default sample resume
 │   └── resume1.pdf                          # Secondary sample resume
 ├── tests/
+│   ├── test_embedder.py                     # API-based embedding unit tests
+│   ├── test_embedding_generator.py          # Local embedding generator unit tests
 │   ├── test_information_extractor.py        # Resume extractor unit tests
 │   ├── test_job_extractor.py                # Job extractor unit tests
-│   └── test_resume_parser.py                # Parser layout & error handling unit tests
+│   ├── test_resume_parser.py                # Parser layout & error handling unit tests
+│   ├── test_semantic_matcher.py             # Cosine similarity matcher unit tests
+│   └── test_text_builder.py                 # Semantic text builder unit tests
 ├── .env                                     # Local environment file (API keys)
 ├── .env.example                             # Environment variable template
 ├── .gitignore                               # Git ignored files & dirs (.venv, logs, etc.)
 ├── parsed_resume.txt                        # Output file from text parsing run
 ├── requirements.txt                         # Python packages & dependencies
+├── test_embedding_generation.py             # Standalone local embedding generation test script
+├── test_end_to_end_semantic_matching.py     # Standalone end-to-end semantic match test script
 ├── test_information_extraction.py           # Standalone LLM resume extraction run script
 ├── test_job_extraction.py                   # Standalone LLM job extraction run script
+├── test_matching.py                         # Standalone API-based matching run script
 ├── test_resume.py                           # Standalone parser run script
+├── test_semantic_matcher.py                 # Standalone local text matching test script
 └── README.md                                # Project documentation
 ```
 
@@ -211,6 +234,65 @@ python test_job_extraction.py
 
 ---
 
+### Running the Embedding & Semantic Similarity Engine
+
+ARIS supports local embedding generation (via `all-mpnet-base-v2`) and semantic cosine similarity scoring between candidate resumes and job descriptions.
+
+#### Method A: Local Embedding Verification
+To generate an embedding vector for a candidate profile JSON and inspect its shape:
+```bash
+python test_embedding_generation.py
+```
+This runs the local SentenceTransformer embedding generator and outputs:
+```text
+==================================================
+ LOCAL EMBEDDING GENERATION COMPLETE
+==================================================
+Candidate: NISHANT PRASAD
+
+Embedding Shape:
+(768,)
+==================================================
+```
+
+#### Method B: Standalone Similarity Matching
+To verify similarity calculation between two raw text blocks:
+```bash
+python test_semantic_matcher.py
+```
+This prints the calculated cosine similarity score:
+```text
+==================================================
+Semantic Score: 0.7183
+==================================================
+```
+
+#### Method C: End-to-End Matching
+To load saved JSON profiles, build their semantic representations, encode them, and calculate the final matching score:
+```bash
+python test_end_to_end_semantic_matching.py
+```
+Expected Output:
+```text
+============================================================
+END-TO-END SEMANTIC MATCHING RESULTS
+============================================================
+
+Candidate: NISHANT PRASAD
+Job: Senior Software Engineer
+
+Resume Text Length: 3207
+JD Text Length: 1753
+
+Resume Embedding Shape: (768,)
+JD Embedding Shape: (768,)
+
+Semantic Score: 0.5545
+============================================================
+```
+
+---
+
 ## Structured Profiles Data Schema
 
 ### Candidate Resume Schema
@@ -289,6 +371,11 @@ The system implements granular validation checks across all stages, raising expl
 - `GeminiAPIError`: Raised if Gemini client calls fail.
 - `InvalidJSONResponseError`: Raised if the model fails to return standard JSON.
 - `ProfileValidationError`: Raised if Pydantic model validation fails against the schema.
+
+### Embedding & Matching Exceptions
+- `EmbeddingGenerationError` ([embedding_generator.py](file:///e:/AI%20Recruitment%20Model/app/embeddings/embedding_generator.py)): Raised if local SentenceTransformer initialization or vector generation fails.
+- `SemanticMatchingError` ([semantic_matcher.py](file:///e:/AI%20Recruitment%20Model/app/matcher/semantic_matcher.py)): Raised if cosine similarity calculation fails.
+- `EmbeddingError`, `MissingAPIKeyError`, `GeminiAPIError` ([embedder.py](file:///e:/AI%20Recruitment%20Model/app/embeddings/embedder.py)): Raised during API-based embedding operations.
 
 ---
 
