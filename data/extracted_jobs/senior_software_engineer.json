@@ -1,0 +1,112 @@
+{
+  "required_skills": [
+    "Business Problem Decomposition",
+    "System Design",
+    "Backend Development",
+    "Data Engineering",
+    "LLM Orchestration",
+    "Frontend Development",
+    "Production Deployment",
+    "AI Tools",
+    "Agent Systems",
+    "Multi-Agent Systems",
+    "Retrieval-Augmented Generation",
+    "Prompt Engineering",
+    "Full-stack Development",
+    "Product Management",
+    "Stakeholder Alignment",
+    "Influence",
+    "Production Code Development",
+    "Architecture Design",
+    "Data Pipelines",
+    "Kafka",
+    "Airflow",
+    "OpenAI",
+    "Anthropic",
+    "Gemini",
+    "React",
+    "Google Cloud Platform",
+    "Docker"
+  ],
+  "preferred_skills": [],
+  "critical_skills": [
+    "LLM Orchestration",
+    "Multi-Agent Systems",
+    "Full-stack Development",
+    "Business Problem Decomposition",
+    "Production Deployment"
+  ],
+  "experience_required": 7,
+  "education": {
+    "degree": null,
+    "field": null
+  },
+  "leadership": true,
+  "seniority_level": "lead",
+  "responsibility_themes": [
+    "AI/ML Solution Design",
+    "End-to-End Product Ownership",
+    "Business Problem Solving",
+    "System Architecture",
+    "Production System Deployment",
+    "Cross-functional AI Enablement",
+    "Stakeholder Management",
+    "Risk Detection and Optimization",
+    "Internal Tooling Development",
+    "FinTech Product Development"
+  ],
+  "domain_knowledge": [
+    "FinTech",
+    "AI/ML"
+  ],
+  "soft_skills": [
+    "Ownership",
+    "Autonomy",
+    "Problem Solving",
+    "Critical Thinking",
+    "Communication",
+    "Collaboration",
+    "Adaptability",
+    "Proactiveness",
+    "Strategic Thinking",
+    "Influence",
+    "Customer Focus",
+    "Continuous Learning",
+    "Hustle",
+    "Transparency",
+    "Agility"
+  ],
+  "tools_and_technologies": [
+    "Claude Code",
+    "Cursor",
+    "Kafka",
+    "Airflow",
+    "OpenAI",
+    "Anthropic",
+    "Gemini",
+    "React",
+    "Google Cloud Platform",
+    "Docker",
+    "LLM Orchestration",
+    "Multi-agent systems",
+    "Retrieval-Augmented Generation",
+    "Prompt Engineering"
+  ],
+  "hidden_hiring_signals": {
+    "autonomy_required": true,
+    "client_facing": false,
+    "research_oriented": false,
+    "innovation_focused": true,
+    "startup_environment": true,
+    "high_ownership": true
+  },
+  "role_complexity_score": 9,
+  "future_potential_signals": [
+    "Curiosity",
+    "Continuous Learning",
+    "Adaptability",
+    "Learning Agility",
+    "Proactiveness"
+  ],
+  "job_summary": "Act as a Chief of Staff to leaders, owning the end-to-end development and deployment of high-impact AI-powered solutions, from problem identification to production and outcome ownership. The role requires full-stack technical depth, LLM and agent expertise, strong product instinct, and the ability to influence cross-functional teams in a fast-paced, ambiguous environment within the FinTech domain."
+}

@@ -1,0 +1,4372 @@
+{
+  "metadata": {
+    "version": "1.1.0",
+    "updated_at": "2026-06-18T21:10:00Z",
+    "description": "Master skill graph taxonomy for ARIS containing node classification and edge relations."
+  },
+  "nodes": [
+    {
+      "id": "software_engineering",
+      "name": "Software Engineering",
+      "type": "domain",
+      "description": "The systematic application of engineering principles to the development of software.",
+      "synonyms": [
+        "Software Development",
+        "SWE",
+        "App Development"
+      ]
+    },
+    {
+      "id": "data_science",
+      "name": "Data Science",
+      "type": "domain",
+      "description": "An interdisciplinary field that uses scientific methods, processes, algorithms and systems to extract knowledge from data.",
+      "synonyms": [
+        "Data Analytics",
+        "DS"
+      ]
+    },
+    {
+      "id": "programming",
+      "name": "Programming",
+      "type": "category",
+      "description": "The process of writing, testing, debugging, and maintaining the source code of computer programs.",
+      "synonyms": [
+        "Coding",
+        "Software Construction"
+      ]
+    },
+    {
+      "id": "python",
+      "name": "Python",
+      "type": "language",
+      "description": "An interpreted, high-level, general-purpose programming language known for readability.",
+      "synonyms": [
+        "Python3",
+        "Py"
+      ]
+    },
+    {
+      "id": "java",
+      "name": "Java",
+      "type": "language",
+      "description": "A class-based, object-oriented programming language designed to have as few implementation dependencies as possible.",
+      "synonyms": [
+        "Java SE",
+        "Java EE"
+      ]
+    },
+    {
+      "id": "cpp",
+      "name": "C++",
+      "type": "language",
+      "description": "A general-purpose programming language created as an extension of the C programming language.",
+      "synonyms": [
+        "Cpp",
+        "C plus plus"
+      ]
+    },
+    {
+      "id": "web_development",
+      "name": "Web Development",
+      "type": "category",
+      "description": "The work involved in developing a website for the Internet or an intranet.",
+      "synonyms": [
+        "Web Dev",
+        "Web Engineering"
+      ]
+    },
+    {
+      "id": "frontend",
+      "name": "Frontend",
+      "type": "category",
+      "description": "The practice of producing HTML, CSS and JavaScript for a website or Web Application.",
+      "synonyms": [
+        "Frontend Development",
+        "Client-side"
+      ]
+    },
+    {
+      "id": "backend",
+      "name": "Backend",
+      "type": "category",
+      "description": "The server-side development of web applications, focusing on databases, scripting, and website architecture.",
+      "synonyms": [
+        "Backend Development",
+        "Server-side"
+      ]
+    },
+    {
+      "id": "databases",
+      "name": "Databases",
+      "type": "category",
+      "description": "Organized collections of data, generally stored and accessed electronically from a computer system.",
+      "synonyms": [
+        "Database Management Systems",
+        "DBMS",
+        "RDBMS",
+        "NoSQL"
+      ]
+    },
+    {
+      "id": "cloud_computing",
+      "name": "Cloud Computing",
+      "type": "category",
+      "description": "The on-demand availability of computer system resources, especially data storage and computing power.",
+      "synonyms": [
+        "Cloud Infrastructure",
+        "Cloud Services"
+      ]
+    },
+    {
+      "id": "devops",
+      "name": "DevOps",
+      "type": "category",
+      "description": "A set of practices that combines software development and IT operations to shorten the systems development life cycle.",
+      "synonyms": [
+        "Site Reliability Engineering",
+        "SRE",
+        "Platform Engineering"
+      ]
+    },
+    {
+      "id": "machine_learning",
+      "name": "Machine Learning",
+      "type": "category",
+      "description": "A field of study in artificial intelligence concerned with the development and study of statistical algorithms.",
+      "synonyms": [
+        "ML",
+        "Statistical Learning"
+      ]
+    },
+    {
+      "id": "deep_learning",
+      "name": "Deep Learning",
+      "type": "category",
+      "description": "A subset of machine learning based on artificial neural networks with representation learning.",
+      "synonyms": [
+        "DL",
+        "Neural Networks"
+      ]
+    },
+    {
+      "id": "computer_vision",
+      "name": "Computer Vision",
+      "type": "category",
+      "description": "An interdisciplinary scientific field that deals with how computers can gain high-level understanding from digital images or videos.",
+      "synonyms": [
+        "CV",
+        "Image Processing"
+      ]
+    },
+    {
+      "id": "nlp",
+      "name": "NLP",
+      "type": "category",
+      "description": "A subfield of computer science, information engineering, and artificial intelligence concerned with the interactions between computers and human languages.",
+      "synonyms": [
+        "Natural Language Processing",
+        "Computational Linguistics"
+      ]
+    },
+    {
+      "id": "generative_ai",
+      "name": "Generative AI",
+      "type": "category",
+      "description": "Artificial intelligence capable of generating text, images, videos, or other data using generative models.",
+      "synonyms": [
+        "GenAI",
+        "Large Language Models",
+        "LLMs",
+        "Generative Artificial Intelligence"
+      ]
+    },
+    {
+      "id": "cnn",
+      "name": "CNN",
+      "type": "category",
+      "description": "Convolutional Neural Network, a class of deep neural networks commonly applied to analyzing visual imagery.",
+      "synonyms": [
+        "Convolutional Neural Network",
+        "CNNs"
+      ]
+    },
+    {
+      "id": "yolo",
+      "name": "YOLO",
+      "type": "tool",
+      "description": "You Only Look Once, a state-of-the-art, real-time object detection system.",
+      "synonyms": [
+        "You Only Look Once"
+      ]
+    },
+    {
+      "id": "mobile_development",
+      "name": "Mobile Development",
+      "type": "category",
+      "description": "Software development specifically targeted for mobile devices like smartphones and tablets.",
+      "synonyms": [
+        "Android Development",
+        "App Development",
+        "Mobile Dev",
+        "iOS Development"
+      ]
+    },
+    {
+      "id": "api_engineering",
+      "name": "API Engineering",
+      "type": "category",
+      "description": "Designing, building, testing, securing, and maintaining Application Programming Interfaces.",
+      "synonyms": [
+        "API Design",
+        "API Development",
+        "GraphQL APIs",
+        "RESTful APIs",
+        "Web APIs"
+      ]
+    },
+    {
+      "id": "distributed_systems",
+      "name": "Distributed Systems",
+      "type": "category",
+      "description": "Software systems whose components are located on different networked computers, communicating and coordinating their actions.",
+      "synonyms": [
+        "Distributed Architecture",
+        "Distributed Computing"
+      ]
+    },
+    {
+      "id": "security",
+      "name": "Security",
+      "type": "category",
+      "description": "Techniques and practices used to protect computers, networks, programs, and data from unauthorized access or attack.",
+      "synonyms": [
+        "Application Security",
+        "Cybersecurity",
+        "InfoSec",
+        "Information Security",
+        "Network Security"
+      ]
+    },
+    {
+      "id": "computer_science_fundamentals",
+      "name": "Computer Science Fundamentals",
+      "type": "category",
+      "description": "Core topics in computer science including algorithms, data structures, complexity, and systems design.",
+      "synonyms": [
+        "CS Fundamentals",
+        "Computer Science"
+      ]
+    },
+    {
+      "id": "software_testing",
+      "name": "Software Testing",
+      "type": "category",
+      "description": "Methods and processes to evaluate and verify that a software product works as expected.",
+      "synonyms": [
+        "Integration Testing",
+        "QA",
+        "Quality Assurance",
+        "Testing",
+        "Unit Testing"
+      ]
+    },
+    {
+      "id": "data_engineering",
+      "name": "Data Engineering",
+      "type": "category",
+      "description": "The practice of designing and building systems for collecting, storing, and analyzing data at scale.",
+      "synonyms": [
+        "Big Data Engineering",
+        "Data Pipelines"
+      ]
+    },
+    {
+      "id": "mlops",
+      "name": "MLOps",
+      "type": "category",
+      "description": "A set of practices that aims to deploy and maintain machine learning models in production reliably and efficiently.",
+      "synonyms": [
+        "ML Devops",
+        "ML Operations",
+        "Machine Learning Operations"
+      ]
+    },
+    {
+      "id": "llm_engineering",
+      "name": "LLM Engineering",
+      "type": "category",
+      "description": "The practice of building applications, pipelines, and systems powered by Large Language Models.",
+      "synonyms": [
+        "LLM Dev",
+        "Large Language Model Engineering"
+      ]
+    },
+    {
+      "id": "c",
+      "name": "C",
+      "type": "language",
+      "description": "A foundational procedural programming language developed in the early 1970s.",
+      "synonyms": [
+        "ANSI C",
+        "C Programming"
+      ]
+    },
+    {
+      "id": "javascript",
+      "name": "JavaScript",
+      "type": "language",
+      "description": "A high-level, dynamic, and interpreted programming language primarily used in web browsers.",
+      "synonyms": [
+        "ECMAScript",
+        "ES6",
+        "JS"
+      ]
+    },
+    {
+      "id": "typescript",
+      "name": "TypeScript",
+      "type": "language",
+      "description": "A strongly typed superset of JavaScript that compiles to plain JavaScript.",
+      "synonyms": [
+        "TS"
+      ]
+    },
+    {
+      "id": "go",
+      "name": "Go",
+      "type": "language",
+      "description": "An open-source programming language designed at Google for clean, efficient code.",
+      "synonyms": [
+        "Go Language",
+        "Golang"
+      ]
+    },
+    {
+      "id": "rust",
+      "name": "Rust",
+      "type": "language",
+      "description": "A systems programming language focused on safety, speed, and concurrency.",
+      "synonyms": [
+        "Rustlang"
+      ]
+    },
+    {
+      "id": "kotlin",
+      "name": "Kotlin",
+      "type": "language",
+      "description": "A modern, cross-platform, statically typed programming language, fully supported for Android.",
+      "synonyms": [
+        "Kotlinlang"
+      ]
+    },
+    {
+      "id": "swift",
+      "name": "Swift",
+      "type": "language",
+      "description": "A powerful programming language developed by Apple for iOS, macOS, watchOS, and tvOS.",
+      "synonyms": [
+        "Swiftlang"
+      ]
+    },
+    {
+      "id": "php",
+      "name": "PHP",
+      "type": "language",
+      "description": "A popular general-purpose scripting language that is especially suited for web development.",
+      "synonyms": [
+        "PHP Hypertext Preprocessor"
+      ]
+    },
+    {
+      "id": "ruby",
+      "name": "Ruby",
+      "type": "language",
+      "description": "A dynamic, open-source programming language with a focus on simplicity and productivity.",
+      "synonyms": [
+        "Ruby Programming"
+      ]
+    },
+    {
+      "id": "scala",
+      "name": "Scala",
+      "type": "language",
+      "description": "A language combining object-oriented and functional programming in one concise, high-level language.",
+      "synonyms": [
+        "Scala Programming"
+      ]
+    },
+    {
+      "id": "r",
+      "name": "R",
+      "type": "language",
+      "description": "A programming language and environment for statistical computing and graphics.",
+      "synonyms": [
+        "R Language",
+        "R Project"
+      ]
+    },
+    {
+      "id": "html",
+      "name": "HTML",
+      "type": "technology",
+      "description": "Hypertext Markup Language, the standard markup language for documents designed to be displayed in a web browser.",
+      "synonyms": [
+        "HTML/CSS",
+        "HTML5"
+      ]
+    },
+    {
+      "id": "css",
+      "name": "CSS",
+      "type": "technology",
+      "description": "Cascading Style Sheets, a stylesheet language used to describe the presentation of a document written in HTML.",
+      "synonyms": [
+        "CSS3"
+      ]
+    },
+    {
+      "id": "react_js",
+      "name": "React.js",
+      "type": "framework",
+      "description": "A front-end JavaScript library for building user interfaces based on components.",
+      "synonyms": [
+        "React",
+        "React.js Library",
+        "ReactJS"
+      ]
+    },
+    {
+      "id": "next_js",
+      "name": "Next.js",
+      "type": "framework",
+      "description": "A React web development framework enabling server-side rendering and static site generation.",
+      "synonyms": [
+        "Next.js Framework",
+        "NextJS"
+      ]
+    },
+    {
+      "id": "redux",
+      "name": "Redux",
+      "type": "library",
+      "description": "A JS library for managing and centralizing application state, often used with React.",
+      "synonyms": [
+        "Redux State Management",
+        "Redux.js"
+      ]
+    },
+    {
+      "id": "tailwind_css",
+      "name": "Tailwind CSS",
+      "type": "framework",
+      "description": "A utility-first CSS framework for rapid UI development.",
+      "synonyms": [
+        "Tailwind",
+        "TailwindCSS"
+      ]
+    },
+    {
+      "id": "bootstrap",
+      "name": "Bootstrap",
+      "type": "framework",
+      "description": "A free and open-source CSS framework directed at responsive, mobile-first front-end web development.",
+      "synonyms": [
+        "Bootstrap CSS"
+      ]
+    },
+    {
+      "id": "vite",
+      "name": "Vite",
+      "type": "tool",
+      "description": "A modern, fast frontend build tool and dev server.",
+      "synonyms": [
+        "Vite.js",
+        "ViteJS"
+      ]
+    },
+    {
+      "id": "webpack",
+      "name": "Webpack",
+      "type": "tool",
+      "description": "A static module bundler for modern JavaScript applications.",
+      "synonyms": [
+        "Webpack Bundler"
+      ]
+    },
+    {
+      "id": "zustand",
+      "name": "Zustand",
+      "type": "library",
+      "description": "A small, fast and scalable barebones state-management solution for React.",
+      "synonyms": [
+        "Zustand State Management"
+      ]
+    },
+    {
+      "id": "react_query",
+      "name": "React Query",
+      "type": "library",
+      "description": "A powerful data synchronization and fetching library for React applications.",
+      "synonyms": [
+        "React Query Library",
+        "TanStack Query"
+      ]
+    },
+    {
+      "id": "node_js",
+      "name": "Node.js",
+      "type": "technology",
+      "description": "A JavaScript runtime built on Chrome's V8 engine that executes JavaScript code outside a browser.",
+      "synonyms": [
+        "Node",
+        "NodeJS"
+      ]
+    },
+    {
+      "id": "express_js",
+      "name": "Express.js",
+      "type": "framework",
+      "description": "A minimal and flexible Node.js web application framework for API and routing development.",
+      "synonyms": [
+        "Express",
+        "ExpressJS"
+      ]
+    },
+    {
+      "id": "fastapi",
+      "name": "FastAPI",
+      "type": "framework",
+      "description": "A modern, high-performance web framework for building APIs with Python.",
+      "synonyms": [
+        "FastAPI Framework"
+      ]
+    },
+    {
+      "id": "flask",
+      "name": "Flask",
+      "type": "framework",
+      "description": "A micro web framework written in Python designed to be simple and easy to scale.",
+      "synonyms": [
+        "Flask Framework"
+      ]
+    },
+    {
+      "id": "django",
+      "name": "Django",
+      "type": "framework",
+      "description": "A high-level Python web framework that encourages rapid, secure, and clean development.",
+      "synonyms": [
+        "Django Framework"
+      ]
+    },
+    {
+      "id": "spring_boot",
+      "name": "Spring Boot",
+      "type": "framework",
+      "description": "An open-source Java framework used to create microservices and stand-alone Spring applications.",
+      "synonyms": [
+        "Spring",
+        "SpringBoot"
+      ]
+    },
+    {
+      "id": "nestjs",
+      "name": "NestJS",
+      "type": "framework",
+      "description": "A progressive Node.js framework for building efficient and scalable server-side applications.",
+      "synonyms": [
+        "Nest",
+        "NestJS Framework"
+      ]
+    },
+    {
+      "id": "asp_net_core",
+      "name": "ASP.NET Core",
+      "type": "framework",
+      "description": "A cross-platform, high-performance framework for building modern, cloud-enabled web applications.",
+      "synonyms": [
+        ".NET Core",
+        "ASP.NET",
+        "C# ASP.NET"
+      ]
+    },
+    {
+      "id": "gin",
+      "name": "Gin",
+      "type": "framework",
+      "description": "A HTTP web framework written in Go (Golang) featuring high performance.",
+      "synonyms": [
+        "Gin Gonic",
+        "Gin Web Framework"
+      ]
+    },
+    {
+      "id": "laravel",
+      "name": "Laravel",
+      "type": "framework",
+      "description": "A PHP web framework with expressive, elegant syntax following the MVC pattern.",
+      "synonyms": [
+        "Laravel Framework"
+      ]
+    },
+    {
+      "id": "ruby_on_rails",
+      "name": "Ruby on Rails",
+      "type": "framework",
+      "description": "A server-side web application framework written in Ruby under the MVC paradigm.",
+      "synonyms": [
+        "Rails",
+        "RoR"
+      ]
+    },
+    {
+      "id": "rest_apis",
+      "name": "REST APIs",
+      "type": "technology",
+      "description": "Representational State Transfer APIs, an architectural style for designing networked applications.",
+      "synonyms": [
+        "REST",
+        "REST API",
+        "RESTful API",
+        "RESTful APIs"
+      ]
+    },
+    {
+      "id": "graphql",
+      "name": "GraphQL",
+      "type": "technology",
+      "description": "A query language for APIs and a runtime for fulfilling those queries with existing data.",
+      "synonyms": [
+        "GraphQL API"
+      ]
+    },
+    {
+      "id": "webhooks",
+      "name": "Webhooks",
+      "type": "technology",
+      "description": "User-defined HTTP callbacks triggered by specific events.",
+      "synonyms": [
+        "HTTP Webhooks",
+        "Webhook"
+      ]
+    },
+    {
+      "id": "grpc",
+      "name": "gRPC",
+      "type": "framework",
+      "description": "A high-performance, open-source universal RPC framework developed by Google.",
+      "synonyms": [
+        "gRPC Remote Procedure Call"
+      ]
+    },
+    {
+      "id": "openapi",
+      "name": "OpenAPI",
+      "type": "technology",
+      "description": "A specification for machine-readable interface files for describing RESTful web services.",
+      "synonyms": [
+        "OAS",
+        "OpenAPI Specification"
+      ]
+    },
+    {
+      "id": "swagger",
+      "name": "Swagger",
+      "type": "tool",
+      "description": "A set of tools for API developers built around the OpenAPI Specification.",
+      "synonyms": [
+        "Swagger API",
+        "Swagger UI"
+      ]
+    },
+    {
+      "id": "api_gateway",
+      "name": "API Gateway",
+      "type": "tool",
+      "description": "An API management tool that sits between clients and backend services.",
+      "synonyms": [
+        "API Gateways"
+      ]
+    },
+    {
+      "id": "jwt_authentication",
+      "name": "JWT Authentication",
+      "type": "technology",
+      "description": "JSON Web Token authentication, an open standard for securely transmitting info.",
+      "synonyms": [
+        "JSON Web Token",
+        "JWT",
+        "JWT Auth",
+        "JWT Tokens"
+      ]
+    },
+    {
+      "id": "oauth",
+      "name": "OAuth",
+      "type": "technology",
+      "description": "An open standard for access delegation, commonly used as a way to grant access without sharing credentials.",
+      "synonyms": [
+        "OAuth1"
+      ]
+    },
+    {
+      "id": "oauth2",
+      "name": "OAuth 2.0",
+      "type": "technology",
+      "description": "The industry-standard protocol for authorization, replacing the original OAuth.",
+      "synonyms": [
+        "OAuth 2.0 Protocol",
+        "OAuth2"
+      ]
+    },
+    {
+      "id": "openid_connect",
+      "name": "OpenID Connect",
+      "type": "technology",
+      "description": "An identity layer on top of the OAuth 2.0 protocol.",
+      "synonyms": [
+        "OIDC"
+      ]
+    },
+    {
+      "id": "mysql",
+      "name": "MySQL",
+      "type": "tool",
+      "description": "An open-source relational database management system based on SQL.",
+      "synonyms": [
+        "MySQL Server",
+        "SQL (MySQL)"
+      ]
+    },
+    {
+      "id": "postgresql",
+      "name": "PostgreSQL",
+      "type": "tool",
+      "description": "A powerful, open-source object-relational database system.",
+      "synonyms": [
+        "PostgreSQL Database",
+        "Postgres"
+      ]
+    },
+    {
+      "id": "mongodb",
+      "name": "MongoDB",
+      "type": "tool",
+      "description": "A source-available cross-platform document-oriented database program classified as NoSQL.",
+      "synonyms": [
+        "Mongo",
+        "MongoDB Database"
+      ]
+    },
+    {
+      "id": "redis",
+      "name": "Redis",
+      "type": "tool",
+      "description": "An in-memory data store used as a database, cache, message broker, and streaming engine.",
+      "synonyms": [
+        "Redis Cache"
+      ]
+    },
+    {
+      "id": "sql",
+      "name": "SQL",
+      "type": "technology",
+      "description": "Structured Query Language, used for managing and manipulating data in relational databases.",
+      "synonyms": [
+        "Structured Query Language"
+      ]
+    },
+    {
+      "id": "nosql",
+      "name": "NoSQL",
+      "type": "technology",
+      "description": "Non-relational databases designed for distributed data store needs.",
+      "synonyms": [
+        "NoSQL Database",
+        "Non-relational Database"
+      ]
+    },
+    {
+      "id": "database_design",
+      "name": "Database Design",
+      "type": "category",
+      "description": "The process of producing a detailed data model of a database.",
+      "synonyms": [
+        "DB Design",
+        "Schema Design"
+      ]
+    },
+    {
+      "id": "query_optimization",
+      "name": "Query Optimization",
+      "type": "category",
+      "description": "The process of writing queries to run in the most efficient way.",
+      "synonyms": [
+        "Query Tuning",
+        "SQL Tuning"
+      ]
+    },
+    {
+      "id": "database_indexing",
+      "name": "Database Indexing",
+      "type": "category",
+      "description": "A technique to improve database performance by reducing disk accesses for queries.",
+      "synonyms": [
+        "DB Indexing",
+        "Indexing"
+      ]
+    },
+    {
+      "id": "prisma",
+      "name": "Prisma",
+      "type": "library",
+      "description": "An open-source next-generation ORM for Node.js and TypeScript.",
+      "synonyms": [
+        "Prisma ORM"
+      ]
+    },
+    {
+      "id": "hibernate",
+      "name": "Hibernate",
+      "type": "framework",
+      "description": "An object-relational mapping framework for Java applications.",
+      "synonyms": [
+        "Hibernate ORM"
+      ]
+    },
+    {
+      "id": "orm",
+      "name": "ORM",
+      "type": "technology",
+      "description": "Object-Relational Mapping, converting data between incompatible type systems.",
+      "synonyms": [
+        "Object-Relational Mapping"
+      ]
+    },
+    {
+      "id": "android",
+      "name": "Android",
+      "type": "technology",
+      "description": "A mobile operating system based on a modified version of the Linux kernel.",
+      "synonyms": [
+        "Android App Dev",
+        "Android OS"
+      ]
+    },
+    {
+      "id": "ios",
+      "name": "iOS",
+      "type": "technology",
+      "description": "Apple's mobile operating system developed exclusively for its hardware.",
+      "synonyms": [
+        "iOS Dev",
+        "iPhone OS"
+      ]
+    },
+    {
+      "id": "react_native",
+      "name": "React Native",
+      "type": "framework",
+      "description": "An open-source UI software framework used to develop apps for Android and iOS using React.",
+      "synonyms": [
+        "React-Native",
+        "ReactNative"
+      ]
+    },
+    {
+      "id": "flutter",
+      "name": "Flutter",
+      "type": "framework",
+      "description": "Google's UI toolkit for building natively compiled applications from a single codebase.",
+      "synonyms": [
+        "Flutter Framework",
+        "Flutter SDK"
+      ]
+    },
+    {
+      "id": "expo",
+      "name": "Expo",
+      "type": "tool",
+      "description": "A framework and a platform for universal React applications.",
+      "synonyms": [
+        "Expo CLI"
+      ]
+    },
+    {
+      "id": "docker",
+      "name": "Docker",
+      "type": "tool",
+      "description": "A platform for developers to develop, ship, and run applications with containers.",
+      "synonyms": [
+        "Containerization",
+        "Docker Containers"
+      ]
+    },
+    {
+      "id": "kubernetes",
+      "name": "Kubernetes",
+      "type": "tool",
+      "description": "An open-source system for automating deployment, scaling, and management of containerized applications.",
+      "synonyms": [
+        "K8s",
+        "Kube"
+      ]
+    },
+    {
+      "id": "terraform",
+      "name": "Terraform",
+      "type": "tool",
+      "description": "An infrastructure as code software tool to provision and manage cloud infrastructure.",
+      "synonyms": [
+        "Terraform IaC"
+      ]
+    },
+    {
+      "id": "ansible",
+      "name": "Ansible",
+      "type": "tool",
+      "description": "An open-source IT engine that automates provisioning, configuration management, and application deployment.",
+      "synonyms": [
+        "Ansible Provisioning"
+      ]
+    },
+    {
+      "id": "jenkins",
+      "name": "Jenkins",
+      "type": "tool",
+      "description": "An open-source automation server which enables developers to build, test, and deploy software.",
+      "synonyms": [
+        "Jenkins CI"
+      ]
+    },
+    {
+      "id": "github_actions",
+      "name": "GitHub Actions",
+      "type": "tool",
+      "description": "A CI/CD service built directly into GitHub to automate your build, test, and deployment pipeline.",
+      "synonyms": [
+        "GH Actions",
+        "GitHub CI/CD"
+      ]
+    },
+    {
+      "id": "prometheus",
+      "name": "Prometheus",
+      "type": "tool",
+      "description": "An open-source system monitoring and alerting toolkit.",
+      "synonyms": [
+        "Prometheus Monitoring"
+      ]
+    },
+    {
+      "id": "grafana",
+      "name": "Grafana",
+      "type": "tool",
+      "description": "A multi-platform open-source analytics and interactive visualization web application.",
+      "synonyms": [
+        "Grafana Dashboards"
+      ]
+    },
+    {
+      "id": "nginx",
+      "name": "Nginx",
+      "type": "tool",
+      "description": "A web server that can also be used as a reverse proxy, load balancer, mail proxy and HTTP cache.",
+      "synonyms": [
+        "NGINX Server"
+      ]
+    },
+    {
+      "id": "monitoring",
+      "name": "Monitoring",
+      "type": "category",
+      "description": "Tools and processes to track application and infrastructure performance and reliability.",
+      "synonyms": [
+        "IT Monitoring",
+        "System Monitoring"
+      ]
+    },
+    {
+      "id": "observability",
+      "name": "Observability",
+      "type": "category",
+      "description": "The ability to measure the internal states of a system by analyzing its external outputs.",
+      "synonyms": [
+        "System Observability"
+      ]
+    },
+    {
+      "id": "linux_administration",
+      "name": "Linux Administration",
+      "type": "category",
+      "description": "Management and administration of Linux servers, users, systems, and networks.",
+      "synonyms": [
+        "Linux Admin",
+        "Sysadmin"
+      ]
+    },
+    {
+      "id": "aws",
+      "name": "AWS",
+      "type": "technology",
+      "description": "Amazon Web Services, offering a broad set of global cloud-based products.",
+      "synonyms": [
+        "Amazon AWS",
+        "Amazon Web Services"
+      ]
+    },
+    {
+      "id": "azure",
+      "name": "Azure",
+      "type": "technology",
+      "description": "Microsoft's cloud computing platform providing access, management and development of applications.",
+      "synonyms": [
+        "Azure Cloud",
+        "Microsoft Azure"
+      ]
+    },
+    {
+      "id": "gcp",
+      "name": "GCP",
+      "type": "technology",
+      "description": "Google Cloud Platform, offering a suite of cloud computing services.",
+      "synonyms": [
+        "Google Cloud",
+        "Google Cloud Platform"
+      ]
+    },
+    {
+      "id": "ec2",
+      "name": "Amazon EC2",
+      "type": "tool",
+      "description": "Virtual servers in the cloud provided by AWS.",
+      "synonyms": [
+        "Amazon Elastic Compute Cloud",
+        "EC2"
+      ]
+    },
+    {
+      "id": "s3",
+      "name": "Amazon S3",
+      "type": "tool",
+      "description": "Scalable object storage in the cloud provided by AWS.",
+      "synonyms": [
+        "Amazon Simple Storage Service",
+        "S3"
+      ]
+    },
+    {
+      "id": "ecs",
+      "name": "Amazon ECS",
+      "type": "tool",
+      "description": "Amazon Elastic Container Service, a highly scalable container management service.",
+      "synonyms": [
+        "ECS",
+        "Elastic Container Service"
+      ]
+    },
+    {
+      "id": "eks",
+      "name": "Amazon EKS",
+      "type": "tool",
+      "description": "Amazon Elastic Kubernetes Service, a managed Kubernetes service on AWS.",
+      "synonyms": [
+        "EKS",
+        "Elastic Kubernetes Service"
+      ]
+    },
+    {
+      "id": "lambda",
+      "name": "AWS Lambda",
+      "type": "tool",
+      "description": "A serverless compute service that runs your code in response to events.",
+      "synonyms": [
+        "AWS Lambda Functions",
+        "Lambda"
+      ]
+    },
+    {
+      "id": "cloud_run",
+      "name": "Google Cloud Run",
+      "type": "tool",
+      "description": "A managed compute platform that enables running containerized applications serverlessly.",
+      "synonyms": [
+        "Cloud Run",
+        "GCP Cloud Run"
+      ]
+    },
+    {
+      "id": "cloud_storage",
+      "name": "Google Cloud Storage",
+      "type": "tool",
+      "description": "A RESTful service for storing and accessing data on Google Cloud Platform.",
+      "synonyms": [
+        "GCS",
+        "Google Cloud Storage Bucket"
+      ]
+    },
+    {
+      "id": "azure_functions",
+      "name": "Azure Functions",
+      "type": "tool",
+      "description": "An event-driven serverless compute service on Microsoft Azure.",
+      "synonyms": [
+        "Azure Functions App"
+      ]
+    },
+    {
+      "id": "serverless",
+      "name": "Serverless",
+      "type": "category",
+      "description": "A cloud computing execution model where the cloud provider manages server allocation.",
+      "synonyms": [
+        "FaaS",
+        "Serverless Computing"
+      ]
+    },
+    {
+      "id": "microservices",
+      "name": "Microservices",
+      "type": "category",
+      "description": "An architectural style structuring an application as a collection of services.",
+      "synonyms": [
+        "Microservice",
+        "Microservice Architecture"
+      ]
+    },
+    {
+      "id": "event_driven_architecture",
+      "name": "Event-Driven Architecture",
+      "type": "category",
+      "description": "A software architecture paradigm promoting the production, detection, and reaction to events.",
+      "synonyms": [
+        "EDA",
+        "Event Driven Architecture"
+      ]
+    },
+    {
+      "id": "message_queues",
+      "name": "Message Queues",
+      "type": "category",
+      "description": "A form of asynchronous service-to-service communication.",
+      "synonyms": [
+        "MQ",
+        "Message Queue"
+      ]
+    },
+    {
+      "id": "apache_kafka",
+      "name": "Apache Kafka",
+      "type": "tool",
+      "description": "An open-source distributed event streaming platform.",
+      "synonyms": [
+        "Kafka"
+      ]
+    },
+    {
+      "id": "rabbitmq",
+      "name": "RabbitMQ",
+      "type": "tool",
+      "description": "An open-source message-broker software implementing AMQP.",
+      "synonyms": [
+        "RabbitMQ Broker"
+      ]
+    },
+    {
+      "id": "apache_spark",
+      "name": "Apache Spark",
+      "type": "tool",
+      "description": "An open-source unified analytics engine for large-scale data processing.",
+      "synonyms": [
+        "Spark"
+      ]
+    },
+    {
+      "id": "apache_flink",
+      "name": "Apache Flink",
+      "type": "tool",
+      "description": "An open-source, unified stream-processing and batch-processing framework.",
+      "synonyms": [
+        "Flink"
+      ]
+    },
+    {
+      "id": "numpy",
+      "name": "NumPy",
+      "type": "library",
+      "description": "A fundamental package for scientific computing with Python.",
+      "synonyms": [
+        "Numerical Python",
+        "Numpy"
+      ]
+    },
+    {
+      "id": "pandas",
+      "name": "Pandas",
+      "type": "library",
+      "description": "A fast, powerful, flexible and easy to use open-source data analysis tool for Python.",
+      "synonyms": [
+        "pandas"
+      ]
+    },
+    {
+      "id": "matplotlib",
+      "name": "Matplotlib",
+      "type": "library",
+      "description": "A comprehensive library for creating static, animated, and interactive visualizations in Python.",
+      "synonyms": [
+        "matplotlib"
+      ]
+    },
+    {
+      "id": "seaborn",
+      "name": "Seaborn",
+      "type": "library",
+      "description": "A Python data visualization library based on matplotlib, providing a high-level interface.",
+      "synonyms": [
+        "seaborn"
+      ]
+    },
+    {
+      "id": "etl",
+      "name": "ETL",
+      "type": "category",
+      "description": "Extract, Transform, Load processes in data warehousing.",
+      "synonyms": [
+        "Extract Transform Load"
+      ]
+    },
+    {
+      "id": "elt",
+      "name": "ELT",
+      "type": "category",
+      "description": "Extract, Load, Transform processes pushing transformations to the database.",
+      "synonyms": [
+        "Extract Load Transform"
+      ]
+    },
+    {
+      "id": "data_warehousing",
+      "name": "Data Warehousing",
+      "type": "category",
+      "description": "The process of collecting and managing data from varied sources to provide meaningful business insights.",
+      "synonyms": [
+        "DWH",
+        "Data Warehouse"
+      ]
+    },
+    {
+      "id": "airflow",
+      "name": "Apache Airflow",
+      "type": "tool",
+      "description": "An open-source platform to programmatically author, schedule, and monitor workflows.",
+      "synonyms": [
+        "Airflow",
+        "Apache Airflow Workflow"
+      ]
+    },
+    {
+      "id": "dbt",
+      "name": "dbt",
+      "type": "tool",
+      "description": "Data Build Tool, enabling data analysts and engineers to transform data in their warehouse.",
+      "synonyms": [
+        "Data Build Tool",
+        "dbt Core"
+      ]
+    },
+    {
+      "id": "hadoop",
+      "name": "Apache Hadoop",
+      "type": "tool",
+      "description": "A framework allowing distributed processing of large data sets across clusters of computers.",
+      "synonyms": [
+        "Hadoop",
+        "Hadoop Ecosystem"
+      ]
+    },
+    {
+      "id": "hive",
+      "name": "Apache Hive",
+      "type": "tool",
+      "description": "A data warehouse software system built on Apache Hadoop for querying data.",
+      "synonyms": [
+        "Hive"
+      ]
+    },
+    {
+      "id": "spark_sql",
+      "name": "Spark SQL",
+      "type": "tool",
+      "description": "A Spark module for structured data processing.",
+      "synonyms": [
+        "Apache Spark SQL"
+      ]
+    },
+    {
+      "id": "scikit_learn",
+      "name": "Scikit-learn",
+      "type": "library",
+      "description": "A Python module for machine learning built on top of SciPy.",
+      "synonyms": [
+        "Scikit Learn",
+        "scikit-learn",
+        "sklearn"
+      ]
+    },
+    {
+      "id": "xgboost",
+      "name": "XGBoost",
+      "type": "library",
+      "description": "An optimized distributed gradient boosting library designed to be highly efficient.",
+      "synonyms": [
+        "Extreme Gradient Boosting"
+      ]
+    },
+    {
+      "id": "lightgbm",
+      "name": "LightGBM",
+      "type": "library",
+      "description": "A fast, distributed, high performance gradient boosting framework based on decision tree algorithms.",
+      "synonyms": [
+        "Light Gradient Boosting Machine"
+      ]
+    },
+    {
+      "id": "pytorch",
+      "name": "PyTorch",
+      "type": "library",
+      "description": "An open-source machine learning framework based on the Torch library.",
+      "synonyms": [
+        "PyTorch Library",
+        "Pytorch"
+      ]
+    },
+    {
+      "id": "tensorflow",
+      "name": "TensorFlow",
+      "type": "library",
+      "description": "An end-to-end open-source platform for machine learning developed by Google.",
+      "synonyms": [
+        "TF",
+        "Tensorflow"
+      ]
+    },
+    {
+      "id": "keras",
+      "name": "Keras",
+      "type": "library",
+      "description": "A deep learning API written in Python, running on top of TensorFlow.",
+      "synonyms": [
+        "Keras API"
+      ]
+    },
+    {
+      "id": "mlflow",
+      "name": "MLflow",
+      "type": "tool",
+      "description": "An open-source platform to manage the ML lifecycle, including experimentation, reproducibility, and deployment.",
+      "synonyms": [
+        "MLFlow"
+      ]
+    },
+    {
+      "id": "kubeflow",
+      "name": "Kubeflow",
+      "type": "tool",
+      "description": "The Machine Learning Toolkit for Kubernetes.",
+      "synonyms": [
+        "Kubeflow Pipelines"
+      ]
+    },
+    {
+      "id": "feature_store",
+      "name": "Feature Store",
+      "type": "category",
+      "description": "A central vault for storing documented, curated, and access-controlled features for machine learning.",
+      "synonyms": [
+        "ML Feature Store"
+      ]
+    },
+    {
+      "id": "model_monitoring",
+      "name": "Model Monitoring",
+      "type": "category",
+      "description": "Tracking, measuring and auditing machine learning models in production environments.",
+      "synonyms": [
+        "ML Monitoring",
+        "Model Drift Detection"
+      ]
+    },
+    {
+      "id": "model_deployment",
+      "name": "Model Deployment",
+      "type": "category",
+      "description": "The process of deploying a machine learning model into a production environment.",
+      "synonyms": [
+        "ML Deployment",
+        "Model Serving"
+      ]
+    },
+    {
+      "id": "opencv",
+      "name": "OpenCV",
+      "type": "library",
+      "description": "A library of programming functions mainly aimed at real-time computer vision.",
+      "synonyms": [
+        "OpenCV Library"
+      ]
+    },
+    {
+      "id": "object_detection",
+      "name": "Object Detection",
+      "type": "category",
+      "description": "A technology related to computer vision and image processing that detects instances of semantic objects.",
+      "synonyms": [
+        "Object Recognition",
+        "Target Detection"
+      ]
+    },
+    {
+      "id": "image_classification",
+      "name": "Image Classification",
+      "type": "category",
+      "description": "The task of categorizing images into predefined classes.",
+      "synonyms": [
+        "Image Labeling"
+      ]
+    },
+    {
+      "id": "segmentation",
+      "name": "Image Segmentation",
+      "type": "category",
+      "description": "The process of partitioning a digital image into multiple segments.",
+      "synonyms": [
+        "Segmentation",
+        "Semantic Segmentation"
+      ]
+    },
+    {
+      "id": "ocr",
+      "name": "OCR",
+      "type": "technology",
+      "description": "Optical Character Recognition, converting images of text into machine-readable text.",
+      "synonyms": [
+        "Optical Character Recognition",
+        "Text Extraction"
+      ]
+    },
+    {
+      "id": "vit",
+      "name": "ViT",
+      "type": "technology",
+      "description": "Vision Transformer, applying transformer models to computer vision tasks.",
+      "synonyms": [
+        "ViTs",
+        "Vision Transformer"
+      ]
+    },
+    {
+      "id": "resnet",
+      "name": "ResNet",
+      "type": "technology",
+      "description": "Residual Network, a deep neural network architecture that pioneered skip connections.",
+      "synonyms": [
+        "ResNet-101",
+        "ResNet-50",
+        "Residual Network"
+      ]
+    },
+    {
+      "id": "transformers",
+      "name": "Transformers",
+      "type": "technology",
+      "description": "A model architecture relying on self-attention mechanisms to process sequential data.",
+      "synonyms": [
+        "Attention Mechanism",
+        "Transformer Models"
+      ]
+    },
+    {
+      "id": "bert",
+      "name": "BERT",
+      "type": "technology",
+      "description": "Bidirectional Encoder Representations from Transformers, a pre-trained NLP model.",
+      "synonyms": [
+        "Bidirectional Encoder Representations from Transformers"
+      ]
+    },
+    {
+      "id": "tokenization",
+      "name": "Tokenization",
+      "type": "category",
+      "description": "The process of converting a sequence of characters into a sequence of tokens.",
+      "synonyms": [
+        "Text Tokenization",
+        "Tokenizing"
+      ]
+    },
+    {
+      "id": "named_entity_recognition",
+      "name": "Named Entity Recognition",
+      "type": "category",
+      "description": "Locating and classifying named entities in text.",
+      "synonyms": [
+        "Entity Extraction",
+        "NER"
+      ]
+    },
+    {
+      "id": "sentiment_analysis",
+      "name": "Sentiment Analysis",
+      "type": "category",
+      "description": "Identifying and extracting subjective information in source materials.",
+      "synonyms": [
+        "Opinion Mining",
+        "Sentiment Detection"
+      ]
+    },
+    {
+      "id": "text_classification",
+      "name": "Text Classification",
+      "type": "category",
+      "description": "Analyzing and categorizing text files or sentences into categories.",
+      "synonyms": [
+        "Document Classification",
+        "Text Categorization"
+      ]
+    },
+    {
+      "id": "gemini_ai",
+      "name": "Gemini AI",
+      "type": "technology",
+      "description": "Google's next-generation family of multimodal generative AI models.",
+      "synonyms": [
+        "Gemini",
+        "GeminiAI",
+        "Google Gemini"
+      ]
+    },
+    {
+      "id": "openai_api",
+      "name": "OpenAI API",
+      "type": "technology",
+      "description": "The developer API from OpenAI offering access to models like GPT-4.",
+      "synonyms": [
+        "ChatGPT API",
+        "GPT-4 API",
+        "OpenAI"
+      ]
+    },
+    {
+      "id": "langchain",
+      "name": "LangChain",
+      "type": "framework",
+      "description": "A framework designed to simplify the creation of applications using LLMs.",
+      "synonyms": [
+        "LangChain Framework"
+      ]
+    },
+    {
+      "id": "langgraph",
+      "name": "LangGraph",
+      "type": "framework",
+      "description": "A library for building stateful, multi-actor applications with LLMs, built on top of LangChain.",
+      "synonyms": [
+        "LangGraph Framework"
+      ]
+    },
+    {
+      "id": "rag",
+      "name": "RAG",
+      "type": "technology",
+      "description": "Retrieval-Augmented Generation, enhancing LLMs with external knowledge bases.",
+      "synonyms": [
+        "Retrieval Augmented Generation",
+        "Retrieval-Augmented Generation"
+      ]
+    },
+    {
+      "id": "prompt_engineering",
+      "name": "Prompt Engineering",
+      "type": "category",
+      "description": "The process of optimizing prompts to obtain desired outputs from generative AI models.",
+      "synonyms": [
+        "Prompt Design",
+        "Prompts"
+      ]
+    },
+    {
+      "id": "agentic_ai",
+      "name": "Agentic AI",
+      "type": "category",
+      "description": "AI systems designed to act autonomously, plan steps, and execute tasks.",
+      "synonyms": [
+        "AI Agents",
+        "Autonomous Agents"
+      ]
+    },
+    {
+      "id": "multi_agent_systems",
+      "name": "Multi-Agent Systems",
+      "type": "category",
+      "description": "Systems consisting of multiple interacting autonomous AI agents.",
+      "synonyms": [
+        "Multi-Agent AI",
+        "Multi-Agent Orchestration"
+      ]
+    },
+    {
+      "id": "vector_databases",
+      "name": "Vector Databases",
+      "type": "category",
+      "description": "Databases optimized for storing and querying high-dimensional vector embeddings.",
+      "synonyms": [
+        "Vector Database",
+        "Vector Store",
+        "Vector Stores"
+      ]
+    },
+    {
+      "id": "pinecone",
+      "name": "Pinecone",
+      "type": "tool",
+      "description": "A managed, developer-friendly vector database for AI applications.",
+      "synonyms": [
+        "Pinecone Vector DB"
+      ]
+    },
+    {
+      "id": "weaviate",
+      "name": "Weaviate",
+      "type": "tool",
+      "description": "An open-source vector database designed for production scale.",
+      "synonyms": [
+        "Weaviate DB"
+      ]
+    },
+    {
+      "id": "chroma",
+      "name": "Chroma",
+      "type": "tool",
+      "description": "The open-source AI-native embedding database.",
+      "synonyms": [
+        "Chroma DB",
+        "ChromaDB"
+      ]
+    },
+    {
+      "id": "cybersecurity",
+      "name": "Cybersecurity",
+      "type": "category",
+      "description": "The protection of computer systems and networks from digital attacks.",
+      "synonyms": [
+        "Cyber Security",
+        "Information Security"
+      ]
+    },
+    {
+      "id": "authentication",
+      "name": "Authentication",
+      "type": "category",
+      "description": "The process of verifying the identity of a user, device, or system.",
+      "synonyms": [
+        "AuthN",
+        "User Authentication"
+      ]
+    },
+    {
+      "id": "authorization",
+      "name": "Authorization",
+      "type": "category",
+      "description": "The process of giving someone permission to do or have something.",
+      "synonyms": [
+        "Access Control",
+        "AuthZ"
+      ]
+    },
+    {
+      "id": "owasp",
+      "name": "OWASP",
+      "type": "technology",
+      "description": "Open Worldwide Application Security Project, outlining key application vulnerabilities.",
+      "synonyms": [
+        "OWASP Top 10"
+      ]
+    },
+    {
+      "id": "network_security",
+      "name": "Network Security",
+      "type": "category",
+      "description": "Securing data transmission and networking devices against unauthorized access.",
+      "synonyms": [
+        "NetSec"
+      ]
+    },
+    {
+      "id": "application_security",
+      "name": "Application Security",
+      "type": "category",
+      "description": "The practice of security features within applications to prevent vulnerabilities.",
+      "synonyms": [
+        "AppSec"
+      ]
+    },
+    {
+      "id": "dsa",
+      "name": "DSA",
+      "type": "category",
+      "description": "Data Structures and Algorithms, the fundamental building blocks of efficient programming.",
+      "synonyms": [
+        "Algorithms",
+        "Data Structures",
+        "Data Structures and Algorithms"
+      ]
+    },
+    {
+      "id": "oop",
+      "name": "OOP",
+      "type": "category",
+      "description": "Object-Oriented Programming, a paradigm based on objects containing data and code.",
+      "synonyms": [
+        "Object Oriented Programming",
+        "Object-Oriented Programming"
+      ]
+    },
+    {
+      "id": "dbms",
+      "name": "DBMS",
+      "type": "category",
+      "description": "Database Management System, software for managing database files.",
+      "synonyms": [
+        "Database Management Systems",
+        "RDBMS"
+      ]
+    },
+    {
+      "id": "operating_systems",
+      "name": "Operating Systems",
+      "type": "category",
+      "description": "System software managing hardware resources and providing common services.",
+      "synonyms": [
+        "OS",
+        "Operating System"
+      ]
+    },
+    {
+      "id": "computer_networks",
+      "name": "Computer Networks",
+      "type": "category",
+      "description": "A network of interconnected computers sharing resources.",
+      "synonyms": [
+        "Computer Networking",
+        "Networks"
+      ]
+    },
+    {
+      "id": "system_design",
+      "name": "System Design",
+      "type": "category",
+      "description": "Defining the architecture, modules, and interfaces for a system to satisfy specified requirements.",
+      "synonyms": [
+        "Software Architecture",
+        "Systems Design"
+      ]
+    },
+    {
+      "id": "linux",
+      "name": "Linux",
+      "type": "technology",
+      "description": "An open-source Unix-like operating system kernel.",
+      "synonyms": [
+        "GNU/Linux",
+        "Linux OS"
+      ]
+    },
+    {
+      "id": "process_management",
+      "name": "Process Management",
+      "type": "category",
+      "description": "Handling execution, creation, and termination of processes in an OS.",
+      "synonyms": [
+        "IPC",
+        "Processes"
+      ]
+    },
+    {
+      "id": "threading",
+      "name": "Threading",
+      "type": "category",
+      "description": "Concurrent execution of instructions within a single process.",
+      "synonyms": [
+        "Multithreading",
+        "Threads"
+      ]
+    },
+    {
+      "id": "concurrency",
+      "name": "Concurrency",
+      "type": "category",
+      "description": "Executing multiple instruction sequences at the same time.",
+      "synonyms": [
+        "Concurrent Programming"
+      ]
+    },
+    {
+      "id": "parallel_computing",
+      "name": "Parallel Computing",
+      "type": "category",
+      "description": "Simultaneously performing multiple operations or calculations.",
+      "synonyms": [
+        "Parallel Programming",
+        "Parallelism"
+      ]
+    },
+    {
+      "id": "memory_management",
+      "name": "Memory Management",
+      "type": "category",
+      "description": "Managing computer primary memory during process execution.",
+      "synonyms": [
+        "RAM Management",
+        "Virtual Memory"
+      ]
+    },
+    {
+      "id": "tcp_ip",
+      "name": "TCP/IP",
+      "type": "technology",
+      "description": "The fundamental suite of protocols for the Internet.",
+      "synonyms": [
+        "IP",
+        "TCP",
+        "TCP/IP Stack"
+      ]
+    },
+    {
+      "id": "http",
+      "name": "HTTP",
+      "type": "technology",
+      "description": "Hypertext Transfer Protocol for web data communication.",
+      "synonyms": [
+        "HTTP/1.1",
+        "HTTP/2"
+      ]
+    },
+    {
+      "id": "https",
+      "name": "HTTPS",
+      "type": "technology",
+      "description": "Secure extension of HTTP using SSL/TLS encryption.",
+      "synonyms": [
+        "HTTP Secure"
+      ]
+    },
+    {
+      "id": "dns",
+      "name": "DNS",
+      "type": "technology",
+      "description": "Domain Name System resolving domain names to IP addresses.",
+      "synonyms": [
+        "Domain Name System"
+      ]
+    },
+    {
+      "id": "websockets",
+      "name": "WebSockets",
+      "type": "technology",
+      "description": "Providing full-duplex communication channels over a single TCP connection.",
+      "synonyms": [
+        "WS",
+        "WSS",
+        "WebSocket"
+      ]
+    },
+    {
+      "id": "network_protocols",
+      "name": "Network Protocols",
+      "type": "category",
+      "description": "Sets of rules governing communication between network devices.",
+      "synonyms": [
+        "Networking Protocols",
+        "Protocols"
+      ]
+    },
+    {
+      "id": "load_balancing",
+      "name": "Load Balancing",
+      "type": "technology",
+      "description": "Distributing network or application traffic across a cluster of servers.",
+      "synonyms": [
+        "Load Balancer",
+        "Load Balancers"
+      ]
+    },
+    {
+      "id": "high_availability",
+      "name": "High Availability",
+      "type": "category",
+      "description": "Designing systems to operate continuously without failure for a long period.",
+      "synonyms": [
+        "HA",
+        "Uptime"
+      ]
+    },
+    {
+      "id": "caching",
+      "name": "Caching",
+      "type": "technology",
+      "description": "Storing duplicate data locally for faster subsequent retrieval.",
+      "synonyms": [
+        "Cache",
+        "Distributed Caching"
+      ]
+    },
+    {
+      "id": "cdn",
+      "name": "CDN",
+      "type": "technology",
+      "description": "Content Delivery Network to distribute static content globally.",
+      "synonyms": [
+        "Content Delivery Network"
+      ]
+    },
+    {
+      "id": "database_sharding",
+      "name": "Database Sharding",
+      "type": "category",
+      "description": "Horizontal partitioning of data across multiple database instances.",
+      "synonyms": [
+        "Sharding"
+      ]
+    },
+    {
+      "id": "database_replication",
+      "name": "Database Replication",
+      "type": "category",
+      "description": "Copying database data across instances for reliability and load distribution.",
+      "synonyms": [
+        "DB Replication",
+        "Replication"
+      ]
+    },
+    {
+      "id": "consistency_models",
+      "name": "Consistency Models",
+      "type": "category",
+      "description": "Rules governing the visibility of updates in distributed datastores.",
+      "synonyms": [
+        "Consistency"
+      ]
+    },
+    {
+      "id": "cap_theorem",
+      "name": "CAP Theorem",
+      "type": "category",
+      "description": "In distributed systems, you can guarantee at most two of Consistency, Availability, Partition Tolerance.",
+      "synonyms": [
+        "CAP"
+      ]
+    },
+    {
+      "id": "unit_testing",
+      "name": "Unit Testing",
+      "type": "category",
+      "description": "Testing individual units or components of code.",
+      "synonyms": [
+        "Component Testing",
+        "Unit Tests"
+      ]
+    },
+    {
+      "id": "integration_testing",
+      "name": "Integration Testing",
+      "type": "category",
+      "description": "Testing grouped code units together for cohesive functionality.",
+      "synonyms": [
+        "Integration Tests"
+      ]
+    },
+    {
+      "id": "end_to_end_testing",
+      "name": "End-to-End Testing",
+      "type": "category",
+      "description": "Testing application workflow from start to finish.",
+      "synonyms": [
+        "E2E Testing",
+        "E2E Tests",
+        "End-to-End Tests"
+      ]
+    },
+    {
+      "id": "pytest",
+      "name": "Pytest",
+      "type": "tool",
+      "description": "A testing framework for writing simple and scalable tests in Python.",
+      "synonyms": [
+        "Pytest Framework",
+        "pytest"
+      ]
+    },
+    {
+      "id": "jest",
+      "name": "Jest",
+      "type": "tool",
+      "description": "A JavaScript testing framework with a focus on simplicity.",
+      "synonyms": [
+        "Jest Framework",
+        "jest"
+      ]
+    },
+    {
+      "id": "selenium",
+      "name": "Selenium",
+      "type": "tool",
+      "description": "Browser automation framework for end-to-end testing.",
+      "synonyms": [
+        "Selenium WebDriver"
+      ]
+    },
+    {
+      "id": "cypress",
+      "name": "Cypress",
+      "type": "tool",
+      "description": "A modern web front-end testing tool.",
+      "synonyms": [
+        "Cypress testing",
+        "Cypress.io"
+      ]
+    },
+    {
+      "id": "playwright",
+      "name": "Playwright",
+      "type": "tool",
+      "description": "A framework for Web-testing and automation.",
+      "synonyms": [
+        "Playwright Automation"
+      ]
+    },
+    {
+      "id": "git",
+      "name": "Git",
+      "type": "tool",
+      "description": "A free and open source distributed version control system.",
+      "synonyms": [
+        "Git",
+        "Version Control"
+      ]
+    },
+    {
+      "id": "github",
+      "name": "GitHub",
+      "type": "tool",
+      "description": "A developer platform for hosting and sharing source code.",
+      "synonyms": [
+        "GitHub",
+        "Github"
+      ]
+    },
+    {
+      "id": "postman",
+      "name": "Postman",
+      "type": "tool",
+      "description": "An API platform for building and using APIs.",
+      "synonyms": [
+        "Postman"
+      ]
+    },
+    {
+      "id": "vs_code",
+      "name": "VS Code",
+      "type": "tool",
+      "description": "A code editor redefined and optimized for building and debugging modern web and cloud applications.",
+      "synonyms": [
+        "VS Code",
+        "Visual Studio Code"
+      ]
+    },
+    {
+      "id": "intellij_idea",
+      "name": "IntelliJ IDEA",
+      "type": "tool",
+      "description": "An integrated development environment for Java development.",
+      "synonyms": [
+        "IntelliJ",
+        "IntelliJ IDEA"
+      ]
+    },
+    {
+      "id": "jupyter_notebook",
+      "name": "Jupyter Notebook",
+      "type": "tool",
+      "description": "An interactive web-based notebook environment for computational work.",
+      "synonyms": [
+        "Jupyter",
+        "Jupyter Notebook"
+      ]
+    },
+    {
+      "id": "google_colab",
+      "name": "Google Colab",
+      "type": "tool",
+      "description": "Google Colaboratory, a web platform executing Python code serverlessly.",
+      "synonyms": [
+        "Colab",
+        "Google Colab"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "software_engineering",
+      "target": "programming",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "software_engineering",
+      "target": "web_development",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "software_engineering",
+      "target": "databases",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "software_engineering",
+      "target": "cloud_computing",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "programming",
+      "target": "python",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "programming",
+      "target": "java",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "programming",
+      "target": "cpp",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "web_development",
+      "target": "frontend",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "web_development",
+      "target": "backend",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "cloud_computing",
+      "target": "devops",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "data_science",
+      "target": "machine_learning",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "machine_learning",
+      "target": "deep_learning",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "deep_learning",
+      "target": "computer_vision",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "deep_learning",
+      "target": "nlp",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "deep_learning",
+      "target": "generative_ai",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "computer_vision",
+      "target": "cnn",
+      "relation_type": "PARENT_OF",
+      "weight": 0.9
+    },
+    {
+      "source": "computer_vision",
+      "target": "yolo",
+      "relation_type": "PARENT_OF",
+      "weight": 0.95
+    },
+    {
+      "source": "backend",
+      "target": "databases",
+      "relation_type": "RELATED_TO",
+      "weight": 0.8
+    },
+    {
+      "source": "devops",
+      "target": "software_engineering",
+      "relation_type": "BELONGS_TO_DOMAIN",
+      "weight": 1.0
+    },
+    {
+      "source": "data_science",
+      "target": "software_engineering",
+      "relation_type": "RELATED_TO",
+      "weight": 0.7
+    },
+    {
+      "source": "python",
+      "target": "data_science",
+      "relation_type": "RELATED_TO",
+      "weight": 0.9
+    },
+    {
+      "source": "nlp",
+      "target": "generative_ai",
+      "relation_type": "RELATED_TO",
+      "weight": 0.95
+    },
+    {
+      "source": "software_engineering",
+      "target": "frontend",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "software_engineering",
+      "target": "backend",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "software_engineering",
+      "target": "mobile_development",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "software_engineering",
+      "target": "api_engineering",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "software_engineering",
+      "target": "distributed_systems",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "software_engineering",
+      "target": "security",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "software_engineering",
+      "target": "computer_science_fundamentals",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "software_engineering",
+      "target": "software_testing",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "programming",
+      "target": "c",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "programming",
+      "target": "javascript",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "programming",
+      "target": "typescript",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "programming",
+      "target": "go",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "programming",
+      "target": "rust",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "programming",
+      "target": "kotlin",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "programming",
+      "target": "swift",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "programming",
+      "target": "php",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "programming",
+      "target": "ruby",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "programming",
+      "target": "scala",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "programming",
+      "target": "r",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend",
+      "target": "html",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend",
+      "target": "css",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend",
+      "target": "react_js",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend",
+      "target": "next_js",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend",
+      "target": "redux",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend",
+      "target": "tailwind_css",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend",
+      "target": "bootstrap",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend",
+      "target": "vite",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend",
+      "target": "webpack",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend",
+      "target": "zustand",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend",
+      "target": "react_query",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "backend",
+      "target": "node_js",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "backend",
+      "target": "express_js",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "backend",
+      "target": "fastapi",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "backend",
+      "target": "flask",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "backend",
+      "target": "django",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "backend",
+      "target": "spring_boot",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "backend",
+      "target": "nestjs",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "backend",
+      "target": "asp_net_core",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "backend",
+      "target": "gin",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "backend",
+      "target": "laravel",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "backend",
+      "target": "ruby_on_rails",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "api_engineering",
+      "target": "rest_apis",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "api_engineering",
+      "target": "graphql",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "api_engineering",
+      "target": "webhooks",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "api_engineering",
+      "target": "grpc",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "api_engineering",
+      "target": "openapi",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "api_engineering",
+      "target": "swagger",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "api_engineering",
+      "target": "api_gateway",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "api_engineering",
+      "target": "jwt_authentication",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "api_engineering",
+      "target": "oauth",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "api_engineering",
+      "target": "oauth2",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "api_engineering",
+      "target": "openid_connect",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "databases",
+      "target": "mysql",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "databases",
+      "target": "postgresql",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "databases",
+      "target": "mongodb",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "databases",
+      "target": "redis",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "databases",
+      "target": "sql",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "databases",
+      "target": "nosql",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "databases",
+      "target": "database_design",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "databases",
+      "target": "query_optimization",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "databases",
+      "target": "database_indexing",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "databases",
+      "target": "prisma",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "databases",
+      "target": "hibernate",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "databases",
+      "target": "orm",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "mobile_development",
+      "target": "android",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "mobile_development",
+      "target": "ios",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "mobile_development",
+      "target": "react_native",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "mobile_development",
+      "target": "flutter",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "mobile_development",
+      "target": "expo",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "mobile_development",
+      "target": "kotlin",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "mobile_development",
+      "target": "swift",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "devops",
+      "target": "docker",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "devops",
+      "target": "kubernetes",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "devops",
+      "target": "terraform",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "devops",
+      "target": "ansible",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "devops",
+      "target": "jenkins",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "devops",
+      "target": "github_actions",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "devops",
+      "target": "prometheus",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "devops",
+      "target": "grafana",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "devops",
+      "target": "nginx",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "devops",
+      "target": "monitoring",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "devops",
+      "target": "observability",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "devops",
+      "target": "linux_administration",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "cloud_computing",
+      "target": "aws",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "cloud_computing",
+      "target": "azure",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "cloud_computing",
+      "target": "gcp",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "cloud_computing",
+      "target": "serverless",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "aws",
+      "target": "ec2",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "aws",
+      "target": "s3",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "aws",
+      "target": "ecs",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "aws",
+      "target": "eks",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "aws",
+      "target": "lambda",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "azure",
+      "target": "azure_functions",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "gcp",
+      "target": "cloud_run",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "gcp",
+      "target": "cloud_storage",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "distributed_systems",
+      "target": "microservices",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "distributed_systems",
+      "target": "event_driven_architecture",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "distributed_systems",
+      "target": "message_queues",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "distributed_systems",
+      "target": "apache_kafka",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "distributed_systems",
+      "target": "rabbitmq",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "distributed_systems",
+      "target": "apache_spark",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "distributed_systems",
+      "target": "apache_flink",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "data_science",
+      "target": "numpy",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "data_science",
+      "target": "pandas",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "data_science",
+      "target": "matplotlib",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "data_science",
+      "target": "seaborn",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "data_science",
+      "target": "data_engineering",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "data_engineering",
+      "target": "etl",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "data_engineering",
+      "target": "elt",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "data_engineering",
+      "target": "data_warehousing",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "data_engineering",
+      "target": "airflow",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "data_engineering",
+      "target": "dbt",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "data_engineering",
+      "target": "hadoop",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "data_engineering",
+      "target": "hive",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "data_engineering",
+      "target": "spark_sql",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "machine_learning",
+      "target": "scikit_learn",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "machine_learning",
+      "target": "xgboost",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "machine_learning",
+      "target": "lightgbm",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "machine_learning",
+      "target": "mlops",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "mlops",
+      "target": "mlflow",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "mlops",
+      "target": "kubeflow",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "mlops",
+      "target": "feature_store",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "mlops",
+      "target": "model_monitoring",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "mlops",
+      "target": "model_deployment",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "deep_learning",
+      "target": "pytorch",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "deep_learning",
+      "target": "tensorflow",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "deep_learning",
+      "target": "keras",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "computer_vision",
+      "target": "opencv",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "computer_vision",
+      "target": "object_detection",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "computer_vision",
+      "target": "image_classification",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "computer_vision",
+      "target": "segmentation",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "computer_vision",
+      "target": "ocr",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "computer_vision",
+      "target": "vit",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "computer_vision",
+      "target": "resnet",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "nlp",
+      "target": "transformers",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "nlp",
+      "target": "bert",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "nlp",
+      "target": "tokenization",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "nlp",
+      "target": "named_entity_recognition",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "nlp",
+      "target": "sentiment_analysis",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "nlp",
+      "target": "text_classification",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "generative_ai",
+      "target": "gemini_ai",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "generative_ai",
+      "target": "openai_api",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "generative_ai",
+      "target": "langchain",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "generative_ai",
+      "target": "langgraph",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "generative_ai",
+      "target": "rag",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "generative_ai",
+      "target": "prompt_engineering",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "generative_ai",
+      "target": "agentic_ai",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "generative_ai",
+      "target": "multi_agent_systems",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "generative_ai",
+      "target": "llm_engineering",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_engineering",
+      "target": "vector_databases",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_engineering",
+      "target": "pinecone",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_engineering",
+      "target": "weaviate",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_engineering",
+      "target": "chroma",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "security",
+      "target": "cybersecurity",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "security",
+      "target": "authentication",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "security",
+      "target": "authorization",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "security",
+      "target": "owasp",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "security",
+      "target": "network_security",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "security",
+      "target": "application_security",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "computer_science_fundamentals",
+      "target": "dsa",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "computer_science_fundamentals",
+      "target": "oop",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "computer_science_fundamentals",
+      "target": "dbms",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "computer_science_fundamentals",
+      "target": "operating_systems",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "computer_science_fundamentals",
+      "target": "computer_networks",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "computer_science_fundamentals",
+      "target": "system_design",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "operating_systems",
+      "target": "linux",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "operating_systems",
+      "target": "process_management",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "operating_systems",
+      "target": "threading",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "operating_systems",
+      "target": "concurrency",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "operating_systems",
+      "target": "parallel_computing",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "operating_systems",
+      "target": "memory_management",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "computer_networks",
+      "target": "tcp_ip",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "computer_networks",
+      "target": "http",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "computer_networks",
+      "target": "https",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "computer_networks",
+      "target": "dns",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "computer_networks",
+      "target": "websockets",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "computer_networks",
+      "target": "network_protocols",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "computer_networks",
+      "target": "load_balancing",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "system_design",
+      "target": "high_availability",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "system_design",
+      "target": "caching",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "system_design",
+      "target": "cdn",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "system_design",
+      "target": "database_sharding",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "system_design",
+      "target": "database_replication",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "system_design",
+      "target": "consistency_models",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "system_design",
+      "target": "cap_theorem",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "software_testing",
+      "target": "unit_testing",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "software_testing",
+      "target": "integration_testing",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "software_testing",
+      "target": "end_to_end_testing",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "software_testing",
+      "target": "pytest",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "software_testing",
+      "target": "jest",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "software_testing",
+      "target": "selenium",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "software_testing",
+      "target": "cypress",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "software_testing",
+      "target": "playwright",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "software_engineering",
+      "target": "git",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "software_engineering",
+      "target": "github",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "software_engineering",
+      "target": "postman",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "software_engineering",
+      "target": "vs_code",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "software_engineering",
+      "target": "intellij_idea",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "software_engineering",
+      "target": "jupyter_notebook",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "software_engineering",
+      "target": "google_colab",
+      "relation_type": "PARENT_OF",
+      "weight": 1.0
+    },
+    {
+      "source": "react_js",
+      "target": "javascript",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "next_js",
+      "target": "react_js",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "express_js",
+      "target": "node_js",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "langchain",
+      "target": "python",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "docker",
+      "target": "linux",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "typescript",
+      "target": "javascript",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "nestjs",
+      "target": "node_js",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "fastapi",
+      "target": "python",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "flask",
+      "target": "python",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "django",
+      "target": "python",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "spring_boot",
+      "target": "java",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "gin",
+      "target": "go",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "laravel",
+      "target": "php",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "ruby_on_rails",
+      "target": "ruby",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "oauth2",
+      "target": "oauth",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "openid_connect",
+      "target": "oauth2",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "mysql",
+      "target": "sql",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "postgresql",
+      "target": "sql",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "mongodb",
+      "target": "nosql",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "redis",
+      "target": "nosql",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "react_native",
+      "target": "react_js",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "expo",
+      "target": "react_native",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "android",
+      "target": "kotlin",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "ios",
+      "target": "swift",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "kubernetes",
+      "target": "docker",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "lambda",
+      "target": "serverless",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "azure_functions",
+      "target": "serverless",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "cloud_run",
+      "target": "serverless",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "eks",
+      "target": "kubernetes",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "ecs",
+      "target": "docker",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "numpy",
+      "target": "python",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "pandas",
+      "target": "numpy",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "scikit_learn",
+      "target": "python",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "pytorch",
+      "target": "python",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "tensorflow",
+      "target": "python",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "keras",
+      "target": "tensorflow",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "kubeflow",
+      "target": "kubernetes",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "vit",
+      "target": "deep_learning",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "resnet",
+      "target": "deep_learning",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "bert",
+      "target": "transformers",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "langgraph",
+      "target": "langchain",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "rag",
+      "target": "vector_databases",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "multi_agent_systems",
+      "target": "agentic_ai",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "jwt_authentication",
+      "target": "authentication",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "pytest",
+      "target": "python",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "jest",
+      "target": "javascript",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "spark_sql",
+      "target": "apache_spark",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "react_js",
+      "target": "node_js",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "mongodb",
+      "target": "express_js",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "scikit_learn",
+      "target": "pandas",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "pytorch",
+      "target": "numpy",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "docker",
+      "target": "kubernetes",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "react_js",
+      "target": "html",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "react_js",
+      "target": "css",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "next_js",
+      "target": "typescript",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "tailwind_css",
+      "target": "css",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "bootstrap",
+      "target": "css",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "node_js",
+      "target": "javascript",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "nestjs",
+      "target": "typescript",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "ec2",
+      "target": "linux",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "ecs",
+      "target": "aws",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "eks",
+      "target": "aws",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "lambda",
+      "target": "aws",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "s3",
+      "target": "aws",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "azure_functions",
+      "target": "azure",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "cloud_run",
+      "target": "gcp",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "cloud_storage",
+      "target": "gcp",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "kubernetes",
+      "target": "linux",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "ansible",
+      "target": "linux",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "linux_administration",
+      "target": "linux",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "airflow",
+      "target": "python",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "dbt",
+      "target": "sql",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "hadoop",
+      "target": "java",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "hive",
+      "target": "hadoop",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "spark_sql",
+      "target": "sql",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "xgboost",
+      "target": "python",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "lightgbm",
+      "target": "python",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "mlflow",
+      "target": "python",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "kubeflow",
+      "target": "python",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "opencv",
+      "target": "python",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "github",
+      "target": "git",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "google_colab",
+      "target": "jupyter_notebook",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "https",
+      "target": "http",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "websockets",
+      "target": "http",
+      "relation_type": "REQUIRES",
+      "weight": 0.9
+    },
+    {
+      "source": "prisma",
+      "target": "databases",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "hibernate",
+      "target": "databases",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "orm",
+      "target": "databases",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "mysql",
+      "target": "database_design",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "postgresql",
+      "target": "database_design",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "mongodb",
+      "target": "database_design",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "redis",
+      "target": "caching",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "vite",
+      "target": "javascript",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "webpack",
+      "target": "javascript",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "zustand",
+      "target": "typescript",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "react_query",
+      "target": "typescript",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "django",
+      "target": "databases",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "django",
+      "target": "sql",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "spring_boot",
+      "target": "databases",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "fastapi",
+      "target": "openapi",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "fastapi",
+      "target": "swagger",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "express_js",
+      "target": "rest_apis",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "nestjs",
+      "target": "rest_apis",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "nestjs",
+      "target": "graphql",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "terraform",
+      "target": "cloud_computing",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "jenkins",
+      "target": "github_actions",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "prometheus",
+      "target": "monitoring",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "grafana",
+      "target": "monitoring",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "nginx",
+      "target": "load_balancing",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "nginx",
+      "target": "http",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "nginx",
+      "target": "https",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "microservices",
+      "target": "api_gateway",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "apache_kafka",
+      "target": "event_driven_architecture",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "rabbitmq",
+      "target": "event_driven_architecture",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "apache_spark",
+      "target": "data_engineering",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "apache_flink",
+      "target": "data_engineering",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "pandas",
+      "target": "data_science",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "matplotlib",
+      "target": "data_science",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "seaborn",
+      "target": "data_science",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "hive",
+      "target": "sql",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "vit",
+      "target": "pytorch",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "resnet",
+      "target": "pytorch",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "transformers",
+      "target": "pytorch",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "transformers",
+      "target": "tensorflow",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "bert",
+      "target": "pytorch",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "openai_api",
+      "target": "generative_ai",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "gemini_ai",
+      "target": "generative_ai",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "langchain",
+      "target": "openai_api",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "langchain",
+      "target": "gemini_ai",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "langgraph",
+      "target": "agentic_ai",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "rag",
+      "target": "langchain",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "dsa",
+      "target": "programming",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "oop",
+      "target": "programming",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "dbms",
+      "target": "databases",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "operating_systems",
+      "target": "linux",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "computer_networks",
+      "target": "tcp_ip",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "system_design",
+      "target": "distributed_systems",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "jwt_authentication",
+      "target": "api_engineering",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "authentication",
+      "target": "authorization",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "owasp",
+      "target": "application_security",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "network_security",
+      "target": "computer_networks",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "application_security",
+      "target": "software_engineering",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "threading",
+      "target": "concurrency",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "concurrency",
+      "target": "parallel_computing",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "load_balancing",
+      "target": "system_design",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "cdn",
+      "target": "caching",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "pytest",
+      "target": "unit_testing",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "jest",
+      "target": "unit_testing",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "selenium",
+      "target": "end_to_end_testing",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "cypress",
+      "target": "end_to_end_testing",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "playwright",
+      "target": "end_to_end_testing",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "vs_code",
+      "target": "programming",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "intellij_idea",
+      "target": "java",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    },
+    {
+      "source": "jupyter_notebook",
+      "target": "python",
+      "relation_type": "USED_WITH",
+      "weight": 0.85
+    }
+  ]
+}

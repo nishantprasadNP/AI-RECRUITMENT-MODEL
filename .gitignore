@@ -4,6 +4,6 @@ __pycache__/
 *.pyc
 .env
 node_modules/
-data/
+
 .pytest_cache/
 logs/
