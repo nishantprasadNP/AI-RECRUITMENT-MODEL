@@ -11,5 +11,5 @@ class SkillNode(BaseModel):
 class SkillEdge(BaseModel):
     source: str = Field(..., description="ID of the source skill")
     target: str = Field(..., description="ID of the target skill")
-    relation_type: str = Field(..., description="Type of relationship: PARENT_OF, RELATED_TO, BELONGS_TO_DOMAIN")
+    relation_type: str = Field(..., description="Type of relationship: PARENT_OF, RELATED_TO, BELONGS_TO_DOMAIN, REQUIRES, USED_WITH")
     weight: float = Field(1.0, ge=0.0, le=1.0, description="Strength or weight of the relationship")

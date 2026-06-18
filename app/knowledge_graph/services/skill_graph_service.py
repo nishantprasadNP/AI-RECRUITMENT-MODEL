@@ -146,3 +146,31 @@ class SkillGraphService:
                     queue.append(child.id)
 
         return descendants
+
+    def has_relationship(
+        self,
+        source_skill: str,
+        target_skill: str,
+        relation_type: str
+    ) -> bool:
+        """
+        Checks if a directed relationship of the specified type exists between two skills.
+        Resolves raw skill strings (name or synonyms) to their canonical IDs first.
+        """
+        source_id = self._resolve_skill_id(source_skill)
+        target_id = self._resolve_skill_id(target_skill)
+        if not source_id or not target_id:
+            return False
+        return self._repo.has_relationship(source_id, target_id, relation_type)
+
+    def get_canonical_name(self, skill: str) -> Optional[str]:
+        """
+        Resolves a raw skill string to its canonical name in the graph.
+        Returns None if the skill cannot be resolved.
+        """
+        resolved_id = self._resolve_skill_id(skill)
+        if not resolved_id:
+            return None
+        node = self._repo.get_node(resolved_id)
+        return node.name if node else None
+

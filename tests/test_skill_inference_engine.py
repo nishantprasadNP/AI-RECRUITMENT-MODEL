@@ -33,19 +33,19 @@ def test_inference_duplicate_skills(inference_engine):
 
 def test_inference_unknown_skills(inference_engine):
     """Verify that unknown skills are ignored safely and not included in either list."""
-    result = inference_engine.infer_skills(["OpenCV", "UnknownSkillxyz"])
+    result = inference_engine.infer_skills(["NonExistentTool", "UnknownSkillxyz"])
     
     assert result["explicit_skills"] == []
     assert result["inferred_skills"] == []
 
 def test_inference_mixed_skills(inference_engine):
     """Verify mixed valid and invalid skills are processed correctly."""
-    result = inference_engine.infer_skills(["CNN", "OpenCV", "python", "UnknownSkill"])
+    result = inference_engine.infer_skills(["CNN", "NonExistentTool", "python", "UnknownSkill"])
     
-    # CNN and Python should be resolved, OpenCV and UnknownSkill should be ignored
+    # CNN and Python should be resolved, NonExistentTool and UnknownSkill should be ignored
     assert "CNN" in result["explicit_skills"]
     assert "Python" in result["explicit_skills"]
-    assert "OpenCV" not in result["explicit_skills"]
+    assert "NonExistentTool" not in result["explicit_skills"]
     
     # Inferred skills should cover ancestors of both CNN and Python
     inferred = result["inferred_skills"]

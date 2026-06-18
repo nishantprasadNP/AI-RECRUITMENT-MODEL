@@ -106,7 +106,7 @@ class NetworkXSkillGraphRepository(ISkillGraphRepository):
             )
 
             # Bidirectional relations mapping
-            if edge.relation_type == "RELATED_TO":
+            if edge.relation_type in ("RELATED_TO", "USED_WITH"):
                 # Add reverse edge for non-hierarchical related association in directed graph
                 self._graph.add_edge(
                     edge.target,

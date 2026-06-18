@@ -135,3 +135,16 @@ def test_missing_node_references_validation():
         assert "references undefined target node" in str(excinfo.value)
     finally:
         os.remove(temp_file_path)
+
+def test_new_relation_types():
+    """Verify that the new relation types (REQUIRES and USED_WITH) load and operate correctly."""
+    repo = NetworkXSkillGraphRepository()
+    repo.initialize(TAXONOMY_PATH)
+    
+    # 1. Test REQUIRES: react_js requires javascript
+    assert repo.has_relationship("react_js", "javascript", relation_type="REQUIRES")
+    
+    # 2. Test USED_WITH: react_js used with node_js (should be bidirectional)
+    assert repo.has_relationship("react_js", "node_js", relation_type="USED_WITH")
+    assert repo.has_relationship("node_js", "react_js", relation_type="USED_WITH")
+
