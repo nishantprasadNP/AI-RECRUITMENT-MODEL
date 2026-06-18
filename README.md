@@ -9,6 +9,7 @@ A production-ready Python parser and AI-driven intelligence system for recruitin
 ## Table of Contents
 - [Features](#features)
 - [System Architecture](#system-architecture)
+- [System Phases](#system-phases)
 - [Project Directory Structure](#project-directory-structure)
 - [Setup & Installation](#setup--installation)
   - [1. Create Virtual Environment](#1-create-virtual-environment)
@@ -67,6 +68,21 @@ graph TD
     H2 --> I1
     I1 -->|Cosine Similarity| J1[Match Score]
 ```
+
+---
+
+## System Phases
+
+The system processes data in 6 distinct phases to ensure reliability, semantic searchability, and explainability:
+
+| Phase | Title | Description | Key Components / Files |
+| :--- | :--- | :--- | :--- |
+| **Phase 1** | **Dual-Engine PDF Parsing** | Extracts layout-preserving text from PDFs using `pdfplumber` and `PyMuPDF` concurrently, selecting the higher quality output based on alphanumeric-to-character ratio. | [resume_parser.py](file:///e:/AI%20Recruitment%20Model/app/parsers/resume_parser.py) |
+| **Phase 2** | **LLM Resume Extraction** | Submits parsed resume text to Gemini API, extracts candidate info, and validates against structured Pydantic schema. | [resume_information_extractor.py](file:///e:/AI%20Recruitment%20Model/app/extractors/resume_information_extractor.py), [resume_schema.py](file:///e:/AI%20Recruitment%20Model/app/models/resume_schema.py) |
+| **Phase 3** | **Job Intelligence Engine** | Processes unstructured Job Descriptions (JDs) via Gemini API, extracting explicit/implicit requirements and hidden hiring signals. | [job_extractor.py](file:///e:/AI%20Recruitment%20Model/app/extractors/job_extractor.py), [job_schema.py](file:///e:/AI%20Recruitment%20Model/app/models/job_schema.py) |
+| **Phase 4** | **Skill Knowledge Graph** | Builds a NetworkX directed graph from a skills taxonomy JSON, traversing parent-child and related skill nodes to infer implicit candidate skills. | [networkx_repository.py](file:///e:/AI%20Recruitment%20Model/app/knowledge_graph/repositories/networkx_repository.py), [skill_graph_service.py](file:///e:/AI%20Recruitment%20Model/app/knowledge_graph/services/skill_graph_service.py) |
+| **Phase 5** | **Experience & Confidence Engine** | Analyzes candidate experiences and projects to calculate professional exposure, duration depth, and role complexity signals to score skill confidence. | [skill_confidence_engine.py](file:///e:/AI%20Recruitment%20Model/app/experience_analysis/skill_confidence_engine.py), [models.py](file:///e:/AI%20Recruitment%20Model/app/experience_analysis/models.py) |
+| **Phase 6** | **Semantic Matching Engine** | Compiles structured profiles into semantic text representations, generates vector embeddings, and computes cosine similarity matcher scores. | [semantic_matcher.py](file:///e:/AI%20Recruitment%20Model/app/matcher/semantic_matcher.py), [embedder.py](file:///e:/AI%20Recruitment%20Model/app/embeddings/embedder.py) |
 
 ---
 
