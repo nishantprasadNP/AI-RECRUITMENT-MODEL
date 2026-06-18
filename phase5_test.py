@@ -1,12 +1,7 @@
 import json
+import os
 
 from app.models.resume_schema import ResumeProfile
-
-from app.experience_analysis.evidence_collector import SkillEvidenceCollector
-from app.experience_analysis.complexity_calculator import ComplexityCalculator
-from app.experience_analysis.signal_calculator import SignalCalculator
-from app.experience_analysis.confidence_calculator import SkillConfidenceCalculator
-from app.experience_analysis.skill_confidence_engine import SkillConfidenceEngine
 
 from app.knowledge_graph.repositories.networkx_repository import (
     NetworkXSkillGraphRepository
@@ -15,58 +10,117 @@ from app.knowledge_graph.services.skill_graph_service import (
     SkillGraphService
 )
 
+from app.phase5.services.phase5_factory import build_skill_evidence_engine
+from app.phase5.engines.capability_aggregation_engine import CapabilityAggregationEngine
+from app.phase5.engines.dependency_expansion_engine import DependencyExpansionEngine
+from app.phase5.engines.evidence_collection_engine import EvidenceCollectionEngine
+from app.phase5.engines.project_inheritance_engine import ProjectInheritanceEngine
+from app.phase5.graph.skill_graph_adapter import ISkillGraphAdapter
+from app.phase5.scoring.evidence_scorer import EvidenceScorer
+from app.phase5.scoring.tier_classifier import TierClassifier
+from app.phase5.services.skill_evidence_engine import SkillEvidenceEngine
+
+PROFILE_PATH  = "data/extracted_profiles/nischay_verma.json"
+TAXONOMY_PATH = "data/skill_graph/skills_taxonomy.json"
+
+
+class _NullAdapter(ISkillGraphAdapter):
+    """Fallback adapter used when the skill taxonomy file is not present."""
+    def skill_exists(self, skill): return False
+    def get_dependencies(self, skill): return []
+    def get_ancestors(self, skill): return []
+    def get_descendants(self, skill): return []
+    def get_requiring_skills(self, skill, candidate_skills): return []
+    def get_capability_nodes(self): return []
+    def resolve_canonical(self, skill): return skill
+
+
+def _build_engine_without_graph() -> SkillEvidenceEngine:
+    adapter = _NullAdapter()
+    return SkillEvidenceEngine(
+        evidence_collection=EvidenceCollectionEngine(),
+        dependency_expansion=DependencyExpansionEngine(graph_adapter=adapter),
+        project_inheritance=ProjectInheritanceEngine(graph_adapter=adapter),
+        capability_aggregation=CapabilityAggregationEngine(graph_adapter=adapter),
+        evidence_scorer=EvidenceScorer(),
+        tier_classifier=TierClassifier(),
+        graph_adapter=adapter,
+    )
+
 
 def main():
 
-    with open(
-        "data/extracted_profiles/nishant_prasad.json",
-        "r",
-        encoding="utf-8"
-    ) as f:
+    with open(PROFILE_PATH, "r", encoding="utf-8") as f:
         data = json.load(f)
 
     profile = ResumeProfile.model_validate(data)
 
-    repo = NetworkXSkillGraphRepository()
-    repo.initialize("data/skill_graph/skills_taxonomy.json")
+    if os.path.exists(TAXONOMY_PATH):
+        repo = NetworkXSkillGraphRepository()
+        repo.initialize(TAXONOMY_PATH)
+        service = SkillGraphService(repo)
+        engine = build_skill_evidence_engine(service)
+        graph_available = True
+    else:
+        print(f"[WARNING] Taxonomy not found at '{TAXONOMY_PATH}' — running without graph.")
+        print("[WARNING] Dependency expansion and project inheritance are disabled.\n")
+        engine = _build_engine_without_graph()
+        graph_available = False
 
-    service = SkillGraphService(repo)
+    result = engine.analyze(profile)
 
-    collector = SkillEvidenceCollector(
-        graph_service=service
-    )
+    ranked = result.top_skills(n=len(result.profiles))
 
-    engine = SkillConfidenceEngine(
-        evidence_collector=collector,
-        complexity_calculator=ComplexityCalculator(),
-        signal_calculator=SignalCalculator(),
-        confidence_calculator=SkillConfidenceCalculator()
-    )
-
-    results = engine.analyze(profile)
-
-    print("\n")
-    print("=" * 120)
-    print("TOP SKILLS BY CONFIDENCE")
-    print("=" * 120)
-
-    ranked = sorted(
-        results.values(),
-        key=lambda x: x.confidence_score,
-        reverse=True
-    )
+    # -----------------------------------------------------------------------
+    # HEADER
+    # -----------------------------------------------------------------------
 
     print("\n")
     print("=" * 120)
-    print("TOP 10 STRONGEST SKILLS")
+    print("ARIS — PHASE 5: SKILL EVIDENCE ENGINE")
+    print("=" * 120)
+
+    # -----------------------------------------------------------------------
+    # TOP 10 BY EVIDENCE SCORE
+    # -----------------------------------------------------------------------
+
+    print("\n")
+    print("=" * 120)
+    print("TOP 10 STRONGEST SKILLS BY EVIDENCE SCORE")
     print("=" * 120)
     for i, skill in enumerate(ranked[:10], 1):
-        print(f"{i}. {skill.skill:<25} | Score: {skill.confidence_score:.2f} | Level: {skill.confidence_level:<20} | Tier: {skill.skill_tier}")
+        print(
+            f"{i}. {skill.skill:<25} "
+            f"| Evidence Score: {skill.skill_evidence_score:6.2f} "
+            f"| Tier: {skill.skill_tier}"
+        )
     print("=" * 120)
+
+    # -----------------------------------------------------------------------
+    # CAPABILITY PROFILES (only meaningful with graph)
+    # -----------------------------------------------------------------------
+
+    if result.capabilities:
+        print("\n")
+        print("=" * 120)
+        print("CAPABILITY PROFILES (GRAPH-DERIVED)")
+        print("=" * 120)
+        for cap in result.capabilities:
+            supporting_str = ", ".join(cap.supporting_skills[:6]) if cap.supporting_skills else "None"
+            print(
+                f"{cap.capability:<40} "
+                f"| Confidence: {cap.confidence:6.2f} "
+                f"| Skills: {supporting_str}"
+            )
+        print("=" * 120)
+
+    # -----------------------------------------------------------------------
+    # DETAILED EXPLAINABLE SKILL PROFILES (TOP 20)
+    # -----------------------------------------------------------------------
 
     print("\n")
     print("=" * 120)
-    print("DETAILED SKILL CONFIDENCE PROFILES (TOP 20)")
+    print("DETAILED EXPLAINABLE SKILL PROFILES (TOP 20)")
     print("=" * 120)
 
     for skill in ranked[:20]:
@@ -75,51 +129,46 @@ def main():
         print("-" * 60)
 
         print(
-            f"Confidence Score      : {skill.confidence_score:.2f}"
+            f"Evidence Score        : {skill.skill_evidence_score:.2f}"
         )
 
         print(
-            f"Confidence Level      : {skill.confidence_level}"
+            f"Evidence Tier         : {skill.skill_tier}"
         )
 
-        print(
-            f"Skill Tier            : {skill.skill_tier}"
-        )
-
-        print(
-            f"Depth Signal          : {skill.depth_signal:.2f}"
-        )
-
-        print(
-            f"Professional Signal   : {skill.professional_signal:.2f}"
-        )
-
-        print(
-            f"Complexity Signal     : {skill.complexity_signal:.2f}"
-        )
-
-        projects_used = skill.evidence_summary.get("projects_used_in", [])
-        projects_str = ", ".join(projects_used) if projects_used else "None"
+        projects_str = ", ".join(skill.projects_used_in) if skill.projects_used_in else "None"
         print(
             f"Projects Used In      : {projects_str}"
         )
 
-        dep_sources = skill.evidence_summary.get("supporting_technologies", [])
-        dep_str = ", ".join(dep_sources) if dep_sources else "None"
+        support_str = ", ".join(skill.supporting_skills) if skill.supporting_skills else "None"
         print(
-            f"Supporting Techs      : {dep_str}"
+            f"Supporting Skills     : {support_str}"
         )
 
-        prof_roles = skill.evidence_summary.get("professional_roles", [])
-        roles_str = ", ".join(prof_roles) if prof_roles else "None"
+        roles_str = ", ".join(skill.professional_roles) if skill.professional_roles else "None"
         print(
             f"Professional Roles    : {roles_str}"
         )
 
+        if skill.evidence_attribution:
+            print(f"Evidence Chain        :")
+            for source in skill.evidence_attribution:
+                print(
+                    f"  ├─ [{source.source_type:<20}] "
+                    f"{source.source_name:<30} "
+                    f"weight={source.weight:.1f}"
+                )
+
     print("\n")
     print("=" * 120)
+    print(
+        f"Analysis complete. {len(result.profiles)} skill(s) profiled"
+        + (f", {len(result.capabilities)} capability profile(s) generated." if result.capabilities else ".")
+    )
+    print("=" * 120)
+    print("\n")
 
 
 if __name__ == "__main__":
     main()
-

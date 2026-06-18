@@ -1,64 +1,67 @@
-NISHANT PRASAD
-+91-8882614767 · Noida, Uttar Pradesh
-nishant10prasad10@gmail.com · LinkedIn · GitHub
+Nischay Verma
+Jalandhar, Punjab, India
+(cid:131) +91 98769-91353 # vermanischay99@gmail.com (cid:239) nischay-verma § nischayverma0940
 Education
-B.Tech in Information Technology, NIT Jalandhar
-2023–2027
-Higher Secondary Education, Amity International School, Noida, Uttar Pradesh
-2023
-Percentage: 93%
+National Institute of Technology, Jalandhar Nov 2022 - Present
+Bachelor of Technology in Computer Science and Engineering (Cumulative GPA : 8.36 / 10.0) Jalandhar, Punjab
 Experience
-Software Engineering Trainee – Intern
-June 2025 – July 2025
-Vitana Private Limited, New Delhi (Remote)
-• Contributed to the frontend development of a mental wellness platform featuring 4+ user-facing modules
-including journaling, AI chatbot interactions, recommendations, and wellness tools.
-• Developed reusable React.js components and responsive user interfaces, improving maintainability and en-
-abling faster feature development across application modules.
-• Integrated 10+ RESTful API endpoints and implemented asynchronous data handling to support seamless
-communication between frontend interfaces and backend services.
+Expedia Group June 2025 - July 2025
+Machine Learning Engineering Intern - Typescript, React, Python, AWS Gurugram, India
+• Integrated Amazon Q Business into Expedia’s GenAI Studio by extending AI agent workflows, OpenAPI tooling, and
+function execution pipelines for seamless in-platform access.
+• Architected a context-aware AI agent leveraging Amazon Q Business and RAG capabilities to support client usage
+analysis, while authoring technical documentation for system design and workflows.
+• Revamped observability by optimizing 5 Datadog monitors, introducing 3 new monitors, and replacing static thresholds
+with relative metrics for improved alert reliability.
+• Automated PCS configuration validation through a Python diff-check utility that detected environment-specific
+discrepancies in endpoints and filters across deployments.
+University of Oulu, Finland September 2024 – January 2025
+Research Intern - Python, TensorFlow Remote
+• Surveyed literature on emotion understanding, domain adaptation, and incremental learning to design a progressive
+emotion classification framework.
+• Implemented a multimodal pipeline combining 3D-CNN, LSTM, and Random Forest models for emotion recognition on
+the MELD dataset containing 12,599 labeled conversations.
+• Mitigated severe class imbalance using weighted loss functions and SMOTE, improving minority-class recognition across
+seven emotion categories.
+• Achieved 68.36% accuracy with a 268M-parameter model, performing within 0.34 percentage points of the
+state-of-the-art benchmark on MELD.
+Publications
+VisioPhysioENet: Multimodal Engagement Detection using Visual and Physiological Signals
+Alakhsimar Singh, Nischay Verma, Kanav Goyal, Amritpal Singh, Puneet Kumar, and Xiaobai Li.
+Engineered the rPPG-based physiological signal processing pipeline in VisioPhysioENet, enabling multimodal fusion of visual
+and physiological features that achieved 63.09% accuracy on the DAiSEE dataset.
 Projects
-CAF-MAI (Unbiased AI) – FastAPI, React.js, Scikit-learn, Gemini AI
-Source Code
-• Architected and deployed a FastAPI + React Responsible AI platform with an 11-module ML pipeline
-for data profiling, bias discovery, model training, fairness evaluation, explainable AI, and model monitoring.
-• Developed fairness auditing and debiasing modules for automated bias detection, subgroup analysis, and
-AI model evaluation.
-• Engineered a debiasing framework using sample reweighing, probability adjustment and Gemini API
-integration, achieving 15–35% reduction in bias disparities.
-MENTALAI (Mental Wellness Platform) – React.js, Express.js, MongoDB, GeminiAI Source Code
-• Developed a full-stack mental wellness platform featuring 5+ user-facing modules, including journaling,
-mood analytics, AI-powered chat assistance, personalized recommendations, and wellness engagement tools.
-• Engineered a recommendation system delivering personalized content across 5 recommendation categories
-by leveraging mood trends, user interests, interaction history, and recency-based scoring.
-• Implemented 15+ RESTful API endpoints, JWT-based authentication, Gemini AI integration, and
-MongoDB-backed data management to support personalized experiences and recommendation tracking.
-LinkShrink Pro – Node.js, Express.js, MongoDB, NanoID
-Source Code
-• Developed a URL shortening application using Node.js, Express.js, and MongoDB, enabling efficient genera-
-tion and management of shortened links.
-• Engineered 8-character NanoID-based URL generation supporting over 2.8 × 1014 unique combina-
-tions while minimizing collision probability.
-• Implemented URL redirection workflows and validated RESTful APIs for concurrent URL creation and re-
-trieval operations with a 99% success rate.
+Product Price Predictor (Amazon ML Challenge)
+• Constructed a dense feature-stacking regression pipeline using DistilUSE multilingual embeddings and a supervised MLP
+(1024→128 latent stack), extracting and concatenating latent representations (256+128+128) to improve feature
+expressiveness for price prediction.
+• Leveraged XGBoost on stacked latent embeddings with feature scaling and ensemble tuning, achieving a SMAPE of
+59.87% and outperforming raw-embedding baselines in predictive stability and accuracy.
+Reel To Trip (TBO VoyageHack)
+• Engineered a scalable multi-agent AI backend using TypeScript, Node.js, Express, and LLMs to transform social media
+content into structured travel itineraries.
+• Orchestrated RESTful APIs integrating geospatial services, web scraping, and pricing engines, delivering sub-minute
+itinerary generation and reducing manual trip-planning effort.
+NITJ Navigator
+• Implemented an A* search-based navigation engine for NIT Jalandhar, computing shortest paths across 17 campus
+locations with average query latency below 3 seconds.
+• Modeled the campus as a weighted graph and optimized pathfinding heuristics to improve route computation efficiency
+and accuracy.
 Technical Skills
-Languages: C, C++, Java, Python, JavaScript, TypeScript, HTML/CSS, SQL (MySQL)
-ML Libraries: NumPy, Pandas, Scikit-learn, PyTorch, LightGBM, Matplotlib, Seaborn
-Tools: Git, GitHub, Postman, Docker, VS Code, IntelliJ IDEA, Jupyter Notebook, Google Colab
-Technologies & Frameworks: React.js, Node.js, Express.js, FastAPI, REST APIs, JWT Authentication,
-MongoDB, MySQL, AWS, Linux
-Coursework: DSA, OOP, DBMS, Operating Systems, Computer Networks, System Design
-Achievements
-• Top-100, Ethereum IV Quant Forecasting
-Competition
-2026
-• Top-50, Magicpin Vera AI Challenge
-2026
-• Meta AI Hackathon Finalist (Top 200)
-2026
-• Solved 500+ DSA Problems (LeetCode &
-GeeksforGeeks)
-• AIR 15120, JEE Main
-2023
-• AIR 16380, JEE Advanced
-2023
+Languages: Python, C++, TypeScript, JavaScript, SQL (MySQL, SQLite), HTML/CSS
+Frameworks & Libraries: Node.js, Express.js, React, TensorFlow, PyTorch, Scikit-learn
+Cloud & DevOps: AWS, Docker, Git, GitHub, Linux, Spinnaker, CI/CD
+Backend & Systems: REST APIs, Microservices, Distributed Systems, API Design, System Design, Datadog
+Developer Tools: IntelliJ IDEA, VS Code, PyCharm, Jupyter Notebook, Google Colab, Postman
+Relevant Coursework
+• Data Structures & Algorithms • Software Engineering • Machine Learning
+• Operating Systems • Object-Oriented Programming • Compiler Design
+• Database Management Systems • Computer Networks • Computer Vision
+Achievements / Extracurricular
+• Award of Academic Excellence, NIT Jalandhar for Grants Management Systsem
+• National Semi Finalist, Flipkart Grid 2025
+• Top 5 Percentile, Adobe GenSolve Challenge 2024
+• First Position, CodeFiesta 2023, CodeChef NITJ Chapter
+• Third Position, Integration Bee 2023, gaNIT
+• Certificate of Merit, Indian Olympiad Qualifier in Mathematics 2020
+• Certificate of Merit, Secondary Examinations CBSE 2020
