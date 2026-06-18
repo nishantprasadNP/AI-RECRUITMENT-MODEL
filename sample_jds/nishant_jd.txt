@@ -1,46 +1,109 @@
-Razorpay is one of India’s leading full-stack financial technology companies, powering the way businesses move, manage, and grow money. Founded in 2014 by Harshil Mathur and Shashank Kumar with a simple vision - to simplify payments for Indian businesses - we’ve since grown into a fintech powerhouse driving India’s digital payment revolution.
-
-Razorpay powers millions of businesses with a smarter, scalable stack that goes beyond transactions to help them truly build and grow.
-
-From building AI-native agentic payments, to AI-assisted fraud detection and real-time risk intelligence to automated reconciliation, smart payouts, and predictive financial insights, we are embedding intelligence across our stack to make money movement faster, safer, and more efficient. In close collaboration with ecosystem partners - including banks, networks, regulators - we are pioneering industry-first solutions that are shaping the next era of fintech
-
-Across India, Singapore and Malaysia, our products span everything from seamless checkouts to payroll automation - powering a fintech ecosystem that’s redefining how money moves across Asia.
-
-Today, that ecosystem supports everyone from early-stage startups to some of India’s largest enterprises, enabling them to accept, process, and disburse payments at scale while expanding into new ways of managing money more efficiently.
-
-Our scale speaks volumes: Razorpay processes $180+ billion in annualized transactions, powering leading businesses like Airbnb, Facebook, WhatsApp, Airtel, CRED, BookmyShow, Zomato, Swiggy, Lenskart, Mirae Asset Capital markets, Indian Oil, National Pension Scheme - and over 100 of India’s unicorns. With strong roots in India and growing operations in Southeast Asia, we are shaping the next chapter of financial technology across the region.
-
-We are backed by global investors including GIC, Peak XV Partners (formerly Sequoia Capital India & SEA), Tiger Global, Ribbit Capital, Matrix Partners, MasterCard, and Salesforce Ventures, having raised over $740 million to date. Strategic acquisitions - including Ezetap (POS and offline payments), Curlec (Malaysia expansion), BillMe (digital invoicing), and POP (rewards-first UPI) - along with earlier moves in fraud prevention, payroll, and lending, have further strengthened our platform and widened our footprint across Asia.
-
-But what truly sets Razorpay apart is our culture. At Razorpay, ownership is our oxygen - you own what you build, with no micromanagement or red tape, just the runway to make your ideas fly. Learning is a lifestyle - if you’re curious, you’ll feel at home here. People > Pedigree - we hire for attitude, hustle, and hunger more than degrees. Transparency thrives over titles - this is where interns question CXOs and CXOs say “thank you.” Guided by our values of Customer First, Autonomy & Ownership, Agility with Integrity, Transparency, Challenging the status quo and a strong belief that Razorpay grows with Razors,  you’ll be part of a 3000+ strong team building not just products, but the financial infrastructure of the future.
-
-Role Summary
-You will act as a chief of staff, directly working with the leaders. You will own the full loop: identify a high-impact business problem, conceive the AI-powered solution, build the production system, ship it, and own the outcome — as a single person.
-
-The problems change every few weeks as the company’s priorities shift. One month you’re building a multi-agent system for merchant risk detection or transaction success-rate optimization. Next, you’re deploying an internal operations copilot that processes hundreds of thousands of events a day and building products for the customers. What stays constant is the expectation that you close the loop end-to-end — from a messy business brief to a live system with metrics moving — in days, not quarters.
-
- 
-
-You Know Who You Are
-You have deep expertise across the full building journey:
-
-Decompose business problems from first principles. When a messy brief lands, you break it into data, models, integrations, automations, and human touchpoints — and make the right call on what to build vs. buy vs. defer.
-Design and build the full system yourself. Architecture, backend services, data pipelines, LLM orchestration, frontend — you own the spec nobody writes for you. You write production code, not demos that die after a meeting.
-Ship to production and own the outcome. Phased rollouts, alert thresholds, business metrics. When something breaks, you fix it. When numbers are below target, you know why.
-Switch altitude — technical depth to C-suite context. Debug a model’s internals in the morning. Present the roadmap to leadership in the afternoon. Review legal terms for an AI partnership before the end of day.
-Multiply AI capability across the organisation. You make teams across Sales, Marketing, Risk, and Engineering better at identifying and executing AI opportunities on their own — through frameworks, reference tools, and workshops that change behaviour.
-You’ve been using AI tools for over a year — Claude Code or Cursor is your default environment, not a novelty. You orchestrate agents, build with skills and MCPs. AI assistance is muscle memory. You’re a polyglot — picking up new stacks fast because AI handles the ramp. You thrive in ambiguity and default to action.
-
- 
-
-You will be a good fit if you bring
-Founder mindset: you’ve started something (a company, a product, a team) and taken it from zero to live with your own hands. You don’t wait for specs.
-Full-stack capability: backend services, data pipelines (Kafka, Airflow), LLM orchestration (OpenAI, Anthropic, Gemini), frontends (React), and deployment infrastructure (GCP, Docker). You don’t wait for other teams to unblock you.
-LLM & agent depth: hands-on with multi-agent systems, RAG, prompt engineering, and production AI pipelines — not just API wrappers.
-Product instinct: you ask “why” before “how.” You can scope a business problem down to a shippable prototype and articulate business value to non-technical stakeholders.
-Speed & autonomy: you can take a problem from discovery to demo in under two weeks. You move faster than the process and create structure only where it helps.
-Influence without authority: you align stakeholders across Sales, Risk, Engineering, and Legal by being clear, credible, and fast — without having direct reports in any of those functions.
-You will not be a good fit if you
-You need detailed specs handed to you. You prefer deep specialisation over breadth. You’re uncomfortable with ambiguity. You optimise for code elegance over customer outcomes. You hand off after designing or after shipping. You treat “not my job” as a valid answer. You need a stable roadmap to do your best work. You still thrive living in a 2-week sprint.
-
-Razorpay believes in and follows an equal employment opportunity policy that doesn't discriminate on gender, religion, sexual orientation, colour, nationality, age, etc. We welcome interests and applications from all groups and communities across the globe.
+{
+  "name": "NISHANT PRASAD",
+  "skills": [
+    "C",
+    "C++",
+    "Java",
+    "Python",
+    "JavaScript",
+    "TypeScript",
+    "HTML/CSS",
+    "SQL (MySQL)",
+    "NumPy",
+    "Pandas",
+    "Scikit-learn",
+    "PyTorch",
+    "LightGBM",
+    "Matplotlib",
+    "Seaborn",
+    "Git",
+    "GitHub",
+    "Postman",
+    "Docker",
+    "VS Code",
+    "IntelliJ IDEA",
+    "Jupyter Notebook",
+    "Google Colab",
+    "React.js",
+    "Node.js",
+    "Express.js",
+    "FastAPI",
+    "REST APIs",
+    "JWT Authentication",
+    "MongoDB",
+    "MySQL",
+    "AWS",
+    "Linux",
+    "DSA",
+    "OOP",
+    "DBMS",
+    "Operating Systems",
+    "Computer Networks",
+    "System Design"
+  ],
+  "experience": [
+    {
+      "role": "Software Engineering Trainee – Intern",
+      "company": "Vitana Private Limited",
+      "start_date": "June 2025",
+      "end_date": "July 2025",
+      "duration": "1 month",
+      "description": "Contributed to the frontend development of a mental wellness platform featuring 4+ user-facing modules including journaling, AI chatbot interactions, recommendations, and wellness tools. Developed reusable React.js components and responsive user interfaces, improving maintainability and enabling faster feature development across application modules. Integrated 10+ RESTful API endpoints and implemented asynchronous data handling to support seamless communication between frontend interfaces and backend services."
+    }
+  ],
+  "projects": [
+    {
+      "name": "CAF-MAI (Unbiased AI)",
+      "technologies": [
+        "FastAPI",
+        "React.js",
+        "Scikit-learn",
+        "Gemini AI"
+      ],
+      "description": "Architected and deployed a FastAPI + React Responsible AI platform with an 11-module ML pipeline for data profiling, bias discovery, model training, fairness evaluation, explainable AI, and model monitoring. Developed fairness auditing and debiasing modules for automated bias detection, subgroup analysis, and AI model evaluation. Engineered a debiasing framework using sample reweighing, probability adjustment and Gemini API integration, achieving 15–35% reduction in bias disparities."
+    },
+    {
+      "name": "MENTALAI (Mental Wellness Platform)",
+      "technologies": [
+        "React.js",
+        "Express.js",
+        "MongoDB",
+        "GeminiAI"
+      ],
+      "description": "Developed a full-stack mental wellness platform featuring 5+ user-facing modules, including journaling, mood analytics, AI-powered chat assistance, personalized recommendations, and wellness engagement tools. Engineered a recommendation system delivering personalized content across 5 recommendation categories by leveraging mood trends, user interests, interaction history, and recency-based scoring. Implemented 15+ RESTful API endpoints, JWT-based authentication, Gemini AI integration, and MongoDB-backed data management to support personalized experiences and recommendation tracking."
+    },
+    {
+      "name": "LinkShrink Pro",
+      "technologies": [
+        "Node.js",
+        "Express.js",
+        "MongoDB",
+        "NanoID"
+      ],
+      "description": "Developed a URL shortening application using Node.js, Express.js, and MongoDB, enabling efficient generation and management of shortened links. Engineered 8-character NanoID-based URL generation supporting over 2.8 × 1014 unique combinations while minimizing collision probability. Implemented URL redirection workflows and validated RESTful APIs for concurrent URL creation and retrieval operations with a 99% success rate."
+    }
+  ],
+  "education": [
+    {
+      "degree": "B.Tech",
+      "institution": "NIT Jalandhar",
+      "field": "Information Technology",
+      "graduation_year": "2027"
+    },
+    {
+      "degree": "Higher Secondary Education",
+      "institution": "Amity International School, Noida, Uttar Pradesh",
+      "field": null,
+      "graduation_year": "2023"
+    }
+  ],
+  "certifications": [],
+  "achievements": [
+    "Top-100, Ethereum IV Quant Forecasting Competition",
+    "Top-50, Magicpin Vera AI Challenge",
+    "Meta AI Hackathon Finalist (Top 200)",
+    "Solved 500+ DSA Problems (LeetCode & GeeksforGeeks)",
+    "AIR 15120, JEE Main",
+    "AIR 16380, JEE Advanced"
+  ]
+}
