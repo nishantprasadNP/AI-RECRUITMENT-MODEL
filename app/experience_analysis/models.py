@@ -64,10 +64,6 @@ class SkillConfidenceProfile(BaseModel):
         ...,
         description="The normalized name of the skill."
     )
-    project_signal: float = Field(
-        ...,
-        description="Signal strength derived from project count and details (range 0.0 to 1.0)."
-    )
     professional_signal: float = Field(
         ...,
         description="Signal strength derived from professional workspace usage (range 0.0 to 1.0)."
@@ -80,20 +76,22 @@ class SkillConfidenceProfile(BaseModel):
         ...,
         description="Signal strength derived from the complexity of the roles and projects (range 0.0 to 1.0)."
     )
-    achievement_signal: float = Field(
-        ...,
-        description="Signal strength derived from achievements, awards, and certifications (range 0.0 to 1.0)."
-    )
     confidence_score: float = Field(
         ...,
-        description="The computed overall confidence score (range 0.0 to 1.0)."
+        description="The computed overall confidence score (range 0.0 to 100.0)."
     )
     confidence_level: str = Field(
         ...,
         description="The qualitative confidence level category (e.g., 'Low', 'Medium', 'High', 'Expert')."
     )
+    skill_tier: str = Field(
+        default="Beginner",
+        description="The qualitative recruiter-friendly skill tier (e.g., 'Beginner', 'Intermediate', 'Advanced', 'Expert')."
+    )
     evidence_summary: Dict[str, Any] = Field(
         default_factory=dict,
         description="Explainability metadata summarizing the raw evidence collected for the skill."
     )
+
+
 

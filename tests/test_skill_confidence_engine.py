@@ -46,16 +46,20 @@ def test_engine_skill_no_evidence(confidence_engine):
     prof = results["Git"]
     
     assert isinstance(prof, SkillConfidenceProfile)
-    assert prof.project_signal == 0.0
     assert prof.professional_signal == 0.0
     assert prof.depth_signal == 1.0
     assert prof.complexity_signal == 0.0
-    assert prof.achievement_signal == 0.0
-    # Weighted score: 0.20 * 1.0 (depth) = 0.20 -> 20.0 -> Weak Evidence
-    assert prof.confidence_score == 20.0
-    assert prof.confidence_level == "Weak Evidence"
-    assert prof.evidence_summary["projects"] == 0
-    assert prof.evidence_summary["mentions"] == 1  # 1 mention in skills section
+    
+    # Weighted score: 0.45 * 1.0 (depth) = 0.45 -> 45.0 -> Moderate Evidence
+    assert prof.confidence_score == 45.0
+    assert prof.confidence_level == "Moderate Evidence"
+    assert prof.skill_tier == "Intermediate"
+    
+    assert prof.evidence_summary["project_count"] == 0
+    assert prof.evidence_summary["projects_used_in"] == []
+    assert prof.evidence_summary["direct_mentions"] == 1  # 1 mention in skills section
+    assert prof.evidence_summary["supporting_technologies"] == []
+    assert prof.evidence_summary["professional_roles"] == []
 
 
 def test_engine_end_to_end(confidence_engine):
@@ -85,41 +89,29 @@ def test_engine_end_to_end(confidence_engine):
     assert "Python" in results
     python_profile = results["Python"]
     
-    # 1. Project Signal: 1 matching project / 1 project = 1.0
-    assert python_profile.project_signal == 1.0
-    
-    # 2. Professional Signal: roles contains 'Python Backend Intern'.
+    # 1. Professional Signal: roles contains 'Python Backend Intern'.
     # Contains 'Intern', so it detects as internship -> 0.5
     assert python_profile.professional_signal == 0.5
     
-    # 3. Depth Signal: Mentions counts:
+    # 2. Depth Signal: Mentions counts:
     # Python: skills (1), project technologies (1), experience desc (1), total = 3.
-    # Max mentions in resume is for Python: 3 mentions (skills: Python, tech: Python, exp: Python. FastAPI has 2).
+    # Max mentions in resume is for Python: 3 mentions.
     # depth_signal = 3 / 3 = 1.0
     assert python_profile.depth_signal == 1.0
     
-    # 4. Complexity Signal:
-    # Project Alpha complexity check:
-    # Base: 2.0
-    # Categories: Python (BACKEND), FastAPI (BACKEND), Docker (DEVOPS), AWS (CLOUD) -> 3 categories -> +3.0
-    # Domain: distributed, concurrency, pipeline -> 3 matches -> capped at 2.0
-    # Deployment: AWS, Docker -> +2.0
-    # Indicators: designed, implemented, pipeline -> 3 matches -> +0.75
-    # Advanced: None -> +0.0
-    # Total complexity score = 2.0 + 3.0 + 2.0 + 2.0 + 0.75 = 9.75
-    # Normalized complexity signal = 9.75 / 10.0 = 0.975
+    # 3. Complexity Signal:
+    # Project Alpha complexity score: 9.75 -> Normalized = 0.975
     assert pytest.approx(python_profile.complexity_signal) == 0.975
     
-    # 5. Achievement Signal: 1 achievement mention / 5 = 0.2
-    assert python_profile.achievement_signal == 0.2
+    # 4. Confidence score:
+    # 0.45 * 1.0 (depth) + 0.30 * 0.5 (prof) + 0.25 * 0.975 (comp) = 0.45 + 0.15 + 0.24375 = 0.84375 -> 84.375
+    assert pytest.approx(python_profile.confidence_score) == 84.375
+    assert python_profile.confidence_level == "Very Strong Evidence"
+    assert python_profile.skill_tier == "Advanced"
     
-    # 6. Confidence score:
-    # 0.30*1.0 + 0.25*0.5 + 0.20*1.0 + 0.15*0.975 + 0.10*0.2 = 0.79125 -> 79.125
-    assert pytest.approx(python_profile.confidence_score) == 79.125
-    assert python_profile.confidence_level == "Very Strong Evidence"  # (75.0, 100.0]
-    
-    # 7. Schema verification:
-    assert python_profile.evidence_summary["projects"] == 1
-    assert python_profile.evidence_summary["mentions"] == 3
-    assert python_profile.evidence_summary["professional_usage"] is True
+    # 5. Schema verification:
+    assert python_profile.evidence_summary["project_count"] == 1
+    assert python_profile.evidence_summary["projects_used_in"] == ["Project Alpha"]
+    assert python_profile.evidence_summary["direct_mentions"] == 3
+    assert python_profile.evidence_summary["supporting_technologies"] == []
     assert python_profile.evidence_summary["professional_roles"] == ["Python Backend Intern"]

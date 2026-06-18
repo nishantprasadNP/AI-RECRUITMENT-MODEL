@@ -86,33 +86,36 @@ class SkillConfidenceEngine:
 
             # Combine signals to calculate confidence score and level category
             confidence_score, confidence_level = self._confidence_calculator.calculate(
-                project_signal=project_signal,
                 professional_signal=professional_signal,
                 depth_signal=depth_signal,
-                complexity_signal=complexity_signal,
-                achievement_signal=achievement_signal
+                complexity_signal=complexity_signal
             )
 
-            # Build explainability metadata
+            # Retrieve recruiter-friendly skill tier classification
+            skill_tier = self._confidence_calculator.get_skill_tier(confidence_score)
+
+            # Build enhanced explainability metadata
             evidence_summary = {
-                "projects": evidence.project_count,
-                "mentions": evidence.skill_mentions,
-                "professional_usage": evidence.professional_usage,
+                "project_count": evidence.project_count,
+                "projects_used_in": evidence.projects,
+                "direct_mentions": evidence.direct_mentions,
+                "supporting_technologies": evidence.dependency_sources,
                 "professional_roles": evidence.roles
             }
 
             # Build profile
             results[skill] = SkillConfidenceProfile(
                 skill=skill,
-                project_signal=project_signal,
                 professional_signal=professional_signal,
                 depth_signal=depth_signal,
                 complexity_signal=complexity_signal,
-                achievement_signal=achievement_signal,
                 confidence_score=confidence_score,
                 confidence_level=confidence_level.value,
+                skill_tier=skill_tier,
                 evidence_summary=evidence_summary
             )
+
+
 
         logger.info(f"Skill Confidence Engine analysis complete. Profiles generated for {len(results)} skill(s).")
         return results

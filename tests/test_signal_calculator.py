@@ -113,11 +113,11 @@ def test_depth_signal_normalization():
     calc = SignalCalculator()
     
     # 8 mentions out of 10 maximum (8/10 = 0.8)
-    e1 = SkillEvidence(skill="React", skill_mentions=8)
+    e1 = SkillEvidence(skill="React", direct_mentions=8, dependency_mentions=0.0)
     assert pytest.approx(calc.calculate_depth_signal(e1, 10)) == 0.8
     
     # 0 mentions
-    e2 = SkillEvidence(skill="React", skill_mentions=0)
+    e2 = SkillEvidence(skill="React", direct_mentions=0, dependency_mentions=0.0)
     assert calc.calculate_depth_signal(e2, 10) == 0.0
     
     # Invalid max mentions (<= 0) should safely return 0.0
@@ -130,12 +130,48 @@ def test_depth_signal_clamping():
     calc = SignalCalculator()
     
     # Mentions exceed max mentions (15/10 = 1.5 -> clamped to 1.0)
-    e1 = SkillEvidence(skill="React", skill_mentions=15)
+    e1 = SkillEvidence(skill="React", direct_mentions=15, dependency_mentions=0.0)
     assert calc.calculate_depth_signal(e1, 10) == 1.0
     
     # Negative mentions (clamped to 0.0)
-    e2 = SkillEvidence(skill="React", skill_mentions=-3)
+    e2 = SkillEvidence(skill="React", direct_mentions=-3, dependency_mentions=0.0)
     assert calc.calculate_depth_signal(e2, 10) == 0.0
+
+
+def test_depth_signal_direct_only():
+    """Verify direct-only evidence behaves correctly: direct=4, dependency=0 -> depth=0.4."""
+    calc = SignalCalculator()
+    e = SkillEvidence(skill="React", direct_mentions=4, dependency_mentions=0.0)
+    assert pytest.approx(calc.calculate_depth_signal(e, 10)) == 0.4
+
+
+def test_depth_signal_graph_assisted():
+    """Verify graph-assisted evidence behaves correctly: direct=1, dependency=4 -> depth=0.5."""
+    calc = SignalCalculator()
+    e = SkillEvidence(skill="Python", direct_mentions=1, dependency_mentions=4.0)
+    assert pytest.approx(calc.calculate_depth_signal(e, 10)) == 0.5
+
+
+def test_depth_signal_fractional():
+    """Verify fractional dependency handles floats correctly: direct=1, dependency=1.5 -> depth=0.25."""
+    calc = SignalCalculator()
+    e = SkillEvidence(skill="Python", direct_mentions=1, dependency_mentions=1.5)
+    assert pytest.approx(calc.calculate_depth_signal(e, 10)) == 0.25
+
+
+def test_depth_signal_no_evidence():
+    """Verify no evidence results in depth signal of 0: direct=0, dependency=0 -> depth=0.0."""
+    calc = SignalCalculator()
+    e = SkillEvidence(skill="Python", direct_mentions=0, dependency_mentions=0.0)
+    assert calc.calculate_depth_signal(e, 10) == 0.0
+
+
+def test_depth_signal_large_dependency_clamping():
+    """Verify large dependency values do not exceed the 1.0 depth signal limit."""
+    calc = SignalCalculator()
+    e = SkillEvidence(skill="Python", direct_mentions=2, dependency_mentions=25.0)
+    assert calc.calculate_depth_signal(e, 10) == 1.0
+
 
 
 def test_achievement_signal_normalization():

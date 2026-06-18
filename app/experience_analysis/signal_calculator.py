@@ -104,10 +104,12 @@ class SignalCalculator:
 
     def calculate_depth_signal(self, evidence: SkillEvidence, max_skill_mentions_in_resume: int) -> float:
         """
-        Measures how strongly the skill appears throughout the candidate's resume.
+        Measures how strongly the skill appears throughout the candidate's resume,
+        incorporating both direct mentions and graph-aware dependency mentions.
 
         Formula:
-            depth_signal = skill_mentions / max_skill_mentions_in_resume
+            effective_mentions = direct_mentions + dependency_mentions
+            depth_signal = effective_mentions / max_skill_mentions_in_resume
 
         Args:
             evidence: SkillEvidence object containing mentions counts.
@@ -120,12 +122,13 @@ class SignalCalculator:
             logger.info("Invalid normalization parameter or empty evidence. Returning depth signal 0.0.")
             return SIGNAL_MIN
 
-        skill_mentions = evidence.skill_mentions
-        signal = skill_mentions / max_skill_mentions_in_resume
+        effective_mentions = evidence.direct_mentions + evidence.dependency_mentions
+        signal = effective_mentions / max_skill_mentions_in_resume
         
         final_signal = min(max(signal, SIGNAL_MIN), SIGNAL_MAX)
-        logger.debug(f"Depth signal calculated: {final_signal} ({skill_mentions}/{max_skill_mentions_in_resume})")
+        logger.debug(f"Depth signal calculated: {final_signal} ({effective_mentions}/{max_skill_mentions_in_resume})")
         return final_signal
+
 
     def calculate_achievement_signal(self, evidence: SkillEvidence) -> float:
         """

@@ -59,24 +59,21 @@ def test_skill_confidence_profile_valid():
     """Test that SkillConfidenceProfile initializes correctly with valid inputs."""
     profile = SkillConfidenceProfile(
         skill="Python",
-        project_signal=0.8,
         professional_signal=1.0,
         depth_signal=0.6,
         complexity_signal=0.7,
-        achievement_signal=0.5,
-        confidence_score=0.72,
+        confidence_score=72.0,
         confidence_level="High",
         evidence_summary={"projects": 2}
     )
     
     assert profile.skill == "Python"
-    assert profile.project_signal == 0.8
     assert profile.professional_signal == 1.0
     assert profile.depth_signal == 0.6
     assert profile.complexity_signal == 0.7
-    assert profile.achievement_signal == 0.5
-    assert profile.confidence_score == 0.72
+    assert profile.confidence_score == 72.0
     assert profile.confidence_level == "High"
+    assert profile.skill_tier == "Beginner"  # Default value
     assert profile.evidence_summary == {"projects": 2}
 
 
@@ -85,7 +82,7 @@ def test_skill_confidence_profile_missing_fields():
     with pytest.raises(ValidationError) as exc_info:
         # Missing skill and signals
         SkillConfidenceProfile(
-            project_signal=0.8
+            professional_signal=1.0
         )
     assert "Field required" in str(exc_info.value)
 
@@ -96,12 +93,11 @@ def test_skill_confidence_profile_strict_validation():
     with pytest.raises(ValidationError) as exc_info:
         SkillConfidenceProfile(
             skill="Python",
-            project_signal="0.8",
-            professional_signal=1.0,
+            professional_signal="1.0",
             depth_signal=0.6,
             complexity_signal=0.7,
-            achievement_signal=0.5,
-            confidence_score=0.72,
+            confidence_score=72.0,
             confidence_level="High"
         )
     assert "Input should be a valid number" in str(exc_info.value)
+
