@@ -43,6 +43,8 @@ from app.ingestion.resume_parser import ResumeParser
 from app.matching.semantic_matcher import SemanticMatcher
 from app.schemas.job_schema import JobProfile
 from app.schemas.resume_schema import ResumeProfile
+from app.role_classification.role_classifier import RoleClassifier
+from app.role_classification.models import RoleProfile
 from app.storage.job_storage import save_job_profile
 from app.storage.profile_storage import save_profile
 
@@ -63,6 +65,7 @@ class OrchestratorResult:
         job_name:            Normalised job role label used for storage.
         resume_profile:      Validated ResumeProfile Pydantic object.
         job_profile:         Validated JobProfile Pydantic object.
+        role_profile:        Classified RoleProfile object.
         semantic_score:      Cosine similarity score in [0.0, 1.0].
         resume_profile_path: Filesystem path to the saved candidate JSON file.
         job_profile_path:    Filesystem path to the saved job JSON file.
@@ -73,6 +76,7 @@ class OrchestratorResult:
     job_name: str = "Unknown Role"
     resume_profile: Optional[ResumeProfile] = None
     job_profile: Optional[JobProfile] = None
+    role_profile: Optional[RoleProfile] = None
     semantic_score: float = 0.0
     resume_profile_path: str = ""
     job_profile_path: str = ""
@@ -107,6 +111,7 @@ class RecruitmentOrchestrator:
         job_extractor: Optional[JobExtractor] = None,
         embedding_generator: Optional[EmbeddingGenerator] = None,
         semantic_matcher: Optional[SemanticMatcher] = None,
+        role_classifier: Optional[RoleClassifier] = None,
         match_report_dir: str = "data/match_reports",
     ) -> None:
         self._parser = resume_parser or ResumeParser()
@@ -114,6 +119,7 @@ class RecruitmentOrchestrator:
         self._job_extractor = job_extractor or JobExtractor()
         self._embedder = embedding_generator or EmbeddingGenerator()
         self._matcher = semantic_matcher or SemanticMatcher()
+        self._role_classifier = role_classifier or RoleClassifier()
         self._match_report_dir = match_report_dir
 
     # -----------------------------------------------------------------------
@@ -146,14 +152,14 @@ class RecruitmentOrchestrator:
         # ------------------------------------------------------------------
         # Stage 1: Ingest — parse PDF to raw text
         # ------------------------------------------------------------------
-        logger.info("[Stage 1/6] Ingesting resume PDF: %s", resume_pdf_path)
+        logger.info("[Stage 1/7] Ingesting resume PDF: %s", resume_pdf_path)
         resume_text = self._parser.extract_text(resume_pdf_path)
         logger.info("Resume text extracted (%d chars)", len(resume_text))
 
         # ------------------------------------------------------------------
         # Stage 2: Extract — resume profile via LLM
         # ------------------------------------------------------------------
-        logger.info("[Stage 2/6] Extracting structured resume profile via LLM...")
+        logger.info("[Stage 2/7] Extracting structured resume profile via LLM...")
         resume_profile = self._resume_extractor.extract(resume_text)
         result.resume_profile = resume_profile
         result.candidate_name = resume_profile.name or "Unknown Candidate"
@@ -162,15 +168,26 @@ class RecruitmentOrchestrator:
         # ------------------------------------------------------------------
         # Stage 3: Extract — job profile via LLM
         # ------------------------------------------------------------------
-        logger.info("[Stage 3/6] Extracting structured job profile via LLM...")
+        logger.info("[Stage 3/7] Extracting structured job profile via LLM...")
         job_profile = self._job_extractor.extract(jd_text)
         result.job_profile = job_profile
         logger.info("Job profile extracted (seniority: %s)", job_profile.seniority_level)
 
         # ------------------------------------------------------------------
-        # Stage 4: Build semantic text representations
+        # Stage 4: Role Classification — determine role context
         # ------------------------------------------------------------------
-        logger.info("[Stage 4/6] Building semantic text representations...")
+        logger.info("[Stage 4/7] Classifying role context...")
+        role_profile = self._role_classifier.classify(job_profile)
+        result.role_profile = role_profile
+        logger.info("Role Family: %s", role_profile.role_family)
+        logger.info("Specialization: %s", role_profile.specialization)
+        logger.info("Seniority: %s", role_profile.seniority)
+        logger.info("Evaluation Profile: %s", role_profile.evaluation_profile)
+
+        # ------------------------------------------------------------------
+        # Stage 5: Build semantic text representations
+        # ------------------------------------------------------------------
+        logger.info("[Stage 5/7] Building semantic text representations...")
         resume_semantic_text = build_resume_text(resume_profile)
 
         # build_job_text raises ValueError with a descriptive message if the
@@ -185,9 +202,9 @@ class RecruitmentOrchestrator:
 
 
         # ------------------------------------------------------------------
-        # Stage 5: Embed — generate vector embeddings
+        # Stage 6: Embed — generate vector embeddings
         # ------------------------------------------------------------------
-        logger.info("[Stage 5/6] Generating embeddings...")
+        logger.info("[Stage 6/7] Generating embeddings...")
         resume_embedding = self._embedder.generate_embedding(resume_semantic_text)
         jd_embedding = self._embedder.generate_embedding(job_semantic_text)
         logger.info(
@@ -197,15 +214,15 @@ class RecruitmentOrchestrator:
         )
 
         # ------------------------------------------------------------------
-        # Stage 6: Match — compute cosine similarity
+        # Stage 7: Match — compute cosine similarity
         # ------------------------------------------------------------------
-        logger.info("[Stage 6/6] Computing semantic similarity score...")
+        logger.info("[Stage 7/7] Computing semantic similarity score...")
         score = self._matcher.compute_similarity(resume_embedding, jd_embedding)
         result.semantic_score = score
         logger.info("Semantic match score: %.4f", score)
 
         # ------------------------------------------------------------------
-        # Stage 7: Persist — save profiles and match report
+        # Stage 8: Persist — save profiles and match report
         # ------------------------------------------------------------------
         result.resume_profile_path = save_profile(resume_profile)
         result.job_profile_path = save_job_profile(job_profile, role_name=job_name)
@@ -244,6 +261,7 @@ class RecruitmentOrchestrator:
         report = {
             "candidate_name": result.candidate_name,
             "job_name": result.job_name,
+            "role_profile": result.role_profile.model_dump() if result.role_profile else None,
             "semantic_score": result.semantic_score,
             "semantic_score_pct": round(result.semantic_score * 100, 2),
             "resume_profile_path": result.resume_profile_path,

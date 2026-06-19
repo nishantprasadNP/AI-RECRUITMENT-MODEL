@@ -69,6 +69,17 @@ def main() -> None:
     print("=" * 80)
     print(f"  Candidate          : {result.candidate_name}")
     print(f"  Role               : {result.job_name}")
+
+    if result.role_profile:
+        print("\n" + "=" * 80)
+        print("\nROLE CONTEXT\n")
+        print("=" * 80)
+        print(f"\nRole Family        : {result.role_profile.role_family}")
+        print(f"Specialization     : {result.role_profile.specialization}")
+        print(f"Seniority          : {result.role_profile.seniority}")
+        print(f"Evaluation Profile : {result.role_profile.evaluation_profile}\n")
+        print("=" * 80)
+
     print(f"  Semantic Score     : {result.semantic_score:.4f}  ({result.semantic_score * 100:.2f}%)")
     print()
     print(f"  Resume Profile     : {result.resume_profile_path}")

@@ -5,6 +5,8 @@ A production-ready, AI-driven recruitment intelligence system built in Python. A
 ---
 
 ## Table of Contents
+- [Quick Start](#quick-start)
+- [Prerequisites](#prerequisites)
 - [Features](#features)
 - [System Architecture](#system-architecture)
 - [Pipeline Stages](#pipeline-stages)
@@ -18,6 +20,39 @@ A production-ready, AI-driven recruitment intelligence system built in Python. A
 - [Extraction Quality Rules](#extraction-quality-rules)
 - [Error Handling](#error-handling)
 - [Running Tests](#running-tests)
+- [Troubleshooting](#troubleshooting)
+
+---
+
+## Quick Start
+
+Run all commands from the **project root** (`AI-RECRUITMENT-MODEL/`).
+
+```bash
+# 1. Create and activate a virtual environment
+python3 -m venv .venv
+source .venv/bin/activate          # macOS / Linux
+# .venv\Scripts\Activate.ps1       # Windows (PowerShell)
+
+# 2. Install dependencies
+pip install -r requirements.txt
+
+# 3. Create .env with your Gemini API key (see Setup & Installation)
+# 4. Run the full pipeline with bundled sample files
+python scripts/run_full_pipeline.py
+```
+
+On first run, the local embedding model (`sentence-transformers/all-mpnet-base-v2`) is downloaded automatically. The full pipeline typically takes 30–60 seconds depending on network speed and hardware.
+
+---
+
+## Prerequisites
+
+| Requirement | Details |
+|:---|:---|
+| **Python** | 3.10 or newer recommended (3.9 may work but triggers deprecation warnings from Google client libraries) |
+| **Gemini API key** | Required for resume and job extraction. Get one from [Google AI Studio](https://aistudio.google.com/apikey). |
+| **Internet** | Required on first run (Gemini API + embedding model download) and for all LLM extraction steps |
 
 ---
 
@@ -151,18 +186,21 @@ AI-RECRUITMENT-MODEL/
 │   ├── run_job_pipeline.py              # Job description extraction only
 │   └── run_matching.py                  # Semantic matching on saved profiles
 │
-├── data/
+├── data/                                # Runtime output (gitignored; created on first run)
 │   ├── extracted_profiles/              # Saved candidate profile JSONs
 │   ├── extracted_jobs/                  # Saved job profile JSONs
 │   ├── skill_graph/                     # Skill taxonomy JSON files
 │   └── match_reports/                   # Timestamped match result JSONs
 │
-├── tests/                               # Unit tests (115 tests, all passing)
+├── tests/                               # Unit tests (run with pytest)
 │
 ├── sample_jds/                          # Sample job description text files
+│   └── senior_software_engineer.txt     # Default JD used by run_full_pipeline.py
 ├── sample_resumes/                      # Sample resume PDF files
-├── logs/                                # Runtime logs → aris.log
-├── .env                                 # Local environment file (API keys)
+│   ├── resume1.pdf                      # Default resume used by run_full_pipeline.py
+│   └── resume.pdf
+├── logs/                                # Runtime logs → aris.log (created at runtime)
+├── .env                                 # Local API keys (gitignored — create manually)
 ├── requirements.txt                     # Python dependencies
 └── README.md
 ```
@@ -173,7 +211,7 @@ AI-RECRUITMENT-MODEL/
 
 ### 1. Create Virtual Environment
 ```bash
-python -m venv .venv
+python3 -m venv .venv
 ```
 
 ### 2. Activate Virtual Environment
@@ -191,14 +229,20 @@ pip install -r requirements.txt
 ```
 
 ### 4. Configure Environment Variables
-```bash
-cp .env.example .env
-```
-Edit `.env`:
+
+Create a `.env` file in the project root (this file is gitignored and must be created locally):
+
 ```env
+# Gemini API Credentials
 GEMINI_API_KEY=your_gemini_api_key_here
+
+# The LLM model to use for extraction
 GEMINI_MODEL=gemini-2.5-flash
 ```
+
+The app loads `.env` automatically via [`app/core/config.py`](app/core/config.py). Existing shell environment variables take precedence over `.env` values.
+
+> **Note:** Resume and job extraction require a valid `GEMINI_API_KEY`. Semantic matching uses a local SentenceTransformer model and does not need an API key.
 
 ---
 
@@ -206,15 +250,23 @@ GEMINI_MODEL=gemini-2.5-flash
 
 ### Full Pipeline via Orchestrator (Recommended)
 
-The simplest way to run ARIS end-to-end is via the orchestrator script:
+The simplest way to run ARIS end-to-end is via the orchestrator script. Always run from the **project root**:
 
 ```bash
 # Using default sample files
 python scripts/run_full_pipeline.py
 
-# Custom resume, JD and role name
+# Custom resume, JD file, and role name
 python scripts/run_full_pipeline.py path/to/resume.pdf path/to/jd.txt "Senior Software Engineer"
 ```
+
+**Default inputs:**
+
+| Argument | Default |
+|:---|:---|
+| Resume PDF | `sample_resumes/resume1.pdf` |
+| Job description | `sample_jds/senior_software_engineer.txt` |
+| Role name | `role` (used for output file naming) |
 
 **Expected output:**
 ```
@@ -230,13 +282,15 @@ python scripts/run_full_pipeline.py path/to/resume.pdf path/to/jd.txt "Senior So
 ================================================================================
   Candidate          : NISHANT PRASAD
   Role               : role
-  Semantic Score     : 0.5545  (55.45%)
+  Semantic Score     : 0.4440  (44.40%)
 
   Resume Profile     : data/extracted_profiles/nishant_prasad.json
   Job Profile        : data/extracted_jobs/role.json
-  Match Report       : data/match_reports/nishant_prasad__role__20260619_103000.json
+  Match Report       : data/match_reports/nishant_prasad__role__20260619_155505.json
 ================================================================================
 ```
+
+Scores vary slightly between runs because LLM extraction is non-deterministic. Output files are written under `data/` (also gitignored).
 
 ---
 
@@ -314,7 +368,7 @@ print(f"Report    : {result.match_report_path}")
 
 | Class | Key Fields |
 |:---|:---|
-| `JobProfile` | `required_skills[]`, `preferred_skills[]`, `critical_skills[]`, `experience_required`, `education`, `leadership`, `seniority_level`, `responsibility_themes[]`, `domain_knowledge[]`, `soft_skills[]`, `tools_and_technologies[]`, `hidden_hiring_signals`, `role_complexity_score`, `future_potential_signals[]`, `job_summary` |
+| `JobProfile` | `title`, `required_skills[]`, `preferred_skills[]`, `critical_skills[]`, `experience_required`, `education`, `leadership`, `seniority_level`, `responsibility_themes[]`, `domain_knowledge[]`, `soft_skills[]`, `tools_and_technologies[]`, `hidden_hiring_signals`, `role_complexity_score`, `future_potential_signals[]`, `job_summary` |
 | `HiddenHiringSignals` | `autonomy_required`, `client_facing`, `research_oriented`, `innovation_focused`, `startup_environment`, `high_ownership` |
 
 ---
@@ -324,6 +378,7 @@ print(f"Report    : {result.match_report_path}")
 The Job Description Intelligence Engine enforces rigorous extraction boundaries:
 
 - **The Golden Rule**: Every extracted data point must be an *Explicit Fact* (directly stated) or a *Supported Inference* (implied by multiple evidence sources). When evidence is insufficient, fields default to `null`, `[]`, or `false`. Accuracy is strictly favoured over completeness.
+- **Job Title Extraction**: The official job title must be extracted exactly as it appears in the job description without rewriting or inference, defaulting to `null` if not identifiable.
 - **Skills Normalisation**: Extracted only if the exact term or a standard industry alias (e.g. `K8s` → `Kubernetes`, `TS` → `TypeScript`) appears in the source text.
 - **People Leadership**: `leadership = true` only when there is direct evidence of managing, supervising, or mentoring people. Technical ownership is classified as `false`.
 - **Hallucination Prevention**: Forbids outputting unmentioned technologies. If `OpenAI` is mentioned, competing models like `Anthropic` or `Gemini` are explicitly suppressed unless also mentioned.
@@ -365,8 +420,11 @@ The Job Description Intelligence Engine enforces rigorous extraction boundaries:
 ## Running Tests
 
 ```bash
-# Run all 115 unit tests
+# Run all unit tests in tests/
 pytest tests/ -v
+
+# Run skill evidence engine tests
+pytest app/skill_evidence/tests/ -v
 
 # Run a specific test module
 pytest tests/test_resume_parser.py -v
@@ -381,3 +439,15 @@ The test suite covers:
 - Semantic matching (identical, orthogonal, similar vectors, validation errors)
 - Embedding generation (local SentenceTransformer init, encode, error handling)
 - Text builder (resume/job profile to semantic text conversion)
+
+---
+
+## Troubleshooting
+
+| Issue | Cause | Fix |
+|:---|:---|:---|
+| `MissingAPIKeyError — Gemini API Key is missing` | `.env` file missing, empty, or not loaded | Create `.env` in the project root with a valid `GEMINI_API_KEY`. Re-run from the project root so [`app/core/config.py`](app/core/config.py) can find it. |
+| `Resume PDF not found` / `Job description file not found` | Script run from wrong directory or bad path | `cd` to the project root before running, or pass absolute paths to the script. |
+| Python 3.9 deprecation warnings | Google client libraries prefer 3.10+ | Upgrade Python (`brew install python@3.12` on macOS) and recreate the virtual environment. |
+| Slow first run | SentenceTransformer downloads `all-mpnet-base-v2` on first use | Wait for the download to finish; subsequent runs reuse the cached model. |
+| Pipeline failure details | Error message may be truncated in the terminal | Check `logs/aris.log` for the full stack trace. |

@@ -26,6 +26,7 @@ class JobProfile(BaseModel):
     """
     The complete extracted and validated job description hiring profile.
     """
+    title: Optional[str] = None
     required_skills: List[str] = Field(default_factory=list, description="List of mandatory skills for performing the role.")
     preferred_skills: List[str] = Field(default_factory=list, description="List of preferred or beneficial skills (nice-to-have).")
     critical_skills: List[str] = Field(default_factory=list, description="Top 5 most important skills for ranking candidates.")

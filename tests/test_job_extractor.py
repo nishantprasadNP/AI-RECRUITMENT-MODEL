@@ -15,6 +15,7 @@ from app.schemas.job_schema import JobProfile
 def mock_job_json():
     """Fixture to provide mock structured Job Profile JSON response."""
     return """{
+      "title": "Senior Software Engineer",
       "required_skills": ["Python", "SQL", "API Design"],
       "preferred_skills": ["AWS", "Docker"],
       "critical_skills": ["Python", "SQL", "API Design", "AWS", "Docker"],
@@ -55,6 +56,7 @@ def test_valid_job_extraction(mock_genai, mock_job_json):
     profile = extractor.extract("Mock job description text")
 
     assert isinstance(profile, JobProfile)
+    assert profile.title == "Senior Software Engineer"
     assert profile.experience_required == 5
     assert profile.seniority_level == "senior"
     assert profile.required_skills == ["Python", "SQL", "API Design"]

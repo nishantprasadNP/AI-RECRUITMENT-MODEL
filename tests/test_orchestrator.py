@@ -1,0 +1,100 @@
+import os
+import tempfile
+import pytest
+from unittest.mock import MagicMock
+
+from app.orchestrator import RecruitmentOrchestrator, OrchestratorResult
+from app.schemas.resume_schema import ResumeProfile
+from app.schemas.job_schema import JobProfile, HiddenHiringSignals
+from app.role_classification.models import RoleProfile
+
+
+def test_orchestrator_full_pipeline_run():
+    # 1. Setup mock profiles
+    mock_resume_profile = ResumeProfile(
+        name="John Doe",
+        skills=["Python", "React"],
+        experience=[],
+        projects=[],
+        education=[],
+        certifications=[],
+        achievements=[],
+    )
+
+    mock_job_profile = JobProfile(
+        title="Senior Backend Developer",
+        required_skills=["Python", "FastAPI", "SQL"],
+        preferred_skills=[],
+        critical_skills=[],
+        experience_required=5,
+        education=None,
+        leadership=False,
+        seniority_level="senior",
+        responsibility_themes=[],
+        domain_knowledge=[],
+        soft_skills=[],
+        tools_and_technologies=[],
+        hidden_hiring_signals=HiddenHiringSignals(),
+        role_complexity_score=5,
+        future_potential_signals=[],
+        job_summary="Backend Developer role",
+    )
+
+    # 2. Mock individual stages
+    mock_parser = MagicMock()
+    mock_parser.extract_text.return_value = "Mock raw resume text"
+
+    mock_resume_extractor = MagicMock()
+    mock_resume_extractor.extract.return_value = mock_resume_profile
+
+    mock_job_extractor = MagicMock()
+    mock_job_extractor.extract.return_value = mock_job_profile
+
+    mock_embedder = MagicMock()
+    mock_embedder.generate_embedding.return_value = MagicMock()
+
+    mock_matcher = MagicMock()
+    mock_matcher.compute_similarity.return_value = 0.85
+
+    # Use a temporary directory for match reports to keep the workspace clean
+    with tempfile.TemporaryDirectory() as tmp_dir:
+        orchestrator = RecruitmentOrchestrator(
+            resume_parser=mock_parser,
+            resume_extractor=mock_resume_extractor,
+            job_extractor=mock_job_extractor,
+            embedding_generator=mock_embedder,
+            semantic_matcher=mock_matcher,
+            match_report_dir=tmp_dir,
+        )
+
+        result = orchestrator.run(
+            resume_pdf_path="dummy_path.pdf",
+            jd_text="Mock raw JD text",
+            job_name="senior_engineer",
+        )
+
+        # 3. Assertions
+        assert isinstance(result, OrchestratorResult)
+        assert result.candidate_name == "John Doe"
+        assert result.job_name == "senior_engineer"
+        assert result.resume_profile == mock_resume_profile
+        assert result.job_profile == mock_job_profile
+        assert result.semantic_score == 0.85
+
+        # Verify role classification occurred and was attached
+        assert isinstance(result.role_profile, RoleProfile)
+        assert result.role_profile.role_family == "software_engineering"
+        assert result.role_profile.specialization == "backend_engineer"
+        assert result.role_profile.seniority == "senior"
+        assert result.role_profile.evaluation_profile == "senior_backend"
+
+        # Verify match report saved
+        assert os.path.exists(result.match_report_path)
+        assert result.match_report_path.startswith(tmp_dir)
+
+        # Verify parser, extractor, embedder, matcher were called
+        mock_parser.extract_text.assert_called_once_with("dummy_path.pdf")
+        mock_resume_extractor.extract.assert_called_once_with("Mock raw resume text")
+        mock_job_extractor.extract.assert_called_once_with("Mock raw JD text")
+        assert mock_embedder.generate_embedding.call_count == 2
+        mock_matcher.compute_similarity.assert_called_once()
