@@ -1,6 +1,6 @@
 import pytest
 from typing import Set, List, Dict, Optional
-from app.models.resume_schema import ResumeProfile, Project, Experience
+from app.schemas.resume_schema import ResumeProfile, Project, Experience
 from app.experience_analysis.models import SkillConfidenceProfile
 from app.experience_analysis.evidence_collector import SkillEvidenceCollector
 from app.experience_analysis.complexity_calculator import ComplexityCalculator

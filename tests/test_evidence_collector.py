@@ -1,7 +1,7 @@
 import pytest
 from typing import List, Optional
 from pydantic import Field
-from app.models.resume_schema import ResumeProfile, Project, Experience
+from app.schemas.resume_schema import ResumeProfile, Project, Experience
 from app.experience_analysis.evidence_collector import SkillEvidenceCollector
 from app.knowledge_graph.services.skill_graph_service import SkillGraphService
 

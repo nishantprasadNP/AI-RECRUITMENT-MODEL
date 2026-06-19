@@ -1,7 +1,7 @@
 import pytest
 import numpy as np
 from unittest.mock import patch
-from app.matcher.semantic_matcher import SemanticMatcher, SemanticMatchingError
+from app.matching.semantic_matcher import SemanticMatcher, SemanticMatchingError
 
 def test_semantic_matcher_success_identical():
     """Verify that identical vectors produce a similarity score of 1.0."""
@@ -99,6 +99,6 @@ def test_semantic_matcher_internal_failure():
     v1 = np.array([1.0, 2.0])
     v2 = np.array([1.0, 2.0])
     
-    with patch("app.matcher.semantic_matcher.cosine_similarity", side_effect=RuntimeError("Sklearn internal error")):
+    with patch("app.matching.semantic_matcher.cosine_similarity", side_effect=RuntimeError("Sklearn internal error")):
         with pytest.raises(SemanticMatchingError, match="Similarity calculation failed"):
             matcher.compute_similarity(v1, v2)

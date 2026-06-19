@@ -4,7 +4,7 @@ Skill confidence engine for orchestrating evidence and signal calculators into f
 
 import logging
 from typing import Dict, Any
-from app.models.resume_schema import ResumeProfile
+from app.schemas.resume_schema import ResumeProfile
 from app.experience_analysis.models import SkillConfidenceProfile
 from app.experience_analysis.evidence_collector import SkillEvidenceCollector
 from app.experience_analysis.complexity_calculator import ComplexityCalculator

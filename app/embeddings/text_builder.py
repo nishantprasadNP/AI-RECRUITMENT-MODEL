@@ -1,6 +1,6 @@
 import logging
-from app.models.resume_schema import ResumeProfile
-from app.models.job_schema import JobProfile
+from app.schemas.resume_schema import ResumeProfile
+from app.schemas.job_schema import JobProfile
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -126,6 +126,7 @@ def build_job_text(job: JobProfile) -> str:
 
     Raises:
         TypeError: If the input is not a JobProfile instance.
+        ValueError: If the resulting text is empty (profile has no usable content).
     """
     if not isinstance(job, JobProfile):
         logger.error(f"Invalid input type: expected JobProfile, got {type(job)}")
@@ -137,34 +138,71 @@ def build_job_text(job: JobProfile) -> str:
     if job.job_summary:
         sections.append(f"Job Summary:\n{job.job_summary}")
 
-    # 2. Critical Skills
+    # 2. Seniority level
+    if job.seniority_level:
+        sections.append(f"Seniority Level:\n{job.seniority_level}")
+
+    # 3. Critical Skills
     if job.critical_skills:
         sections.append("Critical Skills:\n" + "\n".join(job.critical_skills))
 
-    # 3. Required Skills
+    # 4. Required Skills
     if job.required_skills:
         sections.append("Required Skills:\n" + "\n".join(job.required_skills))
 
-    # 4. Preferred Skills
+    # 5. Preferred Skills
     if job.preferred_skills:
         sections.append("Preferred Skills:\n" + "\n".join(job.preferred_skills))
 
-    # 5. Responsibility Themes
+    # 6. Responsibility Themes
     if job.responsibility_themes:
         sections.append("Responsibility Themes:\n" + "\n".join(job.responsibility_themes))
 
-    # 6. Soft Skills
+    # 7. Soft Skills
     if job.soft_skills:
         sections.append("Soft Skills:\n" + "\n".join(job.soft_skills))
 
-    # 7. Domain Knowledge
+    # 8. Domain Knowledge
     if job.domain_knowledge:
         sections.append("Domain Knowledge:\n" + "\n".join(job.domain_knowledge))
 
-    # 8. Tools and Technologies
+    # 9. Tools and Technologies
     if job.tools_and_technologies:
         sections.append("Tools and Technologies:\n" + "\n".join(job.tools_and_technologies))
 
+    # 10. Future Potential Signals
+    if job.future_potential_signals:
+        sections.append("Future Potential Signals:\n" + "\n".join(job.future_potential_signals))
+
+    # 11. Hidden Hiring Signals — convert boolean flags to descriptive text
+    if job.hidden_hiring_signals:
+        signal_labels = {
+            "autonomy_required": "High autonomy required",
+            "client_facing": "Client-facing role",
+            "research_oriented": "Research-oriented work",
+            "innovation_focused": "Innovation and R&D focused",
+            "startup_environment": "Fast-paced startup environment",
+            "high_ownership": "High personal ownership expected",
+        }
+        active_signals = [
+            label
+            for attr, label in signal_labels.items()
+            if getattr(job.hidden_hiring_signals, attr, False)
+        ]
+        if active_signals:
+            sections.append("Hiring Signals:\n" + "\n".join(active_signals))
+
     result = "\n\n".join(sections)
+
+    if not result.strip():
+        logger.warning(
+            "build_job_text produced empty output — the extracted JobProfile has no "
+            "usable content. Check that the LLM extraction succeeded for the job description."
+        )
+        raise ValueError(
+            "Job profile text is empty. The LLM may have failed to extract meaningful content "
+            "from the job description. Verify the JD text is non-trivial and re-run."
+        )
+
     logger.info(f"Successfully built job text. Total length: {len(result)} characters.")
     return result

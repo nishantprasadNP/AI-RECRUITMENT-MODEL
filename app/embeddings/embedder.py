@@ -3,7 +3,7 @@ import math
 from typing import List, Optional
 import google.generativeai as genai
 
-from app.config import GEMINI_API_KEY
+from app.core.config import GEMINI_API_KEY
 
 logger = logging.getLogger(__name__)
 

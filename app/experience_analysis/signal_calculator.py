@@ -3,7 +3,7 @@ Signal calculator for generating normalized evidence signals for skills.
 """
 
 import logging
-from app.models.resume_schema import ResumeProfile
+from app.schemas.resume_schema import ResumeProfile
 from app.experience_analysis.models import SkillEvidence
 
 

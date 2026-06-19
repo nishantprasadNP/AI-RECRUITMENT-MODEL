@@ -1,150 +1,170 @@
 # AI Recruitment Intelligence System (ARIS)
 
-A production-ready Python parser and AI-driven intelligence system for recruiting operations. It handles two core pipelines:
-1. **Resume Processing**: Automatically extracts and cleans text from PDF resumes, processes the unstructured text using Google Gemini Large Language Models, validates the output against strict Pydantic schemas, and saves structured candidate profiles as pretty-printed JSON files.
-2. **Job Description Intelligence**: Transforms unstructured Job Descriptions (JDs) into structured hiring profiles using the Gemini API, identifying both explicit requirements and implicit hiring signals, and persisting them as validated JSON files.
+A production-ready, AI-driven recruitment intelligence system built in Python. ARIS transforms unstructured PDF resumes and raw job descriptions into structured intelligence assets, computes semantic match scores, and produces explainable skill evidence profiles — all orchestrated through a single, clean pipeline API.
 
 ---
 
 ## Table of Contents
 - [Features](#features)
 - [System Architecture](#system-architecture)
-- [System Phases](#system-phases)
+- [Pipeline Stages](#pipeline-stages)
 - [Project Directory Structure](#project-directory-structure)
 - [Setup & Installation](#setup--installation)
-  - [1. Create Virtual Environment](#1-create-virtual-environment)
-  - [2. Activate Virtual Environment](#2-activate-virtual-environment)
-  - [3. Install Dependencies](#3-install-dependencies)
-  - [4. Environment Variables](#4-environment-variables)
-- [Usage & Execution Workflows](#usage--execution-workflows)
-  - [Running the Dual-Engine PDF Text Parser](#running-the-dual-engine-pdf-text-parser)
-  - [Running the AI Resume Extractor](#running-the-ai-resume-extractor)
-  - [Running the Job Description Intelligence Engine](#running-the-job-description-intelligence-engine)
-- [Structured Profiles Data Schema](#structured-profiles-data-schema)
-  - [Candidate Resume Schema](#candidate-resume-schema)
-  - [Hiring Job Profile Schema](#hiring-job-profile-schema)
-- [Advanced Extraction Quality Rules](#advanced-extraction-quality-rules)
-- [Error Handling & Custom Exceptions](#error-handling--custom-exceptions)
-- [Running Unit Tests](#running-unit-tests)
+- [Usage](#usage)
+  - [Full Pipeline via Orchestrator (Recommended)](#full-pipeline-via-orchestrator-recommended)
+  - [Individual Stage Scripts](#individual-stage-scripts)
+  - [Programmatic API](#programmatic-api)
+- [Data Schemas](#data-schemas)
+- [Extraction Quality Rules](#extraction-quality-rules)
+- [Error Handling](#error-handling)
+- [Running Tests](#running-tests)
 
 ---
 
 ## Features
 
-- **Dual-Engine PDF Parsing**: Utilizes `pdfplumber` and `PyMuPDF (fitz)` concurrently to extract raw text, applying layout-preserving text cleaning to strip excess white spaces and preserve structural alignments (headings, bullets).
-- **Quality Metric Comparison**: Compares extraction results from both PDF engines using an alphanumeric-to-character ratio density score to select the cleanest, highest-quality textual representation.
-- **LLM-Powered Information Extraction**: Integrates with the Google Gemini API (supporting `gemini-2.5-flash` or custom models) using precise system instructions to parse unstructured texts into formatted JSON.
-- **Job Description Intelligence**: Translates vague/unstructured job descriptions into deep hiring profiles mapping mandatory/preferred skills, leadership indicators, domains, soft skills, seniority levels, complexity scores, and future potential indicators.
-- **Strict Data Validation**: Leverages `Pydantic` v2 to validate extracted JSON data against standard schemas, filtering out formatting issues or invalid data structures.
-- **Normalized Persistence & Storage**: Sanitizes candidate and role names, writing pretty-printed JSON profiles to their respective folders inside `data/`.
-- **Comprehensive Logging**: Tracks validation workflows, API requests, execution status, and warning states in both console output and `logs/resume_parser.log`.
+- **Central Orchestrator**: A single `RecruitmentOrchestrator.run()` call executes the complete pipeline — no manual script chaining required.
+- **Dual-Engine PDF Parsing**: Uses `pdfplumber` and `PyMuPDF (fitz)` concurrently, selecting the cleanest output via an alphanumeric-to-character quality score.
+- **LLM-Powered Extraction**: Integrates with Google Gemini API (`gemini-2.5-flash`) to extract structured candidate and job profiles from unstructured text.
+- **Skill Knowledge Graph**: Builds a NetworkX directed graph from a skills taxonomy to expand and infer implicit candidate skills.
+- **Skill Evidence Engine**: Produces `ExplainableSkillProfile` objects with weighted evidence chains, attribution sources, and tier classifications.
+- **Semantic Matching**: Generates vector embeddings via local SentenceTransformer (`all-mpnet-base-v2`) and computes cosine similarity match scores.
+- **Structured Persistence**: Saves validated Pydantic profiles and timestamped match reports as pretty-printed JSON files.
+- **Comprehensive Logging**: All stages log to both stdout and `logs/aris.log`.
 
 ---
 
 ## System Architecture
 
-ARIS provides twin pipelines to convert unstructured PDFs and text JDs into structured intelligence assets:
-
 ```mermaid
 graph TD
-    %% Resume Pipeline
-    A1[Candidate PDF Resume] --> B1[Dual-Engine Parser]
-    B1 -->|pdfplumber & PyMuPDF| C1[Clean Text Extraction]
-    C1 --> D1[Gemini Resume Extractor]
-    D1 -->|Resume Schema Prompt| E1[Pydantic Validation]
-    E1 -->|Valid JSON| F1[Save to data/extracted_profiles/]
+    A[Resume PDF] --> B[Dual-Engine PDF Parser\napp/ingestion/]
+    B --> C[Raw Resume Text]
+    C --> D[Resume LLM Extractor\napp/extraction/]
+    D --> E[ResumeProfile\napp/schemas/]
     
-    %% JD Pipeline
-    A2[Unstructured Job Description] --> B2[Gemini JD Extractor]
-    B2 -->|Talent Analyst System Prompt| C2[Pydantic Validation]
-    C2 -->|Valid JSON| D2[Save to data/extracted_jobs/]
+    F[Job Description Text] --> G[Job LLM Extractor\napp/extraction/]
+    G --> H[JobProfile\napp/schemas/]
 
-    %% Embedding & Matcher Pipeline
-    F1 --> G1[Resume Text Builder]
-    D2 --> G2[JD Text Builder]
-    G1 -->|Clean Semantic Text| H1[Local / API Embeddings]
-    G2 -->|Clean Semantic Text| H2[Local / API Embeddings]
-    H1 --> I1[Semantic Matcher]
-    H2 --> I1
-    I1 -->|Cosine Similarity| J1[Match Score]
+    E --> I[Skill Evidence Engine\napp/skill_evidence/]
+    I --> J[ExplainableSkillProfile]
+
+    E --> K[Text Builder\napp/embeddings/]
+    H --> K
+    K --> L[Semantic Embeddings\napp/embeddings/]
+    L --> M[Cosine Similarity\napp/matching/]
+    M --> N[Match Score]
+
+    E --> O[data/extracted_profiles/]
+    H --> P[data/extracted_jobs/]
+    N --> Q[data/match_reports/]
+
+    style I fill:#6c63ff,color:#fff
+    style M fill:#6c63ff,color:#fff
+    style D fill:#3b82f6,color:#fff
+    style G fill:#3b82f6,color:#fff
 ```
 
 ---
 
-## System Phases
+## Pipeline Stages
 
-The system processes data in 6 distinct phases to ensure reliability, semantic searchability, and explainability:
-
-| Phase | Title | Description | Key Components / Files |
-| :--- | :--- | :--- | :--- |
-| **Phase 1** | **Dual-Engine PDF Parsing** | Extracts layout-preserving text from PDFs using `pdfplumber` and `PyMuPDF` concurrently, selecting the higher quality output based on alphanumeric-to-character ratio. | [resume_parser.py](file:///e:/AI%20Recruitment%20Model/app/parsers/resume_parser.py) |
-| **Phase 2** | **LLM Resume Extraction** | Submits parsed resume text to Gemini API, extracts candidate info, and validates against structured Pydantic schema. | [resume_information_extractor.py](file:///e:/AI%20Recruitment%20Model/app/extractors/resume_information_extractor.py), [resume_schema.py](file:///e:/AI%20Recruitment%20Model/app/models/resume_schema.py) |
-| **Phase 3** | **Job Intelligence Engine** | Processes unstructured Job Descriptions (JDs) via Gemini API, extracting explicit/implicit requirements and hidden hiring signals. | [job_extractor.py](file:///e:/AI%20Recruitment%20Model/app/extractors/job_extractor.py), [job_schema.py](file:///e:/AI%20Recruitment%20Model/app/models/job_schema.py) |
-| **Phase 4** | **Skill Knowledge Graph** | Builds a NetworkX directed graph from a skills taxonomy JSON, traversing parent-child and related skill nodes to infer implicit candidate skills. | [networkx_repository.py](file:///e:/AI%20Recruitment%20Model/app/knowledge_graph/repositories/networkx_repository.py), [skill_graph_service.py](file:///e:/AI%20Recruitment%20Model/app/knowledge_graph/services/skill_graph_service.py) |
-| **Phase 5** | **Experience & Confidence Engine** | Analyzes candidate experiences and projects to calculate professional exposure, duration depth, and role complexity signals to score skill confidence. | [skill_confidence_engine.py](file:///e:/AI%20Recruitment%20Model/app/experience_analysis/skill_confidence_engine.py), [models.py](file:///e:/AI%20Recruitment%20Model/app/experience_analysis/models.py) |
-| **Phase 6** | **Semantic Matching Engine** | Compiles structured profiles into semantic text representations, generates vector embeddings, and computes cosine similarity matcher scores. | [semantic_matcher.py](file:///e:/AI%20Recruitment%20Model/app/matcher/semantic_matcher.py), [embedder.py](file:///e:/AI%20Recruitment%20Model/app/embeddings/embedder.py) |
+| Stage | Name | Description | Key Module |
+|:---:|:---|:---|:---|
+| **1** | **PDF Ingestion** | Extracts layout-preserving text from PDFs using dual engines (pdfplumber + PyMuPDF), selecting the higher quality output. | [`app/ingestion/resume_parser.py`](app/ingestion/resume_parser.py) |
+| **2** | **Resume Extraction** | Submits parsed text to Gemini API, extracts structured candidate fields, validates against Pydantic schema. | [`app/extraction/resume_extractor.py`](app/extraction/resume_extractor.py) |
+| **3** | **Job Extraction** | Processes raw job descriptions via Gemini, extracting explicit/implicit requirements and hidden hiring signals. | [`app/extraction/job_extractor.py`](app/extraction/job_extractor.py) |
+| **4** | **Skill Knowledge Graph** | Builds a NetworkX directed skill graph from a taxonomy JSON to infer implicit candidate skills. | [`app/knowledge_graph/`](app/knowledge_graph/) |
+| **5** | **Skill Evidence Engine** | Analyses a ResumeProfile through multi-source evidence collection, dependency expansion, project inheritance, and produces explainable skill profiles. | [`app/skill_evidence/`](app/skill_evidence/) |
+| **6** | **Semantic Matching** | Compiles profiles into semantic text, generates local embeddings, and computes cosine similarity. | [`app/matching/`](app/matching/), [`app/embeddings/`](app/embeddings/) |
 
 ---
 
 ## Project Directory Structure
 
-```text
+```
 AI-RECRUITMENT-MODEL/
 ├── app/
-│   ├── embeddings/
-│   │   ├── embedding_generator.py           # Local SentenceTransformer Embedding Generator
-│   │   ├── embedder.py                      # Gemini API-based Embedding Service
-│   │   └── text_builder.py                  # Resume & JD JSON-to-text semantic compiler
-│   ├── extractors/
-│   │   ├── job_extractor.py                 # Job Description LLM Extraction Service
-│   │   └── resume_information_extractor.py  # Resume LLM Extraction Service
-│   ├── matcher/
-│   │   └── semantic_matcher.py              # Cosine Similarity score engine using scikit-learn
-│   ├── models/
-│   │   ├── job_schema.py                    # Pydantic schemas (JobProfile)
-│   │   └── resume_schema.py                 # Pydantic schemas (ResumeProfile)
-│   ├── parsers/
-│   │   └── resume_parser.py                 # Dual-Engine text parser (pdfplumber/PyMuPDF)
-│   ├── prompts/
-│   │   ├── job_prompt.py                    # System & User prompts for Job Description LLM
-│   │   └── extraction_prompt.py             # System & User prompts for Resume LLM
-│   ├── storage/
-│   │   ├── job_storage.py                   # Persistent storage for job profiles
-│   │   └── profile_storage.py               # Persistent storage for candidate profiles
-│   ├── config.py                            # Environment configurations (.env parser)
-│   └── main.py                              # Resume parsing entry point CLI demo
+│   ├── core/                            # Shared foundation layer
+│   │   ├── config.py                    # Environment & API key configuration
+│   │   ├── logging_setup.py             # Centralised logging initialisation
+│   │   └── exceptions.py               # Shared exception base classes
+│   │
+│   ├── ingestion/                       # Stage 1 — Document parsing
+│   │   └── resume_parser.py             # Dual-engine PDF text extractor
+│   │
+│   ├── extraction/                      # Stage 2 & 3 — LLM extraction
+│   │   ├── resume_extractor.py          # Candidate profile LLM extraction service
+│   │   └── job_extractor.py             # Job description LLM extraction service
+│   │
+│   ├── schemas/                         # Pydantic data contracts
+│   │   ├── resume_schema.py             # ResumeProfile, Experience, Project, etc.
+│   │   └── job_schema.py                # JobProfile, HiddenHiringSignals, etc.
+│   │
+│   ├── prompts/                         # LLM system & user prompts
+│   │   ├── extraction_prompt.py         # Resume extraction prompts
+│   │   └── job_prompt.py                # Job description extraction prompts
+│   │
+│   ├── knowledge_graph/                 # Stage 4 — Skill graph
+│   │   ├── repositories/                # NetworkX graph data layer
+│   │   ├── services/                    # SkillGraphService (query API)
+│   │   ├── inference/                   # SkillInferenceEngine
+│   │   ├── models.py                    # SkillNode data model
+│   │   └── exceptions.py               # Graph-specific exceptions
+│   │
+│   ├── skill_evidence/                  # Stage 5 — Skill Evidence Engine
+│   │   ├── engines/                     # Sub-engines (collection, dependency, inheritance, aggregation)
+│   │   ├── graph/                       # ISkillGraphAdapter interface
+│   │   ├── models/                      # Evidence data models (ExplainableSkillProfile, etc.)
+│   │   ├── scoring/                     # EvidenceScorer, TierClassifier
+│   │   └── services/                    # SkillEvidenceEngine (main orchestrator), factory
+│   │
+│   ├── experience_analysis/             # Experience scoring helpers
+│   │   ├── complexity_calculator.py     # Project/role complexity scoring
+│   │   ├── confidence_calculator.py     # Skill confidence level calculator
+│   │   ├── evidence_collector.py        # Direct evidence collection from profiles
+│   │   ├── signal_calculator.py         # Experience signal strength scoring
+│   │   ├── skill_confidence_engine.py   # Confidence engine orchestrator
+│   │   └── models.py                    # SkillEvidence, SkillConfidenceProfile
+│   │
+│   ├── embeddings/                      # Stage 6 — Embedding generation
+│   │   ├── embedding_generator.py       # Local SentenceTransformer embedding generator
+│   │   ├── embedder.py                  # Gemini API-based embedding service
+│   │   └── text_builder.py             # Profile-to-semantic-text compiler
+│   │
+│   ├── matching/                        # Stage 6 — Semantic similarity
+│   │   └── semantic_matcher.py          # Cosine similarity engine (scikit-learn)
+│   │
+│   ├── storage/                         # Persistent storage layer
+│   │   ├── profile_storage.py           # Saves ResumeProfile as JSON
+│   │   └── job_storage.py               # Saves JobProfile as JSON
+│   │
+│   ├── utils/                           # Shared utilities
+│   │   └── file_utils.py                # PDF path validation & parser exceptions
+│   │
+│   ├── orchestrator.py                  # ★ Central pipeline orchestrator
+│   └── main.py                          # Legacy CLI shim (see scripts/ instead)
+│
+├── scripts/                             # Standalone run & demo scripts
+│   ├── run_full_pipeline.py             # ★ Full end-to-end pipeline via orchestrator
+│   ├── run_resume_pipeline.py           # Resume parsing + extraction only
+│   ├── run_job_pipeline.py              # Job description extraction only
+│   └── run_matching.py                  # Semantic matching on saved profiles
+│
 ├── data/
-│   ├── extracted_jobs/                      # Saved job profile JSON documents
-│   └── extracted_profiles/                  # Saved candidate profile JSON documents
-├── logs/
-│   └── resume_parser.log                    # Local execution logs
-├── sample_jds/
-│   ├── nishant_jd.txt                       # Razorpay Chief of Staff / AI Builder JD
-│   └── senior_software_engineer.txt         # Senior Software Engineer JD
-├── sample_resumes/
-│   ├── resume.pdf                           # Default sample resume
-│   └── resume1.pdf                          # Secondary sample resume
-├── tests/
-│   ├── test_embedder.py                     # API-based embedding unit tests
-│   ├── test_embedding_generator.py          # Local embedding generator unit tests
-│   ├── test_information_extractor.py        # Resume extractor unit tests
-│   ├── test_job_extractor.py                # Job extractor unit tests
-│   ├── test_resume_parser.py                # Parser layout & error handling unit tests
-│   ├── test_semantic_matcher.py             # Cosine similarity matcher unit tests
-│   └── test_text_builder.py                 # Semantic text builder unit tests
-├── .env                                     # Local environment file (API keys)
-├── .env.example                             # Environment variable template
-├── .gitignore                               # Git ignored files & dirs (.venv, logs, etc.)
-├── parsed_resume.txt                        # Output file from text parsing run
-├── requirements.txt                         # Python packages & dependencies
-├── test_embedding_generation.py             # Standalone local embedding generation test script
-├── test_end_to_end_semantic_matching.py     # Standalone end-to-end semantic match test script
-├── test_information_extraction.py           # Standalone LLM resume extraction run script
-├── test_job_extraction.py                   # Standalone LLM job extraction run script
-├── test_matching.py                         # Standalone API-based matching run script
-├── test_resume.py                           # Standalone parser run script
-├── test_semantic_matcher.py                 # Standalone local text matching test script
-└── README.md                                # Project documentation
+│   ├── extracted_profiles/              # Saved candidate profile JSONs
+│   ├── extracted_jobs/                  # Saved job profile JSONs
+│   ├── skill_graph/                     # Skill taxonomy JSON files
+│   └── match_reports/                   # Timestamped match result JSONs
+│
+├── tests/                               # Unit tests (115 tests, all passing)
+│
+├── sample_jds/                          # Sample job description text files
+├── sample_resumes/                      # Sample resume PDF files
+├── logs/                                # Runtime logs → aris.log
+├── .env                                 # Local environment file (API keys)
+├── requirements.txt                     # Python dependencies
+└── README.md
 ```
 
 ---
@@ -152,38 +172,29 @@ AI-RECRUITMENT-MODEL/
 ## Setup & Installation
 
 ### 1. Create Virtual Environment
-Ensure you have Python 3.8+ installed. Initialize a clean virtual environment named `.venv`:
-```powershell
+```bash
 python -m venv .venv
 ```
 
 ### 2. Activate Virtual Environment
-Activate the environment based on your operating system:
-- **Windows (PowerShell)**:
-  ```powershell
-  .venv\Scripts\Activate.ps1
-  ```
-- **Windows (Command Prompt)**:
-  ```cmd
-  .venv\Scripts\activate.bat
-  ```
-- **macOS/Linux**:
-  ```bash
-  source .venv/bin/activate
-  ```
+```bash
+# macOS / Linux
+source .venv/bin/activate
+
+# Windows (PowerShell)
+.venv\Scripts\Activate.ps1
+```
 
 ### 3. Install Dependencies
-Install all required packages from `requirements.txt`:
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Environment Variables
-Copy `.env.example` to create your local `.env` configuration:
-```powershell
-copy .env.example .env
+### 4. Configure Environment Variables
+```bash
+cp .env.example .env
 ```
-Open `.env` and fill in your Gemini API credentials:
+Edit `.env`:
 ```env
 GEMINI_API_KEY=your_gemini_api_key_here
 GEMINI_MODEL=gemini-2.5-flash
@@ -191,219 +202,182 @@ GEMINI_MODEL=gemini-2.5-flash
 
 ---
 
-## Usage & Execution Workflows
+## Usage
 
-### Running the Dual-Engine PDF Text Parser
+### Full Pipeline via Orchestrator (Recommended)
 
-You can execute the text parsing component via two methods:
+The simplest way to run ARIS end-to-end is via the orchestrator script:
 
-#### Method A: Demo CLI Program
-Run the parser on the default sample resume or supply a custom PDF file:
 ```bash
-# Run on default sample resume
-python app/main.py
+# Using default sample files
+python scripts/run_full_pipeline.py
 
-# Run on a custom resume PDF
-python app/main.py path/to/your_resume.pdf
+# Custom resume, JD and role name
+python scripts/run_full_pipeline.py path/to/resume.pdf path/to/jd.txt "Senior Software Engineer"
 ```
 
-#### Method B: Standalone Run Script
-Run the basic parser which outputs the raw extracted text into `parsed_resume.txt`:
-```bash
-python test_resume.py
+**Expected output:**
+```
+================================================================================
+       AI Recruitment Intelligence System (ARIS) — Full Pipeline
+================================================================================
+[*] Resume  : sample_resumes/resume1.pdf
+[*] JD file : sample_jds/senior_software_engineer.txt
+[*] Role    : role
+
+================================================================================
+  PIPELINE RESULTS
+================================================================================
+  Candidate          : NISHANT PRASAD
+  Role               : role
+  Semantic Score     : 0.5545  (55.45%)
+
+  Resume Profile     : data/extracted_profiles/nishant_prasad.json
+  Job Profile        : data/extracted_jobs/role.json
+  Match Report       : data/match_reports/nishant_prasad__role__20260619_103000.json
+================================================================================
 ```
 
 ---
 
-### Running the AI Resume Extractor
+### Individual Stage Scripts
 
-The resume extractor reads a parsed resume text, invokes the Gemini API to extract candidate fields, validates the response schema, and saves the output JSON file.
+Run individual pipeline stages in isolation:
 
-To run the complete candidate extraction pipeline:
 ```bash
-python test_information_extraction.py
-```
+# Parse a resume PDF and extract structured candidate profile
+python scripts/run_resume_pipeline.py
+python scripts/run_resume_pipeline.py path/to/resume.pdf
 
-#### Expected Candidate Extraction Pipeline Sequence:
-1. **Reads** text from `parsed_resume.txt` (if missing, it automatically generates it from `sample_resumes/resume1.pdf`).
-2. **Submits** text to Gemini with System Instructions.
-3. **Receives & Sanitizes** JSON response (strips any markdown code fences).
-4. **Validates** data structure via Pydantic model (`ResumeProfile`).
-5. **Saves** file naming to `data/extracted_profiles/` (e.g. `john_doe.json`).
+# Extract a structured job profile from a JD text file
+python scripts/run_job_pipeline.py
+python scripts/run_job_pipeline.py path/to/jd.txt "Role Name"
 
----
-
-### Running the Job Description Intelligence Engine
-
-The Job Description (JD) Intelligence Engine reads an unstructured JD text file, analyzes it via Gemini to extract explicit/implicit roles and hidden signals, validates the structure, and outputs a formatted JSON file.
-
-To run the complete job description extraction pipeline:
-```bash
-python test_job_extraction.py
-```
-
-#### Expected Job Extraction Pipeline Sequence:
-1. **Reads** raw job description text from `sample_jds/nishant_jd.txt`.
-2. **Submits** text to Gemini with specialized Talent Analyst Instructions and Advanced Quality Rules.
-3. **Validates** JSON parameters via Pydantic model (`JobProfile`).
-4. **Saves** sanitized file to `data/extracted_jobs/` (e.g. `senior_software_engineer.json`).
-
----
-
-### Running the Embedding & Semantic Similarity Engine
-
-ARIS supports local embedding generation (via `all-mpnet-base-v2`) and semantic cosine similarity scoring between candidate resumes and job descriptions.
-
-#### Method A: Local Embedding Verification
-To generate an embedding vector for a candidate profile JSON and inspect its shape:
-```bash
-python test_embedding_generation.py
-```
-This runs the local SentenceTransformer embedding generator and outputs:
-```text
-==================================================
- LOCAL EMBEDDING GENERATION COMPLETE
-==================================================
-Candidate: NISHANT PRASAD
-
-Embedding Shape:
-(768,)
-==================================================
-```
-
-#### Method B: Standalone Similarity Matching
-To verify similarity calculation between two raw text blocks:
-```bash
-python test_semantic_matcher.py
-```
-This prints the calculated cosine similarity score:
-```text
-==================================================
-Semantic Score: 0.7183
-==================================================
-```
-
-#### Method C: End-to-End Matching
-To load saved JSON profiles, build their semantic representations, encode them, and calculate the final matching score:
-```bash
-python test_end_to_end_semantic_matching.py
-```
-Expected Output:
-```text
-============================================================
-END-TO-END SEMANTIC MATCHING RESULTS
-============================================================
-
-Candidate: NISHANT PRASAD
-Job: Senior Software Engineer
-
-Resume Text Length: 3207
-JD Text Length: 1753
-
-Resume Embedding Shape: (768,)
-JD Embedding Shape: (768,)
-
-Semantic Score: 0.5545
-============================================================
+# Compute semantic similarity between saved profiles
+python scripts/run_matching.py
+python scripts/run_matching.py data/extracted_profiles/john.json data/extracted_jobs/engineer.json
 ```
 
 ---
 
-## Structured Profiles Data Schema
+### Programmatic API
 
-### Candidate Resume Schema
-Defined in [resume_schema.py](file:///e:/AI%20Recruitment%20Model/app/models/resume_schema.py):
-- **`Skill`**: `name`
-- **`Experience`**: `role`, `company`, `start_date`, `end_date`, `duration`, `description`
-- **`Project`**: `name`, `technologies`, `description`
-- **`Certification`**: `name`, `issuer`, `year`
-- **`Education`**: `degree`, `institution`, `field`, `graduation_year`
-- **`ResumeProfile`**: Encompasses name, skills, experience list, projects list, education, certifications, and achievements.
+Use the orchestrator directly from Python code:
 
-### Hiring Job Profile Schema
-Defined in [job_schema.py](file:///e:/AI%20Recruitment%20Model/app/models/job_schema.py):
-- **`EducationRequirement`**: `degree` (degree type, e.g. B.Tech), `field` (major, e.g. Computer Science).
-- **`HiddenHiringSignals`**: `autonomy_required`, `client_facing`, `research_oriented`, `innovation_focused`, `startup_environment`, `high_ownership`.
-- **`JobProfile`**: 
-  - `required_skills`: List of mandatory skills.
-  - `preferred_skills`: List of nice-to-have skills.
-  - `critical_skills`: Ordered list of top 5 skills.
-  - `experience_required`: Minimum years of experience.
-  - `education`: Required degree details.
-  - `leadership`: Whether the role demands leadership/management.
-  - `seniority_level`: entry, junior, mid, senior, lead, manager, director.
-  - `responsibility_themes`: Key job themes (limit to 10).
-  - `domain_knowledge`: Domain/industry expertise (e.g. FinTech).
-  - `soft_skills`: Identified or strongly implied soft skills.
-  - `tools_and_technologies`: Developer environments, platforms, databases, libraries.
-  - `hidden_hiring_signals`: Inferred operational style signals.
-  - `role_complexity_score`: Numeric difficulty index from 1 to 10.
-  - `future_potential_signals`: growth traits (willingness to learn, adaptability).
-  - `job_summary`: Brief role objective description.
+```python
+from app.core.logging_setup import setup_logging
+from app.orchestrator import RecruitmentOrchestrator
+
+setup_logging()
+
+orchestrator = RecruitmentOrchestrator()
+
+result = orchestrator.run(
+    resume_pdf_path="sample_resumes/resume1.pdf",
+    jd_text=open("sample_jds/senior_software_engineer.txt").read(),
+    job_name="Senior Software Engineer",
+)
+
+print(f"Candidate : {result.candidate_name}")
+print(f"Score     : {result.semantic_score:.4f} ({result.semantic_score * 100:.2f}%)")
+print(f"Report    : {result.match_report_path}")
+```
+
+**`OrchestratorResult` fields:**
+
+| Field | Type | Description |
+|:---|:---|:---|
+| `candidate_name` | `str` | Extracted candidate full name |
+| `job_name` | `str` | Role label used for file naming |
+| `resume_profile` | `ResumeProfile` | Validated candidate Pydantic profile |
+| `job_profile` | `JobProfile` | Validated job Pydantic profile |
+| `semantic_score` | `float` | Cosine similarity score [0.0 — 1.0] |
+| `resume_profile_path` | `str` | Path to saved candidate JSON |
+| `job_profile_path` | `str` | Path to saved job JSON |
+| `match_report_path` | `str` | Path to saved match report JSON |
 
 ---
 
-## Advanced Extraction Quality Rules
+## Data Schemas
 
-The Job Description Intelligence Engine enforces rigorous extraction boundaries to guarantee profile precision:
+### Candidate Resume Schema ([`app/schemas/resume_schema.py`](app/schemas/resume_schema.py))
 
-- **The Golden Rule**: Every extracted data point must belong to either an *Explicit Fact* (directly stated) or a *Supported Inference* (implied by multiple pieces of evidence). When evidence is insufficient, fields must default to `null`, `[]`, or `false`. Accuracy is strictly favored over completeness.
-- **Required & Preferred Skills Criteria**:
-  - Skills are only extracted if the exact term or its valid normalization appears in the JD.
-  - Normalization is limited to industry-standard mappings (e.g., `K8s` $\rightarrow$ `Kubernetes`, `Postgres` $\rightarrow$ `PostgreSQL`, `TS` $\rightarrow$ `TypeScript`, `JS` $\rightarrow$ `JavaScript`).
-  - Common skills associated with job titles or industries are **never** inferred if they are not explicitly mentioned in the text.
-- **Strict People Leadership Definition**: `leadership` is set to `true` **only** when there is direct evidence of people management, supervision, or mentorship of individuals. Technical leadership (e.g., owning architectures, driving roadmap execution, project delivery ownership) is explicitly classified as `leadership = false`.
-- **Hallucination Prevention**: Forbids outputting unmentioned technologies, frameworks, databases, or AI models. For example, if `OpenAI` is mentioned, the engine is explicitly prohibited from generating competing models like `Anthropic` or `Gemini` unless they also appear in the text.
+| Class | Key Fields |
+|:---|:---|
+| `ResumeProfile` | `name`, `skills[]`, `experience[]`, `projects[]`, `education[]`, `certifications[]`, `achievements[]` |
+| `Experience` | `role`, `company`, `start_date`, `end_date`, `duration`, `description` |
+| `Project` | `name`, `technologies[]`, `description` |
+| `Certification` | `name`, `issuer`, `year` |
+| `Education` | `degree`, `institution`, `field`, `graduation_year` |
+
+### Job Profile Schema ([`app/schemas/job_schema.py`](app/schemas/job_schema.py))
+
+| Class | Key Fields |
+|:---|:---|
+| `JobProfile` | `required_skills[]`, `preferred_skills[]`, `critical_skills[]`, `experience_required`, `education`, `leadership`, `seniority_level`, `responsibility_themes[]`, `domain_knowledge[]`, `soft_skills[]`, `tools_and_technologies[]`, `hidden_hiring_signals`, `role_complexity_score`, `future_potential_signals[]`, `job_summary` |
+| `HiddenHiringSignals` | `autonomy_required`, `client_facing`, `research_oriented`, `innovation_focused`, `startup_environment`, `high_ownership` |
+
+---
+
+## Extraction Quality Rules
+
+The Job Description Intelligence Engine enforces rigorous extraction boundaries:
+
+- **The Golden Rule**: Every extracted data point must be an *Explicit Fact* (directly stated) or a *Supported Inference* (implied by multiple evidence sources). When evidence is insufficient, fields default to `null`, `[]`, or `false`. Accuracy is strictly favoured over completeness.
+- **Skills Normalisation**: Extracted only if the exact term or a standard industry alias (e.g. `K8s` → `Kubernetes`, `TS` → `TypeScript`) appears in the source text.
+- **People Leadership**: `leadership = true` only when there is direct evidence of managing, supervising, or mentoring people. Technical ownership is classified as `false`.
+- **Hallucination Prevention**: Forbids outputting unmentioned technologies. If `OpenAI` is mentioned, competing models like `Anthropic` or `Gemini` are explicitly suppressed unless also mentioned.
 - **Hidden Hiring Signal Triggers**:
-  - `autonomy_required`: Triggered by terms like `minimal supervision`, `work independently`.
-  - `client_facing`: Triggered by `meetings with clients`, `present to customers`.
-  - `research_oriented`: Triggered by `experimentation`, `scientific investigation`.
-  - `innovation_focused`: Triggered by `prototype new solutions`, `develop novel approaches`.
-  - `startup_environment`: Triggered by `fast-paced startup`, `wear multiple hats`.
-  - `high_ownership`: Triggered by `own outcomes`, `end-to-end ownership`.
-- **Deduplication & Consistency Verification**:
-  - Filters duplicate values and aliases from all output arrays.
-  - Verifies that `critical_skills` are a strict subset of previously extracted required/preferred/tool list skills.
-  - Validates that `job_summary` is a pure synthesis of extracted information and introduces no new terms or requirements.
+  - `autonomy_required` → `"minimal supervision"`, `"work independently"`
+  - `client_facing` → `"meetings with clients"`, `"present to customers"`
+  - `innovation_focused` → `"prototype new solutions"`, `"develop novel approaches"`
+  - `startup_environment` → `"fast-paced startup"`, `"wear multiple hats"`
+  - `high_ownership` → `"own outcomes"`, `"end-to-end ownership"`
 
 ---
 
-## Error Handling & Custom Exceptions
+## Error Handling
 
-The system implements granular validation checks across all stages, raising explicit exceptions:
+### PDF Ingestion ([`app/utils/file_utils.py`](app/utils/file_utils.py), [`app/ingestion/resume_parser.py`](app/ingestion/resume_parser.py))
+- `ResumeParserError` — base class for all parser errors
+- `CorruptedPDFError` — malformed or invalid PDF structure
+- `EmptyPDFError` — PDF with no extractable text content
+- `EncryptedPDFError` — password-protected PDF
 
-### Parser Exceptions ([file_utils.py](file:///e:/AI%20Recruitment%20Model/app/utils/file_utils.py))
-- `ResumeParserError`: Base class for parser-related issues.
-- `FileNotFoundError`, `ValueError`, `CorruptedPDFError`, `EmptyPDFError`, `EncryptedPDFError`.
+### Resume Extraction ([`app/extraction/resume_extractor.py`](app/extraction/resume_extractor.py))
+- `EmptyResumeTextError` — empty input text
+- `MissingAPIKeyError` — `GEMINI_API_KEY` not configured
+- `GeminiAPIError` — Gemini API call failed
+- `InvalidJSONResponseError` — model returned non-JSON response
+- `ProfileValidationError` — Pydantic schema validation failed
 
-### Resume Extractor Exceptions ([resume_information_extractor.py](file:///e:/AI%20Recruitment%20Model/app/extractors/resume_information_extractor.py))
-- `ResumeExtractorError`: Base class for candidate extraction.
-- `EmptyResumeTextError`, `MissingAPIKeyError`, `GeminiAPIError`, `InvalidJSONResponseError`, `ProfileValidationError`.
+### Job Extraction ([`app/extraction/job_extractor.py`](app/extraction/job_extractor.py))
+- `EmptyJobTextError` — empty JD input text
+- All other exceptions match resume extraction pattern above.
 
-### Job Extractor Exceptions ([job_extractor.py](file:///e:/AI%20Recruitment%20Model/app/extractors/job_extractor.py))
-- `JobExtractorError`: Base class for job description extraction.
-- `EmptyJobTextError`: Raised if the input JD text is empty.
-- `MissingAPIKeyError`: Raised if `GEMINI_API_KEY` is not set.
-- `GeminiAPIError`: Raised if Gemini client calls fail.
-- `InvalidJSONResponseError`: Raised if the model fails to return standard JSON.
-- `ProfileValidationError`: Raised if Pydantic model validation fails against the schema.
-
-### Embedding & Matching Exceptions
-- `EmbeddingGenerationError` ([embedding_generator.py](file:///e:/AI%20Recruitment%20Model/app/embeddings/embedding_generator.py)): Raised if local SentenceTransformer initialization or vector generation fails.
-- `SemanticMatchingError` ([semantic_matcher.py](file:///e:/AI%20Recruitment%20Model/app/matcher/semantic_matcher.py)): Raised if cosine similarity calculation fails.
-- `EmbeddingError`, `MissingAPIKeyError`, `GeminiAPIError` ([embedder.py](file:///e:/AI%20Recruitment%20Model/app/embeddings/embedder.py)): Raised during API-based embedding operations.
+### Embedding & Matching
+- `EmbeddingGenerationError` — local SentenceTransformer init or encode failed
+- `SemanticMatchingError` — cosine similarity computation failed
+- `EmbeddingError`, `GeminiAPIError` — API-based embedding failures
 
 ---
 
-## Running Unit Tests
+## Running Tests
 
-The test suite contains unit tests covering engine cleaning, mock API scenarios, validation failures, and PDF edge cases.
-
-To run all unit tests:
 ```bash
-# General command
-pytest -v
+# Run all 115 unit tests
+pytest tests/ -v
 
-# Windows environment explicit execution
-.venv\Scripts\python.exe -m pytest -v
+# Run a specific test module
+pytest tests/test_resume_parser.py -v
+pytest tests/test_information_extractor.py -v
 ```
+
+The test suite covers:
+- PDF parsing (valid, empty, corrupted, encrypted, missing)
+- LLM extraction (valid response, markdown fences, empty input, missing API key, API failure, invalid JSON, Pydantic validation failure)
+- Skill knowledge graph (repository, service, inference engine)
+- Skill evidence engine (collection, dependency expansion, project inheritance, scoring, tier classification, capability aggregation)
+- Semantic matching (identical, orthogonal, similar vectors, validation errors)
+- Embedding generation (local SentenceTransformer init, encode, error handling)
+- Text builder (resume/job profile to semantic text conversion)

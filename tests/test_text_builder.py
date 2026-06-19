@@ -1,12 +1,12 @@
 import pytest
-from app.models.resume_schema import (
+from app.schemas.resume_schema import (
     ResumeProfile,
     Experience,
     Project,
     Education,
     Certification
 )
-from app.models.job_schema import (
+from app.schemas.job_schema import (
     JobProfile,
     EducationRequirement,
     HiddenHiringSignals
@@ -154,7 +154,7 @@ def test_build_job_text_success():
 
 
 def test_build_job_text_empty_fields():
-    """Test building job text when most fields are empty."""
+    """Test that a job profile with only seniority_level produces at least that section."""
     job = JobProfile(
         required_skills=[],
         preferred_skills=[],
@@ -172,9 +172,35 @@ def test_build_job_text_empty_fields():
         future_potential_signals=[],
         job_summary=""
     )
-    
+
+    # seniority_level="junior" is now included — text must be non-empty
     text = build_job_text(job)
-    assert text == ""
+    assert "junior" in text
+    assert "Seniority Level" in text
+
+
+def test_build_job_text_all_empty_raises():
+    """Test that a fully empty job profile raises ValueError instead of returning empty string."""
+    job = JobProfile(
+        required_skills=[],
+        preferred_skills=[],
+        critical_skills=[],
+        experience_required=None,
+        education=None,
+        leadership=False,
+        seniority_level="",
+        responsibility_themes=[],
+        domain_knowledge=[],
+        soft_skills=[],
+        tools_and_technologies=[],
+        hidden_hiring_signals=HiddenHiringSignals(),
+        role_complexity_score=1,
+        future_potential_signals=[],
+        job_summary=""
+    )
+
+    with pytest.raises(ValueError, match="Job profile text is empty"):
+        build_job_text(job)
 
 
 def test_build_job_text_invalid_input():

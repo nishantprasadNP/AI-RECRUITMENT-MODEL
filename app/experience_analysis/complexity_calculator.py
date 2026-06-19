@@ -5,7 +5,7 @@ Complexity calculator for evaluating technical project complexity and skill sign
 import re
 import logging
 from typing import List, Set, Optional
-from app.models.resume_schema import ResumeProfile, Project
+from app.schemas.resume_schema import ResumeProfile, Project
 
 
 # Setup logger

@@ -3,7 +3,7 @@ import pytest
 import shutil
 import fitz  # PyMuPDF
 
-from app.parsers.resume_parser import ResumeParser
+from app.ingestion.resume_parser import ResumeParser
 from app.utils.file_utils import (
     ResumeParserError,
     CorruptedPDFError,

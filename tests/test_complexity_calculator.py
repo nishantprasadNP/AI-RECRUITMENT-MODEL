@@ -1,5 +1,5 @@
 import pytest
-from app.models.resume_schema import ResumeProfile, Project
+from app.schemas.resume_schema import ResumeProfile, Project
 from app.experience_analysis.complexity_calculator import ComplexityCalculator
 
 

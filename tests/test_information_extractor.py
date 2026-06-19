@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import MagicMock, patch
 
-from app.extractors.resume_information_extractor import (
+from app.extraction.resume_extractor import (
     ResumeInformationExtractor,
     EmptyResumeTextError,
     MissingAPIKeyError,
@@ -9,7 +9,7 @@ from app.extractors.resume_information_extractor import (
     InvalidJSONResponseError,
     ProfileValidationError
 )
-from app.models.resume_schema import ResumeProfile
+from app.schemas.resume_schema import ResumeProfile
 
 @pytest.fixture
 def mock_extracted_json():
@@ -52,7 +52,7 @@ def mock_extracted_json():
       "achievements": ["Won National Hackathon"]
     }"""
 
-@patch("app.extractors.resume_information_extractor.genai")
+@patch("app.extraction.resume_extractor.genai")
 def test_valid_extraction(mock_genai, mock_extracted_json):
     """Verify that a valid LLM response yields a correctly parsed ResumeProfile Pydantic object."""
     mock_model = MagicMock()
@@ -75,7 +75,7 @@ def test_valid_extraction(mock_genai, mock_extracted_json):
     mock_genai.configure.assert_called_once_with(api_key="mock_key")
     mock_genai.GenerativeModel.assert_called_once()
 
-@patch("app.extractors.resume_information_extractor.genai")
+@patch("app.extraction.resume_extractor.genai")
 def test_valid_extraction_with_markdown_fences(mock_genai, mock_extracted_json):
     """Verify that the extractor automatically strips markdown code block wrapping from the JSON response."""
     mock_model = MagicMock()
@@ -109,7 +109,7 @@ def test_missing_api_key_handling():
     with pytest.raises(MissingAPIKeyError):
         extractor.extract("Valid resume text")
 
-@patch("app.extractors.resume_information_extractor.genai")
+@patch("app.extraction.resume_extractor.genai")
 def test_malformed_json_handling(mock_genai):
     """Verify that a non-JSON LLM response raises InvalidJSONResponseError."""
     mock_model = MagicMock()
@@ -123,7 +123,7 @@ def test_malformed_json_handling(mock_genai):
     with pytest.raises(InvalidJSONResponseError):
         extractor.extract("Mock resume text")
 
-@patch("app.extractors.resume_information_extractor.genai")
+@patch("app.extraction.resume_extractor.genai")
 def test_validation_failure_handling(mock_genai):
     """Verify that a response with an incorrect structure raises ProfileValidationError."""
     mock_model = MagicMock()
@@ -146,7 +146,7 @@ def test_validation_failure_handling(mock_genai):
     with pytest.raises(ProfileValidationError):
         extractor.extract("Mock resume text")
 
-@patch("app.extractors.resume_information_extractor.genai")
+@patch("app.extraction.resume_extractor.genai")
 def test_api_failure_handling(mock_genai):
     """Verify that standard Gemini API errors raise GeminiAPIError."""
     mock_model = MagicMock()

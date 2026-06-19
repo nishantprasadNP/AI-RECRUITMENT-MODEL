@@ -1,7 +1,7 @@
 import os
 import re
 import logging
-from app.models.job_schema import JobProfile
+from app.schemas.job_schema import JobProfile
 
 logger = logging.getLogger("resume_parser.job_storage")
 

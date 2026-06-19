@@ -1,6 +1,6 @@
 import re
 from typing import Dict, List, Set, Optional
-from app.models.resume_schema import ResumeProfile
+from app.schemas.resume_schema import ResumeProfile
 from app.experience_analysis.models import SkillEvidence
 from app.knowledge_graph.services.skill_graph_service import SkillGraphService
 

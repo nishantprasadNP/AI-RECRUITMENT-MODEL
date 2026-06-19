@@ -1,7 +1,7 @@
 import os
 import re
 import logging
-from app.models.resume_schema import ResumeProfile
+from app.schemas.resume_schema import ResumeProfile
 
 logger = logging.getLogger("resume_parser.profile_storage")
 
