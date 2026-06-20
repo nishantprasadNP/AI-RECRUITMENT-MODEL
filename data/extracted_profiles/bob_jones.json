@@ -1,0 +1,20 @@
+{
+  "name": "Bob Jones",
+  "skills": [
+    "Python"
+  ],
+  "experience": [
+    {
+      "role": "Junior Developer",
+      "company": null,
+      "start_date": null,
+      "end_date": null,
+      "duration": "1 year",
+      "description": null
+    }
+  ],
+  "projects": [],
+  "education": [],
+  "certifications": [],
+  "achievements": []
+}

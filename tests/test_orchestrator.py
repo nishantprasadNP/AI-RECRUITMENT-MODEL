@@ -88,9 +88,29 @@ def test_orchestrator_full_pipeline_run():
         assert result.role_profile.seniority == "senior"
         assert result.role_profile.evaluation_profile == "senior_backend"
 
+        # Verify evaluation strategy occurred and was attached
+        from app.evaluation_strategy.models import EvaluationStrategy
+        assert isinstance(result.evaluation_strategy, EvaluationStrategy)
+        assert result.evaluation_strategy.evaluation_profile == "senior_backend"
+        assert result.evaluation_strategy.strictness_level == "high"
+
+        # Verify achievement profile occurred and was attached
+        from app.achievement_analysis.models import AchievementProfile
+        assert isinstance(result.achievement_profile, AchievementProfile)
+        assert result.achievement_profile.achievement_score == 0.0  # mock profile has no achievements
+
         # Verify match report saved
         assert os.path.exists(result.match_report_path)
         assert result.match_report_path.startswith(tmp_dir)
+
+        # Verify the saved report contains the new fields
+        import json
+        with open(result.match_report_path, "r", encoding="utf-8") as f:
+            report_data = json.load(f)
+        assert "evaluation_strategy" in report_data
+        assert "achievement_profile" in report_data
+        assert report_data["evaluation_strategy"]["evaluation_profile"] == "senior_backend"
+        assert report_data["achievement_profile"]["achievement_score"] == 0.0
 
         # Verify parser, extractor, embedder, matcher were called
         mock_parser.extract_text.assert_called_once_with("dummy_path.pdf")

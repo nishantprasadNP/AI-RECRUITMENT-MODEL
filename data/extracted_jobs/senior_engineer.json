@@ -1,0 +1,29 @@
+{
+  "title": "Senior Backend Developer",
+  "required_skills": [
+    "Python",
+    "FastAPI",
+    "SQL"
+  ],
+  "preferred_skills": [],
+  "critical_skills": [],
+  "experience_required": 5,
+  "education": null,
+  "leadership": false,
+  "seniority_level": "senior",
+  "responsibility_themes": [],
+  "domain_knowledge": [],
+  "soft_skills": [],
+  "tools_and_technologies": [],
+  "hidden_hiring_signals": {
+    "autonomy_required": false,
+    "client_facing": false,
+    "research_oriented": false,
+    "innovation_focused": false,
+    "startup_environment": false,
+    "high_ownership": false
+  },
+  "role_complexity_score": 5,
+  "future_potential_signals": [],
+  "job_summary": "Backend Developer role"
+}

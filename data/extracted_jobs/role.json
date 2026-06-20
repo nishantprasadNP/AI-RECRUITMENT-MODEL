@@ -1,0 +1,78 @@
+{
+  "title": "Senior Software Engineer - FinTech Platform",
+  "required_skills": [
+    "Python",
+    "Go",
+    "SQL",
+    "PostgreSQL",
+    "MySQL",
+    "RESTful APIs"
+  ],
+  "preferred_skills": [
+    "AWS",
+    "Docker",
+    "Kubernetes"
+  ],
+  "critical_skills": [
+    "Python",
+    "Go",
+    "SQL",
+    "RESTful APIs",
+    "PostgreSQL"
+  ],
+  "experience_required": 5,
+  "education": {
+    "degree": "Bachelor's or Master's",
+    "field": "Computer Science, Software Engineering"
+  },
+  "leadership": true,
+  "seniority_level": "senior",
+  "responsibility_themes": [
+    "API Development",
+    "Backend Development",
+    "System Design",
+    "System Optimization",
+    "Team Leadership",
+    "Mentorship",
+    "Code Review",
+    "Database Design",
+    "Troubleshooting",
+    "System Reliability",
+    "Production Support"
+  ],
+  "domain_knowledge": [
+    "FinTech",
+    "Payment Processing"
+  ],
+  "soft_skills": [
+    "Collaboration",
+    "Problem Solving",
+    "Decision Making",
+    "Adaptability",
+    "Willingness to Learn"
+  ],
+  "tools_and_technologies": [
+    "Python",
+    "Go",
+    "SQL",
+    "PostgreSQL",
+    "MySQL",
+    "AWS",
+    "Docker",
+    "Kubernetes"
+  ],
+  "hidden_hiring_signals": {
+    "autonomy_required": true,
+    "client_facing": false,
+    "research_oriented": false,
+    "innovation_focused": false,
+    "startup_environment": true,
+    "high_ownership": true
+  },
+  "role_complexity_score": 8,
+  "future_potential_signals": [
+    "Willingness to Learn",
+    "Adaptability"
+  ],
+  "job_summary": "This Senior Software Engineer role is within a fast-paced FinTech startup, focusing on designing, building, and optimizing high-throughput backend APIs and database schemas. The position requires leading a small team, mentoring junior engineers, and driving architectural decisions with minimal guidance. Candidates need 5+ years of experience with Python or Go, SQL databases (PostgreSQL/MySQL), and RESTful API design. Strong ownership and adaptability are key, with preferred experience in AWS, Docker, and Kubernetes."
+}

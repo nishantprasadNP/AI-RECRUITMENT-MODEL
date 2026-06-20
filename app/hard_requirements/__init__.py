@@ -10,6 +10,7 @@ from app.hard_requirements.exceptions import (
 )
 from app.hard_requirements.models import HardRequirementResult, CapabilityResolutionResult
 from app.hard_requirements.capability_resolver import CapabilityResolver
+from app.hard_requirements.hard_requirement_engine import HardRequirementEngine
 
 __all__ = [
     "HardRequirementError",
@@ -19,5 +20,6 @@ __all__ = [
     "HardRequirementResult",
     "CapabilityResolutionResult",
     "CapabilityResolver",
+    "HardRequirementEngine",
 ]
 

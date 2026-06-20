@@ -1,0 +1,69 @@
+{
+  "candidate_name": "NISHANT PRASAD",
+  "job_name": "role",
+  "role_profile": {
+    "role_family": "software_engineering",
+    "specialization": "backend_engineer",
+    "seniority": "senior",
+    "evaluation_profile": "senior_backend"
+  },
+  "evaluation_strategy": {
+    "evaluation_profile": "senior_backend",
+    "strictness_level": "high",
+    "component_weights": {
+      "skills": 0.15,
+      "projects": 0.25,
+      "experience": 0.4,
+      "leadership": 0.2
+    },
+    "minimum_skill_confidence": 80.0,
+    "hard_requirement_tolerance": 0.0
+  },
+  "achievement_profile": {
+    "achievement_score": 4.5,
+    "academic": [
+      {
+        "title": "AIR 15120, JEE Main 2023",
+        "source_section": "achievements",
+        "source_detail": "Entry #5",
+        "score_contribution": 2.0,
+        "explanation": "Academic rank or JEE achievement mentioned."
+      },
+      {
+        "title": "AIR 16380, JEE Advanced 2023",
+        "source_section": "achievements",
+        "source_detail": "Entry #6",
+        "score_contribution": 2.0,
+        "explanation": "Academic rank or JEE achievement mentioned."
+      },
+      {
+        "title": "Graduated from Tier-1 Institution: NIT Jalandhar",
+        "source_section": "education",
+        "source_detail": "B.Tech in Information Technology at NIT Jalandhar",
+        "score_contribution": 3.5,
+        "explanation": "Graduated from a top tier global or national academic institution."
+      }
+    ],
+    "technical": [],
+    "research": [],
+    "leadership": [],
+    "entrepreneurship": [],
+    "category_scores": {
+      "academic": 7.5,
+      "technical": 0.0,
+      "research": 0.0,
+      "leadership": 0.0,
+      "entrepreneurship": 0.0
+    },
+    "explanation_traces": [
+      "Academic Score: 7.5/10.0 based on 3 signal(s).",
+      "Overall Achievement Score: 4.5/10.0. Calculated as (Max Category Score 7.5 * 60%) + (Sum of other categories 0.0 * 40%), capped at 10.0.",
+      "Standout Academic Signal: 'Graduated from Tier-1 Institution: NIT Jalandhar' in education (B.Tech in Information Technology at NIT Jalandhar) contributing +3.5."
+    ]
+  },
+  "semantic_score": 0.449,
+  "semantic_score_pct": 44.9,
+  "resume_profile_path": "data/extracted_profiles/nishant_prasad.json",
+  "job_profile_path": "data/extracted_jobs/role.json",
+  "generated_at": "2026-06-20T10:48:39.716472"
+}

@@ -47,8 +47,8 @@
       "company": "Vitana Private Limited",
       "start_date": "June 2025",
       "end_date": "July 2025",
-      "duration": "June 2025 – July 2025",
-      "description": "• Contributed to the frontend development of a mental wellness platform featuring 4+ user-facing modules including journaling, AI chatbot interactions, recommendations, and wellness tools.\n• Developed reusable React.js components and responsive user interfaces, improving maintainability and en-abling faster feature development across application modules.\n• Integrated 10+ RESTful API endpoints and implemented asynchronous data handling to support seamless communication between frontend interfaces and backend services."
+      "duration": null,
+      "description": "Contributed to the frontend development of a mental wellness platform featuring 4+ user-facing modules including journaling, AI chatbot interactions, recommendations, and wellness tools.\nDeveloped reusable React.js components and responsive user interfaces, improving maintainability and enabling faster feature development across application modules.\nIntegrated 10+ RESTful API endpoints and implemented asynchronous data handling to support seamless communication between frontend interfaces and backend services."
     }
   ],
   "projects": [
@@ -60,7 +60,7 @@
         "Scikit-learn",
         "Gemini AI"
       ],
-      "description": "• Architected and deployed a FastAPI + React Responsible AI platform with an 11-module ML pipeline for data profiling, bias discovery, model training, fairness evaluation, explainable AI, and model monitoring.\n• Developed fairness auditing and debiasing modules for automated bias detection, subgroup analysis, and AI model evaluation.\n• Engineered a debiasing framework using sample reweighing, probability adjustment and Gemini API integration, achieving 15–35% reduction in bias disparities."
+      "description": "Architected and deployed a FastAPI + React Responsible AI platform with an 11-module ML pipeline for data profiling, bias discovery, model training, fairness evaluation, explainable AI, and model monitoring.\nDeveloped fairness auditing and debiasing modules for automated bias detection, subgroup analysis, and AI model evaluation.\nEngineered a debiasing framework using sample reweighing, probability adjustment and Gemini API integration, achieving 15–35% reduction in bias disparities."
     },
     {
       "name": "MENTALAI (Mental Wellness Platform)",
@@ -70,7 +70,7 @@
         "MongoDB",
         "GeminiAI"
       ],
-      "description": "• Developed a full-stack mental wellness platform featuring 5+ user-facing modules, including journaling, mood analytics, AI-powered chat assistance, personalized recommendations, and wellness engagement tools.\n• Engineered a recommendation system delivering personalized content across 5 recommendation categories by leveraging mood trends, user interests, interaction history, and recency-based scoring.\n• Implemented 15+ RESTful API endpoints, JWT-based authentication, Gemini AI integration, and MongoDB-backed data management to support personalized experiences and recommendation tracking."
+      "description": "Developed a full-stack mental wellness platform featuring 5+ user-facing modules, including journaling, mood analytics, AI-powered chat assistance, personalized recommendations, and wellness engagement tools.\nEngineered a recommendation system delivering personalized content across 5 recommendation categories by leveraging mood trends, user interests, interaction history, and recency-based scoring.\nImplemented 15+ RESTful API endpoints, JWT-based authentication, Gemini AI integration, and MongoDB-backed data management to support personalized experiences and recommendation tracking."
     },
     {
       "name": "LinkShrink Pro",
@@ -80,7 +80,7 @@
         "MongoDB",
         "NanoID"
       ],
-      "description": "• Developed a URL shortening application using Node.js, Express.js, and MongoDB, enabling efficient genera-tion and management of shortened links.\n• Engineered 8-character NanoID-based URL generation supporting over 2.8 × 1014 unique combina-tions while minimizing collision probability.\n• Implemented URL redirection workflows and validated RESTful APIs for concurrent URL creation and re-trieval operations with a 99% success rate."
+      "description": "Developed a URL shortening application using Node.js, Express.js, and MongoDB, enabling efficient generation and management of shortened links.\nEngineered 8-character NanoID-based URL generation supporting over 2.8 × 1014 unique combinations while minimizing collision probability.\nImplemented URL redirection workflows and validated RESTful APIs for concurrent URL creation and retrieval operations with a 99% success rate."
     }
   ],
   "education": [

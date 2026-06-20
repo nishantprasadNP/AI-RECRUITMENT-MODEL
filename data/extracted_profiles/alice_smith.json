@@ -1,0 +1,23 @@
+{
+  "name": "Alice Smith",
+  "skills": [
+    "Python",
+    "FastAPI"
+  ],
+  "experience": [
+    {
+      "role": "Lead developer",
+      "company": null,
+      "start_date": null,
+      "end_date": null,
+      "duration": "5 years",
+      "description": null
+    }
+  ],
+  "projects": [],
+  "education": [],
+  "certifications": [],
+  "achievements": [
+    "Winner of outstanding contributor award"
+  ]
+}
