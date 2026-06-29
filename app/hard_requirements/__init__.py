@@ -8,9 +8,14 @@ from app.hard_requirements.exceptions import (
     RequirementMatchingError,
     CoverageEvaluationError,
 )
-from app.hard_requirements.models import HardRequirementResult, CapabilityResolutionResult
+from app.hard_requirements.models import (
+    HardRequirementResult,
+    CapabilityResolutionResult,
+    RequirementMatchResult,
+)
 from app.hard_requirements.capability_resolver import CapabilityResolver
 from app.hard_requirements.hard_requirement_engine import HardRequirementEngine
+from app.hard_requirements.requirement_matcher import RequirementMatcher
 
 __all__ = [
     "HardRequirementError",
@@ -19,7 +24,10 @@ __all__ = [
     "CoverageEvaluationError",
     "HardRequirementResult",
     "CapabilityResolutionResult",
+    "RequirementMatchResult",
     "CapabilityResolver",
     "HardRequirementEngine",
+    "RequirementMatcher",
 ]
+
 

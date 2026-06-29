@@ -99,6 +99,30 @@ def test_orchestrator_full_pipeline_run():
         assert isinstance(result.achievement_profile, AchievementProfile)
         assert result.achievement_profile.achievement_score == 0.0  # mock profile has no achievements
 
+        # Verify skill gap result exists and is populated
+        from app.skill_gap.models import SkillGapResult
+        assert isinstance(result.skill_gap_result, SkillGapResult)
+        assert result.skill_gap_result.overall_gap_score >= 0.0
+        assert result.skill_gap_result.decision_summary != ""
+
+        # Verify hard requirement result exists and is populated
+        from app.hard_requirements import HardRequirementResult
+        assert isinstance(result.hard_requirement_result, HardRequirementResult)
+
+        # Verify score independence
+        score_before_gap = result.candidate_score.overall_score
+        # Re-run gap engine manually with the same inputs to verify it has no side effects on scoring
+        orchestrator._skill_gap_engine.analyze_gaps(
+            job_profile=result.job_profile,
+            hard_requirement_result=orchestrator._hard_requirement_engine.evaluate_compliance(
+                result.job_profile,
+                result.role_profile,
+                orchestrator._capability_resolver.resolve_capabilities(result.resume_profile)
+            ),
+            confidence_profiles=orchestrator._skill_confidence_engine.analyze(result.resume_profile)
+        )
+        assert result.candidate_score.overall_score == score_before_gap
+
         # Verify match report saved
         assert os.path.exists(result.match_report_path)
         assert result.match_report_path.startswith(tmp_dir)
@@ -109,8 +133,13 @@ def test_orchestrator_full_pipeline_run():
             report_data = json.load(f)
         assert "evaluation_strategy" in report_data
         assert "achievement_profile" in report_data
+        assert "skill_gap_result" in report_data
+        assert "hard_requirement_result" in report_data
         assert report_data["evaluation_strategy"]["evaluation_profile"] == "senior_backend"
         assert report_data["achievement_profile"]["achievement_score"] == 0.0
+        assert isinstance(report_data["skill_gap_result"]["missing_required_skills"], list)
+        assert isinstance(report_data["skill_gap_result"]["overall_gap_score"], float)
+        assert isinstance(report_data["hard_requirement_result"]["missing_required"], list)
 
         # Verify parser, extractor, embedder, matcher were called
         mock_parser.extract_text.assert_called_once_with("dummy_path.pdf")
@@ -118,3 +147,4 @@ def test_orchestrator_full_pipeline_run():
         mock_job_extractor.extract.assert_called_once_with("Mock raw JD text")
         assert mock_embedder.generate_embedding.call_count == 2
         mock_matcher.compute_similarity.assert_called_once()
+

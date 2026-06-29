@@ -10,39 +10,45 @@ All components are wired into a central pipeline orchestrator or accessible thro
 - [Quick Start](#quick-start)
 - [Prerequisites](#prerequisites)
 - [Platform Core Engines](#platform-core-engines)
--   - [1. Dual-Engine PDF Ingestion](#1-dual-engine-pdf-ingestion)
--   - [2. Pydantic-Schema LLM Extraction](#2-pydantic-schema-llm-extraction)
--   - [3. Role Classification Engine](#3-role-classification-engine)
--   - [4. Evaluation Strategy Engine](#4-evaluation-strategy-engine)
--   - [5. Skill Knowledge Graph & Inference](#5-skill-knowledge-graph--inference)
--   - [6. Skill Evidence Engine](#6-skill-evidence-engine)
--   - [7. Experience Analysis & Skill Confidence Engine](#7-experience-analysis--skill-confidence-engine)
--   - [8. Hard Requirements Compliance Engine](#8-hard-requirements-compliance-engine)
--   - [9. Achievement Analyzer](#9-achievement-analyzer)
--   - [10. Semantic Matching & Embeddings](#10-semantic-matching--embeddings)
--   - [11. Candidate Scoring Engine](#11-candidate-scoring-engine)
--   - [12. Candidate Ranking Engine](#12-candidate-ranking-engine)
+  - [1. Dual-Engine PDF Ingestion](#1-dual-engine-pdf-ingestion)
+  - [2. Pydantic-Schema LLM Extraction](#2-pydantic-schema-llm-extraction)
+  - [3. Role Classification Engine](#3-role-classification-engine)
+  - [4. Evaluation Strategy Engine](#4-evaluation-strategy-engine)
+  - [5. Skill Knowledge Graph & Inference](#5-skill-knowledge-graph--inference)
+  - [6. Skill Evidence Engine](#6-skill-evidence-engine)
+  - [7. Experience Analysis & Skill Confidence Engine](#7-experience-analysis--skill-confidence-engine)
+  - [8. Hard Requirements Compliance Engine](#8-hard-requirements-compliance-engine)
+  - [9. Standout Achievement Analyzer](#9-standout-achievement-analyzer)
+  - [10. Semantic Matching & Embeddings](#10-semantic-matching--embeddings)
+  - [11. Candidate Scoring Engine](#11-candidate-scoring-engine)
+  - [12. Candidate Ranking Engine](#12-candidate-ranking-engine)
+  - [13. Skill Gap Engine](#13-skill-gap-engine)
 - [System Architecture](#system-architecture)
 - [Pipeline Stages](#pipeline-stages)
 - [Project Directory Structure](#project-directory-structure)
 - [Setup & Installation](#setup--installation)
 - [Usage Instructions](#usage-instructions)
--   - [Full Pipeline via Orchestrator](#full-pipeline-via-orchestrator)
--   - [Standalone Evaluation Strategy Engine](#standalone-evaluation-strategy-engine)
--   - [Standalone Achievement Analyzer](#standalone-achievement-analyzer)
--   - [Individual Stage Run Scripts](#individual-stage-run-scripts)
--   - [Phase 3 Validation Suite](#phase-3-validation-suite)
--   - [Programmatic API](#programmatic-api)
+  - [Full Pipeline via Orchestrator](#full-pipeline-via-orchestrator)
+  - [Standalone Evaluation Strategy Engine](#standalone-evaluation-strategy-engine)
+  - [Standalone Achievement Analyzer](#standalone-achievement-analyzer)
+  - [Standalone Hard Requirements Compliance Engine](#standalone-hard-requirements-compliance-engine)
+  - [Standalone Skill Confidence Engine](#standalone-skill-confidence-engine)
+  - [Standalone Skill Gap Engine](#standalone-skill-gap-engine)
+  - [Standalone Candidate Scoring Engine](#standalone-candidate-scoring-engine)
+  - [Standalone Candidate Ranking Engine](#standalone-candidate-ranking-engine)
+  - [Individual Stage Run Scripts](#individual-stage-run-scripts)
+  - [Phase 3 Validation Suite](#phase-3-validation-suite)
 - [Data Schemas](#data-schemas)
--   - [Resume Profile](#resume-profile)
--   - [Job Profile](#job-profile)
--   - [Role Profile](#role-profile)
--   - [Evaluation Strategy](#evaluation-strategy)
--   - [Achievement Profile](#achievement-profile)
--   - [Hard Requirements Compliance Result](#hard-requirements-compliance-result)
--   - [Capability Resolution Result](#capability-resolution-result)
--   - [Candidate Score Profile](#candidate-score-profile)
--   - [Ranked Candidate List](#ranked-candidate-list)
+  - [Resume Profile](#resume-profile)
+  - [Job Profile](#job-profile)
+  - [Role Profile](#role-profile)
+  - [Evaluation Strategy](#evaluation-strategy)
+  - [Capability Resolution Result](#capability-resolution-result)
+  - [Hard Requirements Compliance Result](#hard-requirements-compliance-result)
+  - [Skill Gap Result](#skill-gap-result)
+  - [Achievement Profile](#achievement-profile)
+  - [Candidate Score Profile](#candidate-score-profile)
+  - [Ranked Candidate List](#ranked-candidate-list)
 - [Extraction Quality & Prevention Rules](#extraction-quality--prevention-rules)
 - [Custom Exception Hierarchy](#custom-exception-hierarchy)
 - [Running Tests](#running-tests)
@@ -56,12 +62,12 @@ All components are wired into a central pipeline orchestrator or accessible thro
 Run all commands from the **project root** (`AI-RECRUITMENT-MODEL/`).
 
 ```bash
-# 1. Activate the workspace virtual environment
-source .venv/bin/activate             # macOS / Linux
-# .venv\Scripts\activate              # Windows
+# 1. Activate the workspace virtual environment (which is in the parent workspace directory)
+source ../.venv/bin/activate             # macOS / Linux
+# ..\.venv\Scripts\activate              # Windows
 
 # 2. Configure your environment variables (.env file)
-# Create a .env file containing: GEMINI_API_KEY=your_key_here
+# Create a .env file in the project root containing: GEMINI_API_KEY=your_key_here
 
 # 3. Run the orchestrator with sample inputs
 python scripts/run_full_pipeline.py
@@ -75,49 +81,52 @@ On first run, the local embedding model (`sentence-transformers/all-mpnet-base-v
 
 | Requirement | Details |
 |:---|:---|
-| **Python** | 3.10 or newer recommended. (Python 3.12 is fully supported). |
+| **Python** | 3.10 or newer recommended. (Python 3.9+ is supported). |
 | **Gemini API Key** | Required for structured profile extraction. Obtain one from the [Google AI Studio](https://aistudio.google.com/apikey). |
-| **Dependencies** | Listed in [requirements.txt](file:///Users/nischayverma/Desktop/AI-RECRUITMENT-MODEL/requirements.txt) including `pdfplumber`, `PyMuPDF (fitz)`, `pydantic`, `sentence-transformers`, `scikit-learn`, `networkx`, and `pytest`. |
+| **Dependencies** | Listed in [requirements.txt](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/requirements.txt) including `pdfplumber`, `PyMuPDF (fitz)`, `pydantic`, `sentence-transformers`, `scikit-learn`, `networkx`, and `pytest`. |
 
 ---
 
 ## Platform Core Engines
 
 ### 1. Dual-Engine PDF Ingestion
-Located in [resume_parser.py](file:///Users/nischayverma/Desktop/AI-RECRUITMENT-MODEL/app/ingestion/resume_parser.py). It executes two parsers (`pdfplumber` and `PyMuPDF / fitz`) concurrently. It computes an alphanumeric-to-character density score for each output and retains the cleaner document structure. It handles corrupted, password-protected, and blank documents gracefully with tailored exceptions.
+Located in [resume_parser.py](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/ingestion/resume_parser.py). It executes two parsers (`pdfplumber` and `PyMuPDF / fitz`) concurrently. It computes an alphanumeric-to-character density score for each output and retains the cleaner document structure. It handles corrupted, password-protected, and blank documents gracefully with tailored exceptions.
 
 ### 2. Pydantic-Schema LLM Extraction
-Located in the [extraction](file:///Users/nischayverma/Desktop/AI-RECRUITMENT-MODEL/app/extraction) folder. Using Google Gemini (`gemini-2.5-flash`), it parses unstructured text into structured, typed payloads. The outputs are validated against strict contracts in [schemas](file:///Users/nischayverma/Desktop/AI-RECRUITMENT-MODEL/app/schemas) ensuring fields match explicit facts or supported inferences.
+Located in the [extraction](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/extraction) folder. Using Google Gemini (`gemini-2.5-flash`), it parses unstructured text into structured, typed payloads. The outputs are validated against strict contracts in [schemas](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/schemas) folder ensuring fields match explicit facts or supported inferences.
 
 ### 3. Role Classification Engine
-Located in the [role_classification](file:///Users/nischayverma/Desktop/AI-RECRUITMENT-MODEL/app/role_classification) folder. It evaluates job description requirements against heuristic matrices in [role_rules.py](file:///Users/nischayverma/Desktop/AI-RECRUITMENT-MODEL/app/role_classification/role_rules.py). It classifies roles into standard Role Families (e.g. `software_engineering`, `data_ai`), specializations (e.g. `backend_engineer`, `ml_engineer`), and seniority levels (`junior`, `mid_level`, `senior`, `staff`).
+Located in the [role_classification](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/role_classification) folder. It evaluates job description requirements against heuristic matrices in [role_rules.py](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/role_classification/role_rules.py). It classifies roles into standard Role Families (e.g. `software_engineering`, `data_ai`), specializations (e.g. `backend_engineer`, `ml_engineer`), and seniority levels (`junior`, `mid_level`, `senior`, `staff`).
 
 ### 4. Evaluation Strategy Engine
-Located in the [evaluation_strategy](file:///Users/nischayverma/Desktop/AI-RECRUITMENT-MODEL/app/evaluation_strategy) folder. Generates role-aware evaluation weights, strictness levels, minimum skill confidence thresholds, and requirement tolerance values matching the classified `RoleProfile`. Predefined configurations exist for roles like `intern_backend`, `new_grad_backend`, `mid_backend`, `senior_backend`, `intern_ml`, `mid_ml`, and `senior_ml`. It handles unknown profiles through dynamic seniority and specialization fallback logic.
+Located in the [evaluation_strategy](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/evaluation_strategy) folder. Generates role-aware evaluation weights, strictness levels, minimum skill confidence thresholds, and requirement tolerance values matching the classified `RoleProfile`. Predefined configurations exist for roles like `intern_backend`, `new_grad_backend`, `mid_backend`, `senior_backend`, `intern_ml`, `mid_ml`, and `senior_ml`. It handles unknown profiles through dynamic seniority and specialization fallback logic defined in [strategy_engine.py](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/evaluation_strategy/strategy_engine.py).
 
 ### 5. Skill Knowledge Graph & Inference
-Located in the [knowledge_graph](file:///Users/nischayverma/Desktop/AI-RECRUITMENT-MODEL/app/knowledge_graph) folder. Loads a skills taxonomy from `data/skill_graph/skills_taxonomy.json` into a `NetworkX` directed graph. It maps relationships (e.g. `FastAPI` -> `requires` -> `Python`). The [skill_inference_engine.py](file:///Users/nischayverma/Desktop/AI-RECRUITMENT-MODEL/app/knowledge_graph/inference/skill_inference_engine.py) performs ancestral traversal to infer implicit skills.
+Located in the [knowledge_graph](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/knowledge_graph) folder. Loads a skills taxonomy from `data/skill_graph/skills_taxonomy.json` into a `NetworkX` directed graph. It maps relationships (e.g. `FastAPI` -> `requires` -> `Python`). The [skill_inference_engine.py](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/knowledge_graph/inference/skill_inference_engine.py) performs ancestral traversal to infer implicit skills.
 
 ### 6. Skill Evidence Engine
-Located in the [skill_evidence](file:///Users/nischayverma/Desktop/AI-RECRUITMENT-MODEL/app/skill_evidence) folder. Collects direct mentions, mapped project usages, role references, and graph dependencies for candidate skills. It assigns weighted attributions (Direct: 1.0, Project: 0.8, Dependency: 0.5, Inherited: 0.3) to construct trace chains and qualitative evidence levels (`Expert`, `Strong`, `Moderate`, `Limited`).
+Located in the [skill_evidence](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/skill_evidence) folder. Collects direct mentions, mapped project usages, role references, and graph dependencies for candidate skills. It assigns weighted attributions (Direct: 1.0, Project: 0.8, Dependency: 0.5, Inherited: 0.3) to construct trace chains and qualitative evidence levels (`Expert`, `Strong`, `Moderate`, `Limited`) via the [skill_evidence_engine.py](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/skill_evidence/services/skill_evidence_engine.py).
 
 ### 7. Experience Analysis & Skill Confidence Engine
-Located in the [experience_analysis](file:///Users/nischayverma/Desktop/AI-RECRUITMENT-MODEL/app/experience_analysis) folder. Calculates job complexity scores based on duration and projects. It combines direct evidence, role descriptions, and project tenures to compute numerical confidence scores (0-100) and confidence tiers.
+Located in the [experience_analysis](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/experience_analysis) folder. Calculates job complexity scores based on duration and projects. It combines direct evidence, role descriptions, and project tenures to compute numerical confidence scores (0-100) and confidence tiers using the orchestrator class [SkillConfidenceEngine](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/experience_analysis/skill_confidence_engine.py).
 
 ### 8. Hard Requirements Compliance Engine
-Located in the [hard_requirements](file:///Users/nischayverma/Desktop/AI-RECRUITMENT-MODEL/app/hard_requirements) folder. Resolves raw candidate skills to canonical definitions. It expands candidate capabilities with inferred ancestors from the Skill Knowledge Graph while tracking exact graph origins. It strictly matches resolved capabilities against job criteria to return pass status, coverage score, matched/missing requirements, and granular decision reasons.
+Located in the [hard_requirements](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/hard_requirements) folder. Resolves candidate raw skills using [capability_resolver.py](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/hard_requirements/capability_resolver.py) which expands candidate capabilities with inferred ancestors from the Skill Knowledge Graph. Then, [hard_requirement_engine.py](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/hard_requirements/hard_requirement_engine.py) strictly matches resolved capabilities against job criteria to return pass status, coverage score, matched/missing requirements, and granular decision reasons.
 
-### 9. Achievement Analyzer
-Located in the [achievement_analysis](file:///Users/nischayverma/Desktop/AI-RECRUITMENT-MODEL/app/achievement_analysis) folder. Scans the candidate's `ResumeProfile` using sentence-level regex patterns to identify standout signals across 5 core dimensions: Academic (e.g., JEE AIR ranks, top universities, scholarships), Technical (e.g., hackathon wins, CP ratings, open-source), Research (e.g., papers, patents), Leadership (e.g., club leaders, mentors, EM/lead roles), and Entrepreneurship (e.g., founders, YC experience, product ownership). It scores categories, compiles a consolidated overall score (using a max-biased formula favoring standout spikes), and provides explanation traces.
+### 9. Standout Achievement Analyzer
+Located in the [achievement_analysis](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/achievement_analysis) folder. Scans the candidate's `ResumeProfile` using sentence-level regex patterns defined in [achievement_detector.py](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/achievement_analysis/achievement_detector.py) to identify standout signals across 5 core dimensions: Academic (e.g., JEE AIR ranks, top universities, scholarships), Technical (e.g., hackathon wins, CP ratings, open-source), Research (e.g., papers, patents), Leadership (e.g., club leaders, mentors, EM/lead roles), and Entrepreneurship (e.g., founders, YC experience, product ownership). It scores categories, compiles a consolidated overall score (using a max-biased formula favoring standout spikes) in [scoring.py](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/achievement_analysis/scoring.py), and provides explanation traces.
 
 ### 10. Semantic Matching & Embeddings
-Located in the [matching](file:///Users/nischayverma/Desktop/AI-RECRUITMENT-MODEL/app/matching) and [embeddings](file:///Users/nischayverma/Desktop/AI-RECRUITMENT-MODEL/app/embeddings) folders. Resolves parsed candidate profiles and job criteria into cohesive text structures. It generates vector embeddings locally using `SentenceTransformer` (`all-mpnet-base-v2`) and computes cosine similarity match scores.
+Located in the [matching](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/matching) and [embeddings](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/embeddings) folders. Resolves parsed candidate profiles and job criteria into cohesive text structures. It generates vector embeddings locally using `SentenceTransformer` (`all-mpnet-base-v2`) in [embedding_generator.py](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/embeddings/embedding_generator.py) and computes cosine similarity match scores in [semantic_matcher.py](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/matching/semantic_matcher.py).
 
 ### 11. Candidate Scoring Engine
-Located in the [candidate_scoring](file:///Users/nischayverma/Desktop/AI-RECRUITMENT-MODEL/app/candidate_scoring) folder. Combines all candidate evaluation signals (semantic similarity score, skills confidence, experience duration vs. required, standout achievements, project relevance, and leadership) into a unified role-aware candidate score. It consumes weights defined by the `EvaluationStrategy` for the target role, ensuring a dynamically parameterized scoring system without hardcoded constants.
+Located in the [candidate_scoring](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/candidate_scoring) folder. Combines all candidate evaluation signals (semantic similarity score, skills confidence, experience duration vs. required, standout achievements, project relevance, and leadership) into a unified role-aware candidate score (0.0 to 100.0). It consumes weights defined by the `EvaluationStrategy` for the target role in [scoring_engine.py](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/candidate_scoring/scoring_engine.py), ensuring a dynamically parameterized scoring system without hardcoded constants.
 
 ### 12. Candidate Ranking Engine
-Located in the [candidate_ranking](file:///Users/nischayverma/Desktop/AI-RECRUITMENT-MODEL/app/candidate_ranking) folder. Ranks multiple candidate results deterministically. It sorts candidates by their overall score (descending) and breaks ties using a strict 4-tier hierarchy: Hard Requirement Coverage, Semantic Match Score, Skill Confidence Score, Achievement Score, and an ascending alphabetical name fallback. It also auto-extracts bulleted strengths and concerns for recruiter review based on component score thresholds.
+Located in the [candidate_ranking](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/candidate_ranking) folder. Ranks multiple candidate results deterministically in [ranking_engine.py](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/candidate_ranking/ranking_engine.py). It sorts candidates by their overall score (descending) and breaks ties using a strict 4-tier hierarchy: Hard Requirement Coverage, Semantic Match Score, Skill Confidence Score, Achievement Score, and an ascending alphabetical name fallback defined in [tie_breakers.py](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/candidate_ranking/tie_breakers.py). It also auto-extracts bulleted strengths and concerns for recruiter review based on component score thresholds.
+
+### 13. Skill Gap Engine
+Located in the [skill_gap](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/skill_gap) folder. It evaluates candidate capabilities against job profile specifications, identifying missing required/preferred skills, weak skills (confidence score < 50), and strong skills (confidence score >= 75). It generates deterministic, actionable recommendations and computes a unified overall gap score and decision summary.
 
 ---
 
@@ -185,6 +194,12 @@ graph TD
     AchievementProfile --> ScoringEngine
     ScoringEngine --> CandidateScore[CandidateScoreProfile\napp/candidate_scoring/models.py]
 
+    %% Skill Gap Engine (Phase 12)
+    JobProfile --> SkillGapEngine[Skill Gap Engine\napp/skill_gap/skill_gap_engine.py]
+    HardReqResult --> SkillGapEngine
+    ConfidenceProfile --> SkillGapEngine
+    SkillGapEngine --> SkillGapResult[SkillGapResult\napp/skill_gap/models.py]
+
     %% Candidate Ranking Engine (Phase 11)
     CandidateScore --> RankingEngine[Candidate Ranking Engine\napp/candidate_ranking/]
     RankingEngine --> RankedList[RankedCandidateList\napp/candidate_ranking/models.py]
@@ -197,38 +212,40 @@ graph TD
     AchievementProfile --> Storage
     SemanticScore --> Storage
     CandidateScore --> Storage
+    SkillGapResult --> Storage
     
     %% Formatting
     classDef main fill:#6c63ff,color:#fff,stroke:#333,stroke-width:2px;
     classDef module fill:#3b82f6,color:#fff,stroke:#333,stroke-width:1px;
     classDef data fill:#10b981,color:#fff,stroke:#333,stroke-width:1px;
     
-    class Ingestion,RoleClassifier,EvalStrategyEngine,EvidenceEngine,ConfidenceEngine,CapResolver,HardReqEngine,AchievementAnalyzer,Matcher,ScoringEngine,RankingEngine main;
+    class Ingestion,RoleClassifier,EvalStrategyEngine,EvidenceEngine,ConfidenceEngine,CapResolver,HardReqEngine,AchievementAnalyzer,Matcher,ScoringEngine,RankingEngine,SkillGapEngine main;
     class ResumeExtractor,JobExtractor,Embedder module;
-    class ResumeProfile,JobProfile,RoleProfile,EvaluationStrategy,ExplainableProfile,ConfidenceProfile,AchievementProfile,CapResult,HardReqResult,CandidateScore,RankedList data;
+    class ResumeProfile,JobProfile,RoleProfile,EvaluationStrategy,ExplainableProfile,ConfidenceProfile,AchievementProfile,CapResult,HardReqResult,CandidateScore,RankedList,SkillGapResult data;
 ```
 
 ---
 
 ## Pipeline Stages
 
-The central orchestrator in [orchestrator.py](file:///Users/nischayverma/Desktop/AI-RECRUITMENT-MODEL/app/orchestrator.py) executes the pipeline in sequential stages:
+The central orchestrator in [orchestrator.py](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/orchestrator.py) executes the pipeline in sequential stages:
 
 | Stage | Name | Description | Responsible Module |
 |:---:|:---|:---|:---|
-| **1** | **PDF Ingestion** | Extracts text from PDFs using concurrent dual engines (`pdfplumber` + `PyMuPDF`). | [resume_parser.py](file:///Users/nischayverma/Desktop/AI-RECRUITMENT-MODEL/app/ingestion/resume_parser.py) |
-| **2** | **Resume LLM Extraction** | Extracts structured fields via Gemini and compiles them into a verified Pydantic model. | [resume_extractor.py](file:///Users/nischayverma/Desktop/AI-RECRUITMENT-MODEL/app/extraction/resume_extractor.py) |
-| **3** | **Job LLM Extraction** | Extracts explicit requirements, hidden signals, and complexity metrics from Job Descriptions. | [job_extractor.py](file:///Users/nischayverma/Desktop/AI-RECRUITMENT-MODEL/app/extraction/job_extractor.py) |
-| **4** | **Role Classification** | Evaluates the job profile heuristics to detect role family, specialization, and seniority. | [role_classifier.py](file:///Users/nischayverma/Desktop/AI-RECRUITMENT-MODEL/app/role_classification/role_classifier.py) |
-| **4A** | **Evaluation Strategy** | Generates dynamic weighting strategies based on the classified role context. | [strategy_engine.py](file:///Users/nischayverma/Desktop/AI-RECRUITMENT-MODEL/app/evaluation_strategy/strategy_engine.py) |
-| **5** | **Text Compilation** | Builds detailed, structured semantic text profiles from extracted candidate and job fields. | [text_builder.py](file:///Users/nischayverma/Desktop/AI-RECRUITMENT-MODEL/app/embeddings/text_builder.py) |
-| **6** | **Vector Embedding** | Generates normalized dense vector embeddings using a local SentenceTransformer model. | [embedding_generator.py](file:///Users/nischayverma/Desktop/AI-RECRUITMENT-MODEL/app/embeddings/embedding_generator.py) |
-| **7** | **Semantic Matching** | Computes the cosine similarity between candidate and job profile vector representations. | [semantic_matcher.py](file:///Users/nischayverma/Desktop/AI-RECRUITMENT-MODEL/app/matching/semantic_matcher.py) |
-| **8** | **Hard Requirements** | Expanded compliance resolver checking candidate capabilities against job specifications. | [hard_requirements](file:///Users/nischayverma/Desktop/AI-RECRUITMENT-MODEL/app/hard_requirements) |
-| **9** | **Achievement Analysis** | Scans candidate fields to detect, categorize, score, and justify standout achievements. | [achievement_detector.py](file:///Users/nischayverma/Desktop/AI-RECRUITMENT-MODEL/app/achievement_analysis/achievement_detector.py) |
-| **10** | **Candidate Scoring** | Combines all evaluation signals dynamically using evaluation strategy role weights. | [scoring_engine.py](file:///Users/nischayverma/Desktop/AI-RECRUITMENT-MODEL/app/candidate_scoring/scoring_engine.py) |
-| **11** | **Candidate Ranking** | Deterministically ranks multiple candidate results, extracting strengths and concerns. | [ranking_engine.py](file:///Users/nischayverma/Desktop/AI-RECRUITMENT-MODEL/app/candidate_ranking/ranking_engine.py) |
-| **12** | **Persistence** | Saves parsed candidate/job profiles, strategies, achievement profiles, scores, and match reports. | [storage](file:///Users/nischayverma/Desktop/AI-RECRUITMENT-MODEL/app/storage) |
+| **1** | **PDF Ingestion** | Extracts text from PDFs using concurrent dual engines (`pdfplumber` + `PyMuPDF`). | [resume_parser.py](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/ingestion/resume_parser.py) |
+| **2** | **Resume LLM Extraction** | Extracts structured fields via Gemini and compiles them into a verified Pydantic model. | [resume_extractor.py](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/extraction/resume_extractor.py) |
+| **3** | **Job LLM Extraction** | Extracts explicit requirements, hidden signals, and complexity metrics from Job Descriptions. | [job_extractor.py](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/extraction/job_extractor.py) |
+| **4** | **Role Classification** | Evaluates the job profile heuristics to detect role family, specialization, and seniority. | [role_classifier.py](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/role_classification/role_classifier.py) |
+| **4A** | **Evaluation Strategy** | Generates dynamic weighting strategies based on the classified role context. | [strategy_engine.py](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/evaluation_strategy/strategy_engine.py) |
+| **5** | **Text Compilation** | Builds detailed, structured semantic text profiles from extracted candidate and job fields. | [text_builder.py](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/embeddings/text_builder.py) |
+| **6** | **Vector Embedding** | Generates normalized dense vector embeddings using a local SentenceTransformer model. | [embedding_generator.py](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/embeddings/embedding_generator.py) |
+| **7** | **Semantic Matching** | Computes the cosine similarity between candidate and job profile vector representations. | [semantic_matcher.py](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/matching/semantic_matcher.py) |
+| **8** | **Hard Requirements** | Expanded compliance resolver checking candidate capabilities against job specifications. | [hard_requirement_engine.py](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/hard_requirements/hard_requirement_engine.py) |
+| **8A** | **Skill Gap Analysis** | Identifies gaps between candidate capabilities and job profiles, and outputs recommendations. | [skill_gap_engine.py](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/skill_gap/skill_gap_engine.py) |
+| **9** | **Achievement Analysis** | Scans candidate fields to detect, categorize, score, and justify standout achievements. | [achievement_detector.py](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/achievement_analysis/achievement_detector.py) |
+| **10** | **Candidate Scoring** | Combines all evaluation signals dynamically using evaluation strategy role weights. | [scoring_engine.py](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/candidate_scoring/scoring_engine.py) |
+| **11** | **Candidate Ranking** | Deterministically ranks multiple candidate results, extracting strengths and concerns. | [ranking_engine.py](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/candidate_ranking/ranking_engine.py) |
+| **12** | **Persistence** | Saves parsed candidate/job profiles, strategies, achievement profiles, scores, and match reports. | [storage](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/storage) |
 
 ---
 
@@ -298,7 +315,13 @@ AI-RECRUITMENT-MODEL/
 │   ├── hard_requirements/                         # Strict compliance matching
 │   │   ├── models.py                              # HardRequirementResult & CapabilityResolutionResult
 │   │   ├── exceptions.py                          # Compliance exception classes
-│   │   └── capability_resolver.py                 # Resolves explicit/inferred skill matches
+│   │   ├── capability_resolver.py                 # Resolves explicit/inferred skill matches
+│   │   └── hard_requirement_engine.py             # Matches capabilities against job criteria
+│   │
+│   ├── skill_gap/                                 # Phase 12 — Skill Gap & Recommendations
+│   │   ├── models.py                              # SkillGapResult Pydantic schema
+│   │   ├── exceptions.py                          # GapAnalysisError exceptions
+│   │   └── skill_gap_engine.py                    # Gap analysis & recommendations
 │   │
 │   ├── candidate_scoring/                         # Stage 10 — Dynamic candidate scoring
 │   │   ├── models.py                              # CandidateScoreProfile definition
@@ -350,12 +373,13 @@ AI-RECRUITMENT-MODEL/
 │   └── match_reports/                             # Vector score report outputs
 │
 ├── tests/                                         # Project-wide unit tests directory
-│   ├── test_achievement_analyzer.py                # Verifies standout signals detection & scoring
-│   ├── test_evaluation_strategy.py                # Verifies rule libraries & fallbacks
-│   ├── test_capability_resolver.py                # Verifies skill graph compliance resolver
-│   ├── test_complexity_calculator.py              # Verifies experience complexity math
-│   ├── test_confidence_calculator.py              # Verifies confidence level thresholds
-...
+│   ├── test_achievement_analyzer.py               # Verifies standout signals detection & scoring
+│   ├── test_evaluation_strategy.py               # Verifies rule libraries & fallbacks
+│   ├── test_capability_resolver.py               # Verifies skill graph compliance resolver
+│   ├── test_complexity_calculator.py             # Verifies experience complexity math
+│   ├── test_confidence_calculator.py             # Verifies confidence level thresholds
+│   └── ...                                        # (261+ tests total)
+└── phase3.py                                      # Role classification validation suite script
 ```
 
 ---
@@ -367,9 +391,10 @@ AI-RECRUITMENT-MODEL/
 git clone <repository_url>
 cd AI-RECRUITMENT-MODEL
 
-# 2. Setup the virtual environment
-python3 -m venv .venv
-source .venv/bin/activate
+# 2. Activate the virtual environment
+source ../.venv/bin/activate
+# Note: If .venv is placed in the project root, activate via:
+# source .venv/bin/activate
 
 # 3. Install packages
 pip install -r requirements.txt
@@ -443,6 +468,111 @@ print(ach_profile.achievement_score)      # Numeric score (e.g. 3.5)
 print(ach_profile.explanation_traces)     # Step-by-step scoring traces
 ```
 
+### Standalone Hard Requirements Compliance Engine
+```python
+from app.schemas.resume_schema import ResumeProfile
+from app.schemas.job_schema import JobProfile
+from app.role_classification.models import RoleProfile
+from app.hard_requirements.capability_resolver import CapabilityResolver
+from app.hard_requirements.hard_requirement_engine import HardRequirementEngine
+from app.knowledge_graph.repositories.networkx_repository import NetworkXSkillGraphRepository
+from app.knowledge_graph.services.skill_graph_service import SkillGraphService
+from app.knowledge_graph.inference.skill_inference_engine import SkillInferenceEngine
+
+# Initialize the inference engine with skills taxonomy
+skills_repo = NetworkXSkillGraphRepository()
+skills_repo.initialize("data/skill_graph/skills_taxonomy.json")
+skills_service = SkillGraphService(skills_repo)
+inference_engine = SkillInferenceEngine(skills_service)
+
+# Resolve capability expansions
+resolver = CapabilityResolver(inference_engine)
+resume_profile = ResumeProfile(name="John", skills=["FastAPI"], experience=[], projects=[], education=[], achievements=[])
+resolution = resolver.resolve_capabilities(resume_profile)
+
+# Evaluate compliance check against job profile
+job_profile = JobProfile(
+    title="Backend Dev", 
+    required_skills=["Python", "FastAPI"], 
+    preferred_skills=[], 
+    critical_skills=[], 
+    experience_required=3, 
+    job_summary="Backend Developer"
+)
+role_profile = RoleProfile(
+    role_family="software_engineering",
+    specialization="backend_engineer",
+    seniority="senior",
+    evaluation_profile="senior_backend"
+)
+compliance_engine = HardRequirementEngine()
+result = compliance_engine.evaluate_compliance(job_profile, role_profile, resolution)
+
+print(f"Compliance Pass Status: {result.passed}")
+print(f"Coverage Score: {result.coverage_score:.2f}")
+print(f"Missing required skills: {result.missing_required}")
+```
+
+### Standalone Skill Gap Engine
+```python
+from app.schemas.job_schema import JobProfile
+from app.hard_requirements.models import HardRequirementResult
+from app.experience_analysis.models import SkillConfidenceProfile
+from app.skill_gap.skill_gap_engine import SkillGapEngine
+
+engine = SkillGapEngine()
+result = engine.analyze_gaps(
+    job_profile=job_profile,  # JobProfile Pydantic object
+    hard_requirement_result=HardRequirementResult(
+        passed=False, 
+        coverage_score=0.5,
+        matched_required=["Python"],
+        missing_required=["Docker"],
+        matched_preferred=[],
+        missing_preferred=["Kubernetes"]
+    ),
+    confidence_profiles={
+        "Python": SkillConfidenceProfile(skill="Python", confidence_score=80.0, confidence_tier="Strong"),
+        "Docker": SkillConfidenceProfile(skill="Docker", confidence_score=40.0, confidence_tier="Weak")
+    }
+)
+
+print(f"Overall Gap Score: {result.overall_gap_score}")
+print(f"Improvement Recommendations: {result.improvement_areas}")
+print(f"Weak Skills Detected: {result.weak_skills}")
+print(f"Strong Skills Detected: {result.strong_skills}")
+```
+
+### Standalone Skill Confidence Engine
+```python
+from app.schemas.resume_schema import ResumeProfile, Experience
+from app.experience_analysis.skill_confidence_engine import SkillConfidenceEngine
+from app.experience_analysis.evidence_collector import SkillEvidenceCollector
+from app.experience_analysis.complexity_calculator import ComplexityCalculator
+from app.experience_analysis.signal_calculator import SignalCalculator
+from app.experience_analysis.confidence_calculator import SkillConfidenceCalculator
+
+engine = SkillConfidenceEngine(
+    evidence_collector=SkillEvidenceCollector(),
+    complexity_calculator=ComplexityCalculator(),
+    signal_calculator=SignalCalculator(),
+    confidence_calculator=SkillConfidenceCalculator()
+)
+
+resume_profile = ResumeProfile(
+    name="Jane Doe",
+    skills=["Python"],
+    experience=[Experience(role="Developer", company="A", duration="2 years", description="Worked with Python")],
+    projects=[],
+    education=[],
+    achievements=[]
+)
+
+confidence_profiles = engine.analyze(resume_profile)
+for skill, profile in confidence_profiles.items():
+    print(f"Skill: {skill} | Confidence Score: {profile.confidence_score} | Tier: {profile.confidence_tier}")
+```
+
 ### Standalone Candidate Scoring Engine
 ```python
 from app.candidate_scoring.scoring_engine import CandidateScoringEngine
@@ -456,7 +586,7 @@ score_profile = scoring_engine.generate_score(
     hard_requirement_result=HardRequirementResult(passed=True, coverage_score=1.0),
     semantic_score=0.85,
     confidence_profiles=confidence_profiles,
-    achievement_profile=achievement_profile
+    achievement_profile=ach_profile
 )
 print(f"Overall Score: {score_profile.overall_score}")
 print(f"Breakdowns: {score_profile.component_scores}")
@@ -467,9 +597,47 @@ print(f"Breakdowns: {score_profile.component_scores}")
 from app.candidate_ranking.ranking_engine import CandidateRankingEngine
 
 ranking_engine = CandidateRankingEngine()
-ranked_list = ranking_engine.rank([score_profile_a, score_profile_b])
+ranked_list = ranking_engine.rank([score_profile])
 for candidate in ranked_list.root:
     print(f"Rank {candidate.rank}: {candidate.candidate_name} ({candidate.overall_score})")
+    print(f"  Strengths: {candidate.strengths}")
+    print(f"  Concerns: {candidate.concerns}")
+```
+
+### Individual Stage Run Scripts
+- **run_full_pipeline.py**: Runs the central pipeline on a candidate's resume PDF and a job description file.
+  ```bash
+  # Run with defaults
+  python scripts/run_full_pipeline.py
+  
+  # Run with custom inputs: python scripts/run_full_pipeline.py <resume_path> <jd_path> <job_name>
+  python scripts/run_full_pipeline.py sample_resumes/resume1.pdf sample_jds/senior_software_engineer.txt "custom_role"
+  ```
+- **run_resume_pipeline.py**: Parses a resume PDF and extracts the structured JSON payload.
+  ```bash
+  # Run with default sample
+  python scripts/run_resume_pipeline.py
+  
+  # Run with custom resume: python scripts/run_resume_pipeline.py <resume_path>
+  python scripts/run_resume_pipeline.py sample_resumes/resume1.pdf
+  ```
+- **run_job_pipeline.py**: Parses a job description and extracts the structured JSON payload.
+  ```bash
+  # Run with default sample
+  python scripts/run_job_pipeline.py
+  
+  # Run with custom job description: python scripts/run_job_pipeline.py <jd_path> <role_name>
+  python scripts/run_job_pipeline.py sample_jds/senior_software_engineer.txt "senior_backend"
+  ```
+- **run_matching.py**: Resolves similarity matching using existing stored JSON profiles.
+  ```bash
+  python scripts/run_matching.py --resume data/extracted_profiles/john_doe.json --job data/extracted_jobs/role.json
+  ```
+
+### Phase 3 Validation Suite
+Validates the classification rules logic against expected specializations and seniorities:
+```bash
+python phase3.py
 ```
 
 ---
@@ -477,7 +645,7 @@ for candidate in ranked_list.root:
 ## Data Schemas
 
 ### Resume Profile
-Defined in [resume_schema.py](file:///Users/nischayverma/Desktop/AI-RECRUITMENT-MODEL/app/schemas/resume_schema.py). Represents extracted candidate details:
+Defined in [resume_schema.py](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/schemas/resume_schema.py). Represents extracted candidate details:
 * `name`: Full name of candidate.
 * `skills`: List of explicit skills declarations.
 * `experience`: List of professional records (role, company, duration, description).
@@ -487,7 +655,7 @@ Defined in [resume_schema.py](file:///Users/nischayverma/Desktop/AI-RECRUITMENT-
 * `achievements`: List of string raw achievements.
 
 ### Job Profile
-Defined in [job_schema.py](file:///Users/nischayverma/Desktop/AI-RECRUITMENT-MODEL/app/schemas/job_schema.py). Represents job specifications:
+Defined in [job_schema.py](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/schemas/job_schema.py). Represents job specifications:
 * `title`: Official role title.
 * `required_skills`: List of mandatory core skills.
 * `preferred_skills`: List of nice-to-have supplementary skills.
@@ -497,22 +665,50 @@ Defined in [job_schema.py](file:///Users/nischayverma/Desktop/AI-RECRUITMENT-MOD
 * `hidden_hiring_signals`: Boolean fields (e.g. `startup_environment`, `high_ownership`).
 
 ### Role Profile
-Defined in [models.py](file:///Users/nischayverma/Desktop/AI-RECRUITMENT-MODEL/app/role_classification/models.py). Contains structural details inferred by classifier rules:
+Defined in [models.py](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/role_classification/models.py). Contains structural details inferred by classifier rules:
 * `role_family`: Broad field (e.g. `software_engineering`).
 * `specialization`: Detailed job title (e.g. `backend_engineer`).
 * `seniority`: Qualitative seniority level (e.g. `mid_level`).
 * `evaluation_profile`: Composite target identifier (e.g. `mid_backend`).
 
 ### Evaluation Strategy
-Defined in [models.py](file:///Users/nischayverma/Desktop/AI-RECRUITMENT-MODEL/app/evaluation_strategy/models.py). Contains weights and strictness settings:
+Defined in [models.py](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/evaluation_strategy/models.py). Contains weights and strictness settings:
 * `evaluation_profile`: Composite target profile (e.g., `intern_backend`).
 * `strictness_level`: Evaluation strictness (`low`, `medium`, `high`).
 * `component_weights`: Dictionary mapping candidate areas to weights (must sum to `1.0`).
 * `minimum_skill_confidence`: Threshold for skill confidence ratings.
 * `hard_requirement_tolerance`: Acceptable tolerance level for missing requirements.
 
+### Capability Resolution Result
+Defined in [models.py](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/hard_requirements/models.py). Holds skills resolved explicitly and expanded via ancestor traversal:
+* `explicit_skills`: Direct skills parsed from candidate resume.
+* `inferred_skills`: Skills inferred by tracing graph edges.
+* `candidate_capabilities`: Combined resolved and inferred candidate skillset.
+* `skill_origins`: Registry trace showing which explicit skill triggered each parent inference.
+
+### Hard Requirements Compliance Result
+Defined in [models.py](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/hard_requirements/models.py). Contains structural results of compliance checks:
+* `passed`: True if all required/critical criteria were fulfilled.
+* `coverage_score`: Percentage metric of matched criteria.
+* `matched_required`: List of required skills satisfied.
+* `missing_required`: List of required skills missing.
+* `matched_preferred`: List of preferred skills satisfied.
+* `missing_preferred`: List of preferred skills missing.
+* `critical_failures`: Required/critical skills not found.
+* `decision_reason`: Detailed textual explanation of compliance status.
+
+### Skill Gap Result
+Defined in [models.py](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/skill_gap/models.py). Contains details of the skill gap analysis:
+* `missing_required_skills`: List of required skills from the job description that the candidate is missing.
+* `missing_preferred_skills`: List of preferred skills from the job description that the candidate is missing.
+* `weak_skills`: Candidate skills showing weak evidence/confidence (< 50.0).
+* `strong_skills`: Candidate skills showing strong evidence/confidence (>= 75.0).
+* `improvement_areas`: Actionable, deterministic recommendations.
+* `overall_gap_score`: A normalized gap score between `0.0` and `1.0`.
+* `decision_summary`: A concise natural language explanation of the gaps.
+
 ### Achievement Profile
-Defined in [models.py](file:///Users/nischayverma/Desktop/AI-RECRUITMENT-MODEL/app/achievement_analysis/models.py). Contains candidate achievement signals:
+Defined in [models.py](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/achievement_analysis/models.py). Contains candidate achievement signals:
 * `achievement_score`: Overall consolidated score between `0.0` and `10.0`.
 * `academic`: List of detected academic `AchievementDetail` items.
 * `technical`: List of detected technical `AchievementDetail` items.
@@ -523,7 +719,7 @@ Defined in [models.py](file:///Users/nischayverma/Desktop/AI-RECRUITMENT-MODEL/a
 * `explanation_traces`: Structured, transparent explanation statements detailing how scores were assigned.
 
 ### Candidate Score Profile
-Defined in [models.py](file:///Users/nischayverma/Desktop/AI-RECRUITMENT-MODEL/app/candidate_scoring/models.py). Contains all scoring components and evidence:
+Defined in [models.py](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/candidate_scoring/models.py). Contains all scoring components and evidence:
 * `candidate_name`: Name of the scored candidate.
 * `overall_score`: Consolidated, dynamically weighted score (0.0 to 100.0).
 * `component_scores`: Dictionary of individual scores per active category (semantic, skills, experience, achievements, projects, leadership).
@@ -535,10 +731,10 @@ Defined in [models.py](file:///Users/nischayverma/Desktop/AI-RECRUITMENT-MODEL/a
 * `achievement_score`: Max-biased standout achievement score.
 
 ### Ranked Candidate List
-Defined in [models.py](file:///Users/nischayverma/Desktop/AI-RECRUITMENT-MODEL/app/candidate_ranking/models.py). Represents a sorted collection of ranked candidates:
+Defined in [models.py](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/candidate_ranking/models.py). Represents a sorted collection of ranked candidates:
 * `rank`: Rank number (1-indexed).
-* `candidate_name` (alias `candidate`): Full candidate name.
-* `overall_score` (alias `score`): Candidate's overall weighted score.
+* `candidate_name`: Full candidate name.
+* `overall_score`: Candidate's overall weighted score.
 * `strengths`: Bulleted list of candidate strengths based on category high scores.
 * `concerns`: Bulleted list of candidate concerns based on compliance failures or low scores.
 
@@ -591,14 +787,20 @@ Exception (Python Built-in)
       │    ├── RequirementMatchingError (app.hard_requirements.exceptions)
       │    └── CoverageEvaluationError (app.hard_requirements.exceptions)
       │
+      ├── SkillGapError (app.skill_gap.exceptions)
+      │    ├── GapAnalysisError (app.skill_gap.exceptions)
+      │    └── RecommendationGenerationError (app.skill_gap.exceptions)
+      │
       ├── AchievementAnalysisError (app.achievement_analysis.exceptions)
       │    ├── DetectionError (app.achievement_analysis.exceptions)
       │    └── ScoringError (app.achievement_analysis.exceptions)
       │
       ├── CandidateScoringError (app.candidate_scoring.exceptions)
+      │    ├── CalculatorError (app.candidate_scoring.exceptions)
       │    └── EngineExecutionError (app.candidate_scoring.exceptions)
       │
       ├── CandidateRankingError (app.candidate_ranking.exceptions)
+      │    ├── TieBreakerError (app.candidate_ranking.exceptions)
       │    └── RankingEngineError (app.candidate_ranking.exceptions)
       │
       ├── EmbeddingError (app.embeddings.embedder)
@@ -614,8 +816,8 @@ Exception (Python Built-in)
 Verify all components are working correctly using pytest. Use `PYTHONPATH` before executing to ensure module imports are resolved:
 
 ```bash
-# Run all tests (260+ cases covered, including Phase 10 and Phase 11)
-PYTHONPATH=. .venv/bin/pytest
+# Run all tests (261 cases covered, including Phase 10 and Phase 11)
+PYTHONPATH=. ../.venv/bin/pytest
 ```
 
 ---
@@ -637,9 +839,9 @@ ARIS V2 consists of thirteen distinct phases, divided into **Implemented** and *
 * **Phase 9: Achievement Analyzer**: Standing signals discovery & trace scoring.
 * **Phase 10: Candidate Scoring Engine**: Unified dynamic weighted score calculations.
 * **Phase 11: Candidate Ranking Engine**: Deterministic candidate rank order sorting and sorting tie-breakers.
+* **Phase 12: Skill Gap Engine / Explainability Rendering**: Analyzing requirement matches and confidence scores to output actionable gap reports.
 
 ### Future Roadmap Phases
-* **Phase 12: Explainability Rendering**: Dynamic visualization of evidence and reasons.
 * **Phase 13: Recruiter Copilot**: Interactive dialogue interface for custom candidate searches.
 
 ---
@@ -648,7 +850,7 @@ ARIS V2 consists of thirteen distinct phases, divided into **Implemented** and *
 
 | Diagnostics Issue | Common Culprit | Suggested Resolution |
 |:---|:---|:---|
-| `ModuleNotFoundError: No module named 'app'` | Running pytest directly without setting the python import paths | Execute tests setting `PYTHONPATH=. .venv/bin/pytest`. |
+| `ModuleNotFoundError: No module named 'app'` | Running pytest directly without setting the python import paths | Execute tests setting `PYTHONPATH=. ../.venv/bin/pytest`. |
 | `MissingAPIKeyError` | `.env` variables cannot be read | Ensure the `.env` file is in the root directory and contains `GEMINI_API_KEY`. |
 | `Slow execution on first run` | SentenceTransformer is downloading the local model | Wait for downloading to finish. Subsequent runs load from local cache. |
 | `EmptyPDFError` | The resume PDF has no selectable text | Use OCR on scanned resume files. |

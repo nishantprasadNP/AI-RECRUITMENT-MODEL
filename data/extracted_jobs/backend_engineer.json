@@ -1,0 +1,78 @@
+{
+  "title": "Senior Software Engineer - FinTech Platform",
+  "required_skills": [
+    "Python",
+    "Go",
+    "SQL",
+    "RESTful APIs"
+  ],
+  "preferred_skills": [
+    "AWS",
+    "Docker",
+    "Kubernetes"
+  ],
+  "critical_skills": [
+    "Python",
+    "Go",
+    "SQL",
+    "RESTful APIs",
+    "AWS"
+  ],
+  "experience_required": 5,
+  "education": {
+    "degree": "Bachelor's or Master's",
+    "field": "Computer Science, Software Engineering"
+  },
+  "leadership": true,
+  "seniority_level": "senior",
+  "responsibility_themes": [
+    "Backend Development",
+    "API Development",
+    "System Design",
+    "System Optimization",
+    "Architectural Design",
+    "Mentorship",
+    "Code Review",
+    "Database Design",
+    "Troubleshooting",
+    "System Reliability"
+  ],
+  "domain_knowledge": [
+    "FinTech",
+    "Payment Processing"
+  ],
+  "soft_skills": [
+    "Ownership",
+    "Problem Solving",
+    "Decision Making",
+    "Collaboration",
+    "Teamwork",
+    "Adaptability",
+    "Willingness to learn"
+  ],
+  "tools_and_technologies": [
+    "Python",
+    "Go",
+    "PostgreSQL",
+    "MySQL",
+    "SQL",
+    "AWS",
+    "Docker",
+    "Kubernetes",
+    "RESTful APIs"
+  ],
+  "hidden_hiring_signals": {
+    "autonomy_required": true,
+    "client_facing": false,
+    "research_oriented": false,
+    "innovation_focused": false,
+    "startup_environment": true,
+    "high_ownership": true
+  },
+  "role_complexity_score": 8,
+  "future_potential_signals": [
+    "Adaptability",
+    "Willingness to learn"
+  ],
+  "job_summary": "This Senior Software Engineer role is within a fast-growing FinTech startup, focusing on designing, building, and maintaining high-throughput backend APIs for payment systems. The position requires a minimum of 5 years of experience in backend development, strong proficiency in Python or Go, SQL databases like PostgreSQL or MySQL, and extensive experience with RESTful APIs. The role involves leading a small team, mentoring junior engineers, driving architectural decisions, and troubleshooting production issues. Preferred qualifications include AWS, Docker, and Kubernetes. The ideal candidate will thrive in a fast-paced, highly collaborative environment, demonstrating extreme ownership, autonomy, adaptability, and a willingness to learn."
+}

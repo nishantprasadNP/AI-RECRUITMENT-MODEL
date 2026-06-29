@@ -1,0 +1,218 @@
+{
+  "candidate_name": "NISHANT PRASAD",
+  "job_name": "role",
+  "role_profile": {
+    "role_family": "software_engineering",
+    "specialization": "backend_engineer",
+    "seniority": "senior",
+    "evaluation_profile": "senior_backend"
+  },
+  "evaluation_strategy": {
+    "evaluation_profile": "senior_backend",
+    "strictness_level": "high",
+    "component_weights": {
+      "skills": 0.15,
+      "projects": 0.25,
+      "experience": 0.4,
+      "leadership": 0.2
+    },
+    "minimum_skill_confidence": 80.0,
+    "hard_requirement_tolerance": 0.0
+  },
+  "achievement_profile": {
+    "achievement_score": 4.5,
+    "academic": [
+      {
+        "title": "AIR 15120, JEE Main 2023",
+        "source_section": "achievements",
+        "source_detail": "Entry #5",
+        "score_contribution": 2.0,
+        "explanation": "Academic rank or JEE achievement mentioned."
+      },
+      {
+        "title": "AIR 16380, JEE Advanced 2023",
+        "source_section": "achievements",
+        "source_detail": "Entry #6",
+        "score_contribution": 2.0,
+        "explanation": "Academic rank or JEE achievement mentioned."
+      },
+      {
+        "title": "Graduated from Tier-1 Institution: NIT Jalandhar",
+        "source_section": "education",
+        "source_detail": "B.Tech in Information Technology at NIT Jalandhar",
+        "score_contribution": 3.5,
+        "explanation": "Graduated from a top tier global or national academic institution."
+      }
+    ],
+    "technical": [],
+    "research": [],
+    "leadership": [],
+    "entrepreneurship": [],
+    "category_scores": {
+      "academic": 7.5,
+      "technical": 0.0,
+      "research": 0.0,
+      "leadership": 0.0,
+      "entrepreneurship": 0.0
+    },
+    "explanation_traces": [
+      "Academic Score: 7.5/10.0 based on 3 signal(s).",
+      "Overall Achievement Score: 4.5/10.0. Calculated as (Max Category Score 7.5 * 60%) + (Sum of other categories 0.0 * 40%), capped at 10.0.",
+      "Standout Academic Signal: 'Graduated from Tier-1 Institution: NIT Jalandhar' in education (B.Tech in Information Technology at NIT Jalandhar) contributing +3.5."
+    ]
+  },
+  "candidate_score": {
+    "candidate_name": "NISHANT PRASAD",
+    "overall_score": 55.3,
+    "component_scores": {
+      "skills": 1.8,
+      "experience": 100.0,
+      "projects": 60.0,
+      "leadership": 0.0
+    },
+    "weight_breakdown": {
+      "skills": 0.15,
+      "projects": 0.25,
+      "experience": 0.4,
+      "leadership": 0.2
+    },
+    "explanation": [
+      "Overall candidate score calculated as 55.3 using evaluation profile 'senior_backend'.",
+      "Skill Strength: 1.8/100.0 (Weight: 0.15)",
+      "Experience Quality: 100.0/100.0 (Weight: 0.40)",
+      "Projects Strength: 60.0/100.0 (Weight: 0.25)",
+      "Leadership Strength: 0.0/100.0 (Weight: 0.20)",
+      "Hard Requirements: Failed compliance check. Missing required skills: ['Go', 'RESTful API Design', 'Backend Systems Development']"
+    ],
+    "hard_requirements_coverage": 0.4,
+    "semantic_score": 0.3863,
+    "skill_confidence_score": 15.81,
+    "achievement_score": 4.5
+  },
+  "hard_requirement_result": {
+    "passed": false,
+    "coverage_score": 0.4,
+    "matched_required": [
+      "Python",
+      "SQL"
+    ],
+    "missing_required": [
+      "Go",
+      "RESTful API Design",
+      "Backend Systems Development"
+    ],
+    "matched_preferred": [
+      "AWS",
+      "Docker"
+    ],
+    "missing_preferred": [
+      "Kubernetes"
+    ],
+    "critical_failures": [
+      "Go",
+      "RESTful API Design",
+      "Backend Systems Development"
+    ],
+    "decision_reason": "Missing required skills: Go, RESTful API Design, Backend Systems Development"
+  },
+  "skill_gap_result": {
+    "missing_required_skills": [
+      "Go",
+      "RESTful API Design",
+      "Backend Systems Development"
+    ],
+    "missing_preferred_skills": [
+      "Kubernetes"
+    ],
+    "weak_skills": [
+      "C",
+      "C++",
+      "Java",
+      "Python",
+      "JavaScript",
+      "TypeScript",
+      "HTML/CSS",
+      "SQL (MySQL)",
+      "NumPy",
+      "Pandas",
+      "Scikit-learn",
+      "PyTorch",
+      "LightGBM",
+      "Matplotlib",
+      "Seaborn",
+      "Git",
+      "GitHub",
+      "Postman",
+      "Docker",
+      "VS Code",
+      "IntelliJ IDEA",
+      "Jupyter Notebook",
+      "Google Colab",
+      "Node.js",
+      "Express.js",
+      "FastAPI",
+      "REST APIs",
+      "JWT Authentication",
+      "MySQL",
+      "AWS",
+      "Linux",
+      "DSA",
+      "OOP",
+      "DBMS",
+      "Operating Systems",
+      "Computer Networks",
+      "System Design"
+    ],
+    "strong_skills": [],
+    "improvement_areas": [
+      "Improve proficiency in Go",
+      "Improve proficiency in RESTful API Design",
+      "Improve proficiency in Backend Systems Development",
+      "Gain container orchestration experience",
+      "Improve proficiency in C",
+      "Improve proficiency in C++",
+      "Improve proficiency in Java",
+      "Improve proficiency in Python",
+      "Improve proficiency in JavaScript",
+      "Improve proficiency in TypeScript",
+      "Improve proficiency in HTML/CSS",
+      "Improve proficiency in SQL (MySQL)",
+      "Improve proficiency in NumPy",
+      "Improve proficiency in Pandas",
+      "Improve proficiency in Scikit-learn",
+      "Improve proficiency in PyTorch",
+      "Improve proficiency in LightGBM",
+      "Improve proficiency in Matplotlib",
+      "Improve proficiency in Seaborn",
+      "Improve proficiency in Git",
+      "Improve proficiency in GitHub",
+      "Improve proficiency in Postman",
+      "Build deployment projects using Docker",
+      "Improve proficiency in VS Code",
+      "Improve proficiency in IntelliJ IDEA",
+      "Improve proficiency in Jupyter Notebook",
+      "Improve proficiency in Google Colab",
+      "Improve proficiency in Node.js",
+      "Improve proficiency in Express.js",
+      "Improve proficiency in FastAPI",
+      "Improve proficiency in REST APIs",
+      "Improve proficiency in JWT Authentication",
+      "Improve proficiency in MySQL",
+      "Gain cloud deployment experience",
+      "Improve proficiency in Linux",
+      "Improve proficiency in DSA",
+      "Improve proficiency in OOP",
+      "Improve proficiency in DBMS",
+      "Improve proficiency in Operating Systems",
+      "Improve proficiency in Computer Networks",
+      "Improve proficiency in System Design"
+    ],
+    "overall_gap_score": 1.0,
+    "decision_summary": "Candidate satisfies most requirements but lacks Go, RESTful API Design, Backend Systems Development and has weak C, C++, Java, Python, JavaScript, TypeScript, HTML/CSS, SQL (MySQL), NumPy, Pandas, Scikit-learn, PyTorch, LightGBM, Matplotlib, Seaborn, Git, GitHub, Postman, Docker, VS Code, IntelliJ IDEA, Jupyter Notebook, Google Colab, Node.js, Express.js, FastAPI, REST APIs, JWT Authentication, MySQL, AWS, Linux, DSA, OOP, DBMS, Operating Systems, Computer Networks, System Design evidence."
+  },
+  "semantic_score": 0.3863,
+  "semantic_score_pct": 38.63,
+  "resume_profile_path": "data/extracted_profiles/nishant_prasad.json",
+  "job_profile_path": "data/extracted_jobs/role.json",
+  "generated_at": "2026-06-29T23:34:04.617352"
+}

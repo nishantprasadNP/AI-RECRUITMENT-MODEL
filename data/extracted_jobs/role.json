@@ -11,34 +11,33 @@
   "preferred_skills": [
     "AWS",
     "Docker",
-    "Kubernetes"
+    "Kubernetes",
+    "Adaptability",
+    "Continuous Learning"
   ],
   "critical_skills": [
     "Python",
     "Go",
     "SQL",
     "RESTful APIs",
-    "PostgreSQL"
+    "AWS"
   ],
   "experience_required": 5,
   "education": {
-    "degree": "Bachelor's or Master's",
+    "degree": "Bachelor's, Master's",
     "field": "Computer Science, Software Engineering"
   },
   "leadership": true,
-  "seniority_level": "senior",
+  "seniority_level": "lead",
   "responsibility_themes": [
-    "API Development",
     "Backend Development",
-    "System Design",
+    "API Design",
     "System Optimization",
     "Team Leadership",
     "Mentorship",
-    "Code Review",
+    "Architectural Decisions",
     "Database Design",
-    "Troubleshooting",
-    "System Reliability",
-    "Production Support"
+    "Troubleshooting"
   ],
   "domain_knowledge": [
     "FinTech",
@@ -46,33 +45,35 @@
   ],
   "soft_skills": [
     "Collaboration",
+    "Ownership",
     "Problem Solving",
     "Decision Making",
+    "Mentorship",
     "Adaptability",
-    "Willingness to Learn"
+    "Continuous Learning"
   ],
   "tools_and_technologies": [
     "Python",
     "Go",
-    "SQL",
     "PostgreSQL",
     "MySQL",
     "AWS",
     "Docker",
-    "Kubernetes"
+    "Kubernetes",
+    "RESTful APIs"
   ],
   "hidden_hiring_signals": {
     "autonomy_required": true,
     "client_facing": false,
     "research_oriented": false,
-    "innovation_focused": false,
+    "innovation_focused": true,
     "startup_environment": true,
     "high_ownership": true
   },
   "role_complexity_score": 8,
   "future_potential_signals": [
-    "Willingness to Learn",
+    "Willingness to learn",
     "Adaptability"
   ],
-  "job_summary": "This Senior Software Engineer role is within a fast-paced FinTech startup, focusing on designing, building, and optimizing high-throughput backend APIs and database schemas. The position requires leading a small team, mentoring junior engineers, and driving architectural decisions with minimal guidance. Candidates need 5+ years of experience with Python or Go, SQL databases (PostgreSQL/MySQL), and RESTful API design. Strong ownership and adaptability are key, with preferred experience in AWS, Docker, and Kubernetes."
+  "job_summary": "This Senior Software Engineer - FinTech Platform role is for a lead engineer in a fast-paced FinTech startup, focusing on designing, building, and maintaining high-throughput backend APIs for next-generation payment systems. The role requires 5+ years of experience, a Bachelor's or Master's degree in Computer Science or a related field, and strong proficiency in Python or Go, SQL databases (PostgreSQL/MySQL), and RESTful API design. The successful candidate will lead a small team, mentor junior developers, drive architectural decisions, and take extreme ownership, operating with significant autonomy. Preferred qualifications include experience with AWS, Docker, and Kubernetes, along with domain knowledge in FinTech or payment processing. The role values adaptability and a strong willingness to learn."
 }

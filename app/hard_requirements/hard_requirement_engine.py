@@ -4,8 +4,11 @@ Matches candidate capabilities against job requirements.
 """
 
 import logging
+from typing import Optional
 from app.schemas.job_schema import JobProfile
+from app.role_classification.models import RoleProfile
 from app.hard_requirements.models import HardRequirementResult, CapabilityResolutionResult
+from app.hard_requirements.requirement_matcher import RequirementMatcher
 from app.hard_requirements.exceptions import RequirementMatchingError
 
 logger = logging.getLogger("aris.hard_requirements.engine")
@@ -13,85 +16,68 @@ logger = logging.getLogger("aris.hard_requirements.engine")
 
 class HardRequirementEngine:
     """
-    Evaluates resolved candidate capabilities against required and preferred job criteria.
+    Evaluates resolved candidate capabilities against required and preferred job criteria
+    using the RequirementMatcher layer.
     """
-    def __init__(self) -> None:
-        pass
+
+    def __init__(self, matcher: Optional[RequirementMatcher] = None) -> None:
+        self._matcher = matcher or RequirementMatcher()
 
     def evaluate_compliance(
         self,
-        resolution: CapabilityResolutionResult,
-        job_profile: JobProfile
+        job_profile: JobProfile,
+        role_profile: RoleProfile,
+        capabilities: CapabilityResolutionResult
     ) -> HardRequirementResult:
         """
-        Matches resolved candidate capabilities against job description requirements.
+        Evaluates candidate capability compliance against job requirements.
 
         Args:
-            resolution: The CapabilityResolutionResult from the CapabilityResolver.
-            job_profile: The job requirements JobProfile.
+            job_profile: The JobProfile containing job requirements.
+            role_profile: The classified RoleProfile context (reserved for future use).
+            capabilities: The resolved candidate capabilities.
 
         Returns:
-            A HardRequirementResult with coverage and compliance details.
+            A HardRequirementResult with compliance evaluation details.
+
+        Raises:
+            RequirementMatchingError: If any of the inputs is None or evaluation fails.
         """
-        if not resolution:
-            raise RequirementMatchingError("CapabilityResolutionResult cannot be None.")
-        if not job_profile:
-            raise RequirementMatchingError("JobProfile cannot be None.")
+        if job_profile is None:
+            raise RequirementMatchingError("job_profile cannot be None.")
+        if role_profile is None:
+            raise RequirementMatchingError("role_profile cannot be None.")
+        if capabilities is None:
+            raise RequirementMatchingError("capabilities cannot be None.")
 
         try:
-            candidate_caps = {c.lower().strip() for c in resolution.candidate_capabilities if c}
+            logger.info("Evaluating hard requirements compliance...")
 
-            req_skills = job_profile.required_skills or []
-            pref_skills = job_profile.preferred_skills or []
-            crit_skills = job_profile.critical_skills or []
+            # 1. Call RequirementMatcher
+            match_result = self._matcher.match_requirements(job_profile, capabilities)
 
-            matched_req = []
-            missing_req = []
-            for skill in req_skills:
-                if skill.lower().strip() in candidate_caps:
-                    matched_req.append(skill)
-                else:
-                    missing_req.append(skill)
+            # 2. Determine pass/fail
+            passed = len(match_result.missing_required) == 0
 
-            matched_pref = []
-            missing_pref = []
-            for skill in pref_skills:
-                if skill.lower().strip() in candidate_caps:
-                    matched_pref.append(skill)
-                else:
-                    missing_pref.append(skill)
+            # 3. Decision Reason
+            if passed:
+                decision_reason = "All required skills satisfied."
+            else:
+                decision_reason = f"Missing required skills: {', '.join(match_result.missing_required)}"
 
-            # Determine critical failures based on job critical skills list
-            # If critical_skills list is empty, all required skills are treated as critical
-            crit_set = {c.lower().strip() for c in crit_skills if c}
-            critical_failures = []
-            for skill in missing_req:
-                if not crit_set or skill.lower().strip() in crit_set:
-                    critical_failures.append(skill)
-
-            passed = len(critical_failures) == 0
-
-            # Calculate coverage score
-            total_req = len(req_skills)
-            coverage = (len(matched_req) / total_req) if total_req > 0 else 1.0
-
-            decision_reason = (
-                f"Candidate matched {len(matched_req)} of {total_req} required skills. "
-                f"Compliance result: {'PASSED' if passed else 'FAILED'}."
-            )
-            if not passed:
-                decision_reason += f" Critical missing skills: {critical_failures}"
-
+            # Build and return the result Pydantic model
             return HardRequirementResult(
                 passed=passed,
-                coverage_score=round(coverage, 2),
-                matched_required=matched_req,
-                missing_required=missing_req,
-                matched_preferred=matched_pref,
-                missing_preferred=missing_pref,
-                critical_failures=critical_failures,
+                coverage_score=match_result.coverage_score,
+                matched_required=match_result.matched_required,
+                missing_required=match_result.missing_required,
+                matched_preferred=match_result.matched_preferred,
+                missing_preferred=match_result.missing_preferred,
+                critical_failures=match_result.critical_failures,
                 decision_reason=decision_reason
             )
 
         except Exception as e:
+            if isinstance(e, RequirementMatchingError):
+                raise
             raise RequirementMatchingError(f"Compliance evaluation failed: {e}") from e

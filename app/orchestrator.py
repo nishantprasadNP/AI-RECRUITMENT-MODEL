@@ -31,6 +31,7 @@ import json
 import logging
 import os
 import re
+from pathlib import Path
 from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Optional, List
@@ -52,7 +53,7 @@ from app.achievement_analysis.models import AchievementProfile
 from app.knowledge_graph.repositories.networkx_repository import NetworkXSkillGraphRepository
 from app.knowledge_graph.services.skill_graph_service import SkillGraphService
 from app.knowledge_graph.inference.skill_inference_engine import SkillInferenceEngine
-from app.hard_requirements import CapabilityResolver, HardRequirementEngine
+from app.hard_requirements import CapabilityResolver, HardRequirementEngine, HardRequirementResult
 from app.experience_analysis.evidence_collector import SkillEvidenceCollector
 from app.experience_analysis.complexity_calculator import ComplexityCalculator
 from app.experience_analysis.signal_calculator import SignalCalculator
@@ -60,6 +61,7 @@ from app.experience_analysis.confidence_calculator import SkillConfidenceCalcula
 from app.experience_analysis.skill_confidence_engine import SkillConfidenceEngine
 from app.candidate_scoring import CandidateScoringEngine, CandidateScoreProfile
 from app.candidate_ranking import CandidateRankingEngine, RankedCandidateList
+from app.skill_gap import SkillGapEngine, SkillGapResult
 from app.storage.job_storage import save_job_profile
 from app.storage.profile_storage import save_profile
 
@@ -95,6 +97,8 @@ class OrchestratorResult:
     evaluation_strategy: Optional[EvaluationStrategy] = None
     achievement_profile: Optional[AchievementProfile] = None
     candidate_score: Optional[CandidateScoreProfile] = None
+    hard_requirement_result: Optional[HardRequirementResult] = None
+    skill_gap_result: Optional[SkillGapResult] = None
     semantic_score: float = 0.0
     resume_profile_path: str = ""
     job_profile_path: str = ""
@@ -134,6 +138,7 @@ class RecruitmentOrchestrator:
         achievement_analyzer: Optional[AchievementAnalyzer] = None,
         candidate_scoring_engine: Optional[CandidateScoringEngine] = None,
         candidate_ranking_engine: Optional[CandidateRankingEngine] = None,
+        skill_gap_engine: Optional[SkillGapEngine] = None,
         match_report_dir: str = "data/match_reports",
     ) -> None:
         self._parser = resume_parser or ResumeParser()
@@ -146,6 +151,7 @@ class RecruitmentOrchestrator:
         self._achievement_analyzer = achievement_analyzer or AchievementAnalyzer()
         self._candidate_scoring_engine = candidate_scoring_engine or CandidateScoringEngine()
         self._candidate_ranking_engine = candidate_ranking_engine or CandidateRankingEngine()
+        self._skill_gap_engine = skill_gap_engine or SkillGapEngine()
         self._match_report_dir = match_report_dir
 
         # Initialize knowledge graph components for Hard Requirements and Skill Confidence
@@ -287,9 +293,18 @@ class RecruitmentOrchestrator:
         # Resolve capabilities
         resolved_caps = self._capability_resolver.resolve_capabilities(resume_profile)
         # Evaluate compliance
-        hard_requirement_result = self._hard_requirement_engine.evaluate_compliance(resolved_caps, job_profile)
+        hard_requirement_result = self._hard_requirement_engine.evaluate_compliance(job_profile, role_profile, resolved_caps)
+        result.hard_requirement_result = hard_requirement_result
         # Calculate skills confidence
         confidence_profiles = self._skill_confidence_engine.analyze(resume_profile)
+        # Stage 12: Skill Gap Engine — identify skill gaps
+        logger.info("[Stage 12] Analyzing skill gaps...")
+        skill_gap_result = self._skill_gap_engine.analyze_gaps(
+            job_profile=job_profile,
+            hard_requirement_result=hard_requirement_result,
+            confidence_profiles=confidence_profiles
+        )
+        result.skill_gap_result = skill_gap_result
         # Generate final unified score profile
         candidate_score = self._candidate_scoring_engine.generate_score(
             resume_profile=resume_profile,
@@ -361,6 +376,8 @@ class RecruitmentOrchestrator:
             "evaluation_strategy": result.evaluation_strategy.model_dump() if result.evaluation_strategy else None,
             "achievement_profile": result.achievement_profile.model_dump() if result.achievement_profile else None,
             "candidate_score": result.candidate_score.model_dump() if result.candidate_score else None,
+            "hard_requirement_result": result.hard_requirement_result.model_dump() if result.hard_requirement_result else None,
+            "skill_gap_result": result.skill_gap_result.model_dump() if result.skill_gap_result else None,
             "semantic_score": result.semantic_score,
             "semantic_score_pct": round(result.semantic_score * 100, 2),
             "resume_profile_path": result.resume_profile_path,

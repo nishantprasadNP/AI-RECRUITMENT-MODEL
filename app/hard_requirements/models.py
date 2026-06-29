@@ -73,3 +73,38 @@ class CapabilityResolutionResult(BaseModel):
         description="A mapping from inferred skills to the explicit source skills that triggered them."
     )
 
+
+class RequirementMatchResult(BaseModel):
+    """
+    Represents the detailed matching result between candidate capabilities and hard requirements.
+    """
+    model_config = ConfigDict(strict=True)
+
+    matched_required: list[str] = Field(
+        default_factory=list,
+        description="List of required skills that the candidate has."
+    )
+    missing_required: list[str] = Field(
+        default_factory=list,
+        description="List of required skills that the candidate is missing."
+    )
+    matched_preferred: list[str] = Field(
+        default_factory=list,
+        description="List of preferred skills that the candidate has."
+    )
+    missing_preferred: list[str] = Field(
+        default_factory=list,
+        description="List of preferred skills that the candidate is missing."
+    )
+    coverage_score: float = Field(
+        ...,
+        ge=0.0,
+        le=1.0,
+        description="Score representing percentage of required requirements matched (0.0 to 1.0)."
+    )
+    critical_failures: list[str] = Field(
+        default_factory=list,
+        description="List of critical missing required skills."
+    )
+
+

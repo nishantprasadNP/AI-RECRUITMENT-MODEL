@@ -64,6 +64,13 @@ class SkillInferenceEngine:
         # 4. Deduplicate results (remove skills already present in explicit_skills)
         inferred_names = inferred_names - resolved_explicit_names
 
+        logger.error(
+            "DEBUG infer_skills: input=%s resolved_explicit=%s inferred_before_return=%s",
+            explicit_inputs,
+            resolved_explicit_names,
+            inferred_names,
+        )
+        
         # 5. Return lists sorted alphabetically for determinism
         return {
             "explicit_skills": sorted(list(resolved_explicit_names)),

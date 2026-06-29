@@ -143,7 +143,7 @@ class NetworkXSkillGraphRepository(ISkillGraphRepository):
         return neighbors
 
     def get_parents(self, node_id: str) -> List[SkillNode]:
-        """Retrieves parent nodes for a given skill (directed sources of PARENT_OF or targets of BELONGS_TO_DOMAIN)."""
+        """Retrieves parent nodes for a given skill (directed sources of PARENT_OF, targets of BELONGS_TO_DOMAIN, or targets of REQUIRES)."""
         if not self._graph.has_node(node_id):
             return []
         
@@ -156,6 +156,11 @@ class NetworkXSkillGraphRepository(ISkillGraphRepository):
         # Case 2: Outgoing edges where node_id -> v is BELONGS_TO_DOMAIN (v is parent domain)
         for _, target, data in self._graph.out_edges(node_id, data=True):
             if data.get("relation_type") == "BELONGS_TO_DOMAIN":
+                parents.append(self._graph.nodes[target]["model"])
+
+        # Case 3: Outgoing edges where node_id -> v is REQUIRES (v is required dependency)
+        for _, target, data in self._graph.out_edges(node_id, data=True):
+            if data.get("relation_type") == "REQUIRES":
                 parents.append(self._graph.nodes[target]["model"])
                 
         return parents

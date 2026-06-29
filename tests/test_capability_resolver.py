@@ -1,3 +1,7 @@
+from app.knowledge_graph import services
+from app.knowledge_graph import services
+from app.knowledge_graph import services
+from app.knowledge_graph.services import skill_graph_service
 import os
 import pytest
 from unittest.mock import MagicMock
@@ -15,9 +19,30 @@ TAXONOMY_PATH = os.path.join("data", "skill_graph", "skills_taxonomy.json")
 def inference_engine():
     repo = NetworkXSkillGraphRepository()
     repo.initialize(TAXONOMY_PATH)
-    service = SkillGraphService(repo)
-    return SkillInferenceEngine(service)
 
+    print("\n========== GRAPH DEBUG ==========")
+    print("Nodes:", repo._graph.number_of_nodes())
+    print("Edges:", repo._graph.number_of_edges())
+    print("=================================\n")
+
+    print("Has node 'fastapi':", repo._graph.has_node("fastapi"))
+    print("Has node 'FastAPI':", repo._graph.has_node("FastAPI"))
+
+    print("repo.get_node('fastapi'):", repo.get_node("fastapi"))
+    print("repo.get_node('FastAPI'):", repo.get_node("FastAPI"))
+
+    service = SkillGraphService(repo)
+
+    print("service.skill_exists('FastAPI'):", service.skill_exists("FastAPI"))
+    print("service.skill_exists('fastapi'):", service.skill_exists("fastapi"))
+
+    # return SkillInferenceEngine(service)
+    engine = SkillInferenceEngine(service)
+
+    print("Infer FastAPI:")
+    print(engine.infer_skills(["FastAPI"]))
+
+    return engine
 
 @pytest.fixture
 def resolver(inference_engine):

@@ -66,6 +66,12 @@ class CapabilityResolver:
                 logger.error("CapabilityResolver: Inference failed for '%s': %s", raw_skill, str(e))
                 raise CapabilityResolutionError(f"Skill inference failed: {str(e)}") from e
 
+            logger.error(
+                "DEBUG resolve_capabilities: raw_skill=%s res=%s",
+                raw_skill,
+                res,
+            )
+
             # If the skill resolved in the graph
             if res.get("explicit_skills"):
                 canonical = res["explicit_skills"][0]
