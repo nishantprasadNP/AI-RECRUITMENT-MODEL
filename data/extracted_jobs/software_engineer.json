@@ -1,0 +1,85 @@
+{
+  "title": "Backend Software Engineer",
+  "required_skills": [
+    "Python",
+    "FastAPI",
+    "Django",
+    "Flask",
+    "REST API Development",
+    "SQL",
+    "Git",
+    "Docker",
+    "Object-Oriented Programming",
+    "Data Structures & Algorithms"
+  ],
+  "preferred_skills": [
+    "AWS",
+    "Azure",
+    "Redis",
+    "Kafka",
+    "Kubernetes",
+    "CI/CD",
+    "Microservices"
+  ],
+  "critical_skills": [
+    "Python",
+    "REST API Development",
+    "SQL",
+    "Docker",
+    "FastAPI"
+  ],
+  "experience_required": 2,
+  "education": {
+    "degree": "Bachelor's degree",
+    "field": "Computer Science"
+  },
+  "leadership": false,
+  "seniority_level": "mid",
+  "responsibility_themes": [
+    "Backend Development",
+    "API Development",
+    "System Design",
+    "Cloud-Native Application Development",
+    "Database Optimization",
+    "Code Quality",
+    "Cross-functional Collaboration",
+    "Deployment",
+    "Monitoring"
+  ],
+  "domain_knowledge": [
+    "Cloud Computing"
+  ],
+  "soft_skills": [
+    "Problem Solving",
+    "Communication",
+    "Teamwork"
+  ],
+  "tools_and_technologies": [
+    "Python",
+    "FastAPI",
+    "Django",
+    "Flask",
+    "PostgreSQL",
+    "MySQL",
+    "Git",
+    "Docker",
+    "AWS",
+    "Azure",
+    "Redis",
+    "Kafka",
+    "Kubernetes",
+    "CI/CD",
+    "Microservices"
+  ],
+  "hidden_hiring_signals": {
+    "autonomy_required": false,
+    "client_facing": false,
+    "research_oriented": false,
+    "innovation_focused": false,
+    "startup_environment": false,
+    "high_ownership": false
+  },
+  "role_complexity_score": 6,
+  "future_potential_signals": [],
+  "job_summary": "Backend Software Engineer to design, build, and maintain scalable backend services and APIs, focusing on cloud-native applications. This role requires 2-5 years of experience, a Bachelor's degree in Computer Science or a related field, and strong problem-solving, communication, and teamwork skills. Key technologies include Python, FastAPI/Django/Flask, SQL (PostgreSQL/MySQL), Git, and Docker. Preferred experience includes AWS/Azure, Redis, Kafka, Kubernetes, CI/CD, and Microservices."
+}

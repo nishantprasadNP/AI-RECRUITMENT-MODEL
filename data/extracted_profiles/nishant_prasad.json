@@ -19,7 +19,6 @@
     "Git",
     "GitHub",
     "Postman",
-    "Docker",
     "VS Code",
     "IntelliJ IDEA",
     "Jupyter Notebook",
@@ -34,12 +33,7 @@
     "MySQL",
     "AWS",
     "Linux",
-    "DSA",
-    "OOP",
-    "DBMS",
-    "Operating Systems",
-    "Computer Networks",
-    "System Design"
+    "Docker"
   ],
   "experience": [
     {
@@ -47,20 +41,22 @@
       "company": "Vitana Private Limited",
       "start_date": "June 2025",
       "end_date": "July 2025",
-      "duration": "June 2025 – July 2025",
-      "description": "• Contributed to the frontend development of a mental wellness platform featuring 4+ user-facing modules including journaling, AI chatbot interactions, recommendations, and wellness tools.\n• Developed reusable React.js components and responsive user interfaces, improving maintainability and enabling faster feature development across application modules.\n• Integrated 10+ RESTful API endpoints and implemented asynchronous data handling to support seamless communication between frontend interfaces and backend services."
+      "duration": "1 month",
+      "description": "• Delivered frontend enhancements for a production healthcare application using React.js, translating product requirements into responsive, accessible, and reusable user interfaces across multiple workflows.\n• Streamlined frontend development by building reusable React.js component libraries and responsive design patterns, improving maintainability and accelerating feature delivery.\n• Integrated 10+ RESTful API endpoints and asynchronous data-handling workflows, ensuring reliable communication between frontend interfaces and backend services."
     }
   ],
   "projects": [
     {
       "name": "CAF-MAI (Unbiased AI)",
       "technologies": [
+        "Python",
         "FastAPI",
-        "React.js",
         "Scikit-learn",
-        "Gemini AI"
+        "Docker",
+        "React.js",
+        "GeminiAI"
       ],
-      "description": "• Architected and deployed a FastAPI + React Responsible AI platform with an 11-module ML pipeline for data profiling, bias discovery, model training, fairness evaluation, explainable AI, and model monitoring.\n• Developed fairness auditing and debiasing modules for automated bias detection, subgroup analysis, and AI model evaluation.\n• Engineered a debiasing framework using sample reweighing, probability adjustment and Gemini API integration, achieving 15–35% reduction in bias disparities."
+      "description": "• Architected and deployed a Responsible AI platform with an 11-stage ML pipeline for fairness assessment, debiasing, explainability, validation, and production monitoring.\n• Automated fairness evaluation using subgroup and intersectional bias analysis, generating explainable insights across multiple protected attributes and ML models.\n• Improved fairness metrics by 15–35% through algorithmic debiasing and LLM-powered explainability using Gemini AI, exposing the workflow via containerized FastAPI backend services."
     },
     {
       "name": "MENTALAI (Mental Wellness Platform)",
@@ -70,7 +66,7 @@
         "MongoDB",
         "GeminiAI"
       ],
-      "description": "• Developed a full-stack mental wellness platform featuring 5+ user-facing modules, including journaling, mood analytics, AI-powered chat assistance, personalized recommendations, and wellness engagement tools.\n• Engineered a recommendation system delivering personalized content across 5 recommendation categories by leveraging mood trends, user interests, interaction history, and recency-based scoring.\n• Implemented 15+ RESTful API endpoints, JWT-based authentication, Gemini AI integration, and MongoDB-backed data management to support personalized experiences and recommendation tracking."
+      "description": "• Built an AI-powered mental wellness platform featuring journaling, mood analytics, conversational assistance, and personalized recommendations.\n• Developed a recommendation engine delivering personalized content across 5 recommendation categories using mood trends, interaction history, user interests, and recency-based scoring.\n• Integrated 15+ RESTful APIs, JWT-based authentication, Gemini AI integration, and MongoDB-backed persistence to support scalable personalization and recommendation tracking."
     },
     {
       "name": "LinkShrink Pro",
@@ -80,30 +76,21 @@
         "MongoDB",
         "NanoID"
       ],
-      "description": "• Developed a URL shortening application using Node.js, Express.js, and MongoDB, enabling efficient generation and management of shortened links.\n• Engineered 8-character NanoID-based URL generation supporting over 2.8 × 1014 unique combinations while minimizing collision probability.\n• Implemented URL redirection workflows and validated RESTful APIs for concurrent URL creation and retrieval operations with a 99% success rate."
+      "description": "• Built a URL shortening platform using Node.js, Express.js, and MongoDB, enabling efficient creation, storage, and management of shortened links.\n• Engineered an 8-character NanoID generation system supporting over 2.8 × 1014 unique URL combi- nations while minimizing collision probability.\n• Optimized concurrent URL creation and redirection workflows through RESTful APIs, achieving a 99% request success rate."
     }
   ],
   "education": [
     {
-      "degree": "B.Tech",
-      "institution": "NIT Jalandhar",
+      "degree": "Bachelor of Technology",
+      "institution": "Dr B R Ambedkar National Institute of Technology Jalandhar",
       "field": "Information Technology",
       "graduation_year": "2027"
-    },
-    {
-      "degree": "Higher Secondary Education",
-      "institution": "Amity International School",
-      "field": null,
-      "graduation_year": "2023"
     }
   ],
   "certifications": [],
   "achievements": [
-    "Top-100, Ethereum IV Quant Forecasting Competition 2026",
-    "Top-50, Magicpin Vera AI Challenge 2026",
-    "Meta AI Hackathon Finalist (Top 200) 2026",
-    "Solved 500+ DSA Problems (LeetCode & GeeksforGeeks)",
-    "AIR 15120, JEE Main 2023",
-    "AIR 16380, JEE Advanced 2023"
+    "Top-100, Ethereum IV Quant Forecasting Competition",
+    "Top-50, Magicpin Vera AI Challenge",
+    "Meta AI Hackathon Finalist (Top 200)"
   ]
 }

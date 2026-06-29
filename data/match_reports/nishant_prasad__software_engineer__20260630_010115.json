@@ -1,0 +1,207 @@
+{
+  "candidate_name": "NISHANT PRASAD",
+  "job_name": "Software Engineer",
+  "role_profile": {
+    "role_family": "software_engineering",
+    "specialization": "backend_engineer",
+    "seniority": "mid_level",
+    "evaluation_profile": "mid_backend"
+  },
+  "evaluation_strategy": {
+    "evaluation_profile": "mid_backend",
+    "strictness_level": "medium",
+    "component_weights": {
+      "skills": 0.3,
+      "projects": 0.3,
+      "experience": 0.3,
+      "achievements": 0.1
+    },
+    "minimum_skill_confidence": 60.0,
+    "hard_requirement_tolerance": 10.0
+  },
+  "achievement_profile": {
+    "achievement_score": 0.0,
+    "academic": [],
+    "technical": [],
+    "research": [],
+    "leadership": [],
+    "entrepreneurship": [],
+    "category_scores": {
+      "academic": 0.0,
+      "technical": 0.0,
+      "research": 0.0,
+      "leadership": 0.0,
+      "entrepreneurship": 0.0
+    },
+    "explanation_traces": [
+      "Overall Achievement Score: 0.0/10.0. Calculated as (Max Category Score 0 * 60%) + (Sum of other categories 0.0 * 40%), capped at 10.0."
+    ]
+  },
+  "candidate_score": {
+    "candidate_name": "NISHANT PRASAD",
+    "overall_score": 29.2,
+    "component_scores": {
+      "skills": 13.0,
+      "experience": 4.2,
+      "achievements": 0.0,
+      "projects": 80.0
+    },
+    "weight_breakdown": {
+      "skills": 0.3,
+      "projects": 0.3,
+      "experience": 0.3,
+      "achievements": 0.1
+    },
+    "explanation": [
+      "Overall candidate score calculated as 29.2 using evaluation profile 'mid_backend'.",
+      "Skill Strength: 13.0/100.0 (Weight: 0.30)",
+      "Experience Quality: 4.2/100.0 (Weight: 0.30)",
+      "Achievement Impact: 0.0/100.0 (Weight: 0.10)",
+      "Projects Strength: 80.0/100.0 (Weight: 0.30)",
+      "Hard Requirements: Failed compliance check. Missing required skills: ['Django', 'Flask', 'REST API Development', 'Object-Oriented Programming', 'Data Structures & Algorithms']"
+    ],
+    "hard_requirements_coverage": 0.5,
+    "semantic_score": 0.5629,
+    "skill_confidence_score": 19.15,
+    "achievement_score": 0.0
+  },
+  "hard_requirement_result": {
+    "passed": false,
+    "coverage_score": 0.5,
+    "matched_required": [
+      "Python",
+      "FastAPI",
+      "SQL",
+      "Git",
+      "Docker"
+    ],
+    "missing_required": [
+      "Django",
+      "Flask",
+      "REST API Development",
+      "Object-Oriented Programming",
+      "Data Structures & Algorithms"
+    ],
+    "matched_preferred": [
+      "AWS"
+    ],
+    "missing_preferred": [
+      "Azure",
+      "Redis",
+      "Kafka",
+      "Kubernetes",
+      "CI/CD",
+      "Microservices"
+    ],
+    "critical_failures": [
+      "Django",
+      "Flask",
+      "REST API Development",
+      "Object-Oriented Programming",
+      "Data Structures & Algorithms"
+    ],
+    "decision_reason": "Missing required skills: Django, Flask, REST API Development, Object-Oriented Programming, Data Structures & Algorithms"
+  },
+  "skill_gap_result": {
+    "missing_required_skills": [
+      "Django",
+      "Flask",
+      "REST API Development",
+      "Object-Oriented Programming",
+      "Data Structures & Algorithms"
+    ],
+    "missing_preferred_skills": [
+      "Azure",
+      "Redis",
+      "Kafka",
+      "Kubernetes",
+      "CI/CD",
+      "Microservices"
+    ],
+    "weak_skills": [
+      "C",
+      "C++",
+      "Java",
+      "Python",
+      "JavaScript",
+      "TypeScript",
+      "HTML/CSS",
+      "SQL (MySQL)",
+      "NumPy",
+      "Pandas",
+      "Scikit-learn",
+      "PyTorch",
+      "LightGBM",
+      "Matplotlib",
+      "Seaborn",
+      "Git",
+      "GitHub",
+      "Postman",
+      "VS Code",
+      "IntelliJ IDEA",
+      "Jupyter Notebook",
+      "Google Colab",
+      "Node.js",
+      "FastAPI",
+      "REST APIs",
+      "JWT Authentication",
+      "MySQL",
+      "AWS",
+      "Linux",
+      "Docker"
+    ],
+    "strong_skills": [
+      "React.js"
+    ],
+    "improvement_areas": [
+      "Improve proficiency in Django",
+      "Improve proficiency in Flask",
+      "Improve proficiency in REST API Development",
+      "Improve proficiency in Object-Oriented Programming",
+      "Improve proficiency in Data Structures & Algorithms",
+      "Improve proficiency in Azure",
+      "Improve proficiency in Redis",
+      "Gain experience with Kafka",
+      "Gain container orchestration experience",
+      "Improve proficiency in CI/CD",
+      "Improve proficiency in Microservices",
+      "Improve proficiency in C",
+      "Improve proficiency in C++",
+      "Improve proficiency in Java",
+      "Improve proficiency in Python",
+      "Improve proficiency in JavaScript",
+      "Improve proficiency in TypeScript",
+      "Improve proficiency in HTML/CSS",
+      "Improve proficiency in SQL (MySQL)",
+      "Improve proficiency in NumPy",
+      "Improve proficiency in Pandas",
+      "Improve proficiency in Scikit-learn",
+      "Improve proficiency in PyTorch",
+      "Improve proficiency in LightGBM",
+      "Improve proficiency in Matplotlib",
+      "Improve proficiency in Seaborn",
+      "Improve proficiency in Git",
+      "Improve proficiency in GitHub",
+      "Improve proficiency in Postman",
+      "Improve proficiency in VS Code",
+      "Improve proficiency in IntelliJ IDEA",
+      "Improve proficiency in Jupyter Notebook",
+      "Improve proficiency in Google Colab",
+      "Improve proficiency in Node.js",
+      "Improve proficiency in FastAPI",
+      "Improve proficiency in REST APIs",
+      "Improve proficiency in JWT Authentication",
+      "Improve proficiency in MySQL",
+      "Gain cloud deployment experience",
+      "Improve proficiency in Linux",
+      "Build deployment projects using Docker"
+    ],
+    "overall_gap_score": 1.0,
+    "decision_summary": "Candidate satisfies most requirements but lacks Django, Flask, REST API Development, Object-Oriented Programming, Data Structures & Algorithms and has weak C, C++, Java, Python, JavaScript, TypeScript, HTML/CSS, SQL (MySQL), NumPy, Pandas, Scikit-learn, PyTorch, LightGBM, Matplotlib, Seaborn, Git, GitHub, Postman, VS Code, IntelliJ IDEA, Jupyter Notebook, Google Colab, Node.js, FastAPI, REST APIs, JWT Authentication, MySQL, AWS, Linux, Docker evidence."
+  },
+  "semantic_score": 0.5629,
+  "semantic_score_pct": 56.29,
+  "resume_profile_path": "data/extracted_profiles/nishant_prasad.json",
+  "job_profile_path": "data/extracted_jobs/software_engineer.json",
+  "generated_at": "2026-06-30T01:01:15.522402"
+}
