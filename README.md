@@ -1,8 +1,8 @@
 # AI Recruitment Intelligence System (ARIS)
 
-ARIS is a production-ready, modular, and extensible AI-driven recruitment intelligence system built in Python. The platform transforms unstructured PDF resumes and raw job descriptions into structured intelligence assets, classifies roles into predefined industry taxonomies, generates dynamic evaluation strategies, constructs semantic evidence profiles, computes candidate experience signals, checks strict hard requirement compliance, detects exceptional standout achievements, and scores vector matches.
+ARIS is a production-ready, modular, and extensible AI-driven recruitment intelligence system. The platform transforms unstructured PDF resumes and raw job descriptions into structured intelligence assets, classifies roles into predefined industry taxonomies, generates dynamic evaluation strategies, constructs semantic evidence profiles, computes candidate experience signals, checks strict hard requirement compliance, detects exceptional standout achievements, and scores vector matches.
 
-All components are wired into a central pipeline orchestrator or accessible through modular standalone engine APIs.
+All components are wired into a central pipeline orchestrator, accessible through modular standalone engine APIs, or served via a FastAPI REST API with a companion React frontend web app.
 
 ---
 
@@ -38,6 +38,8 @@ All components are wired into a central pipeline orchestrator or accessible thro
   - [Standalone Candidate Ranking Engine](#standalone-candidate-ranking-engine)
   - [Individual Stage Run Scripts](#individual-stage-run-scripts)
   - [Phase 3 Validation Suite](#phase-3-validation-suite)
+  - [FastAPI Web API](#fastapi-web-api)
+  - [React Frontend Client](#react-frontend-client)
 - [Data Schemas](#data-schemas)
   - [Resume Profile](#resume-profile)
   - [Job Profile](#job-profile)
@@ -252,12 +254,17 @@ The central orchestrator in [orchestrator.py](file:///Users/navinprasad/aris/AI-
 ## Project Directory Structure
 
 ```
-AI-RECRUITMENT-MODEL/
-├── app/
-│   ├── core/                                      # Shared foundation layer
-│   │   ├── config.py                              # Environment configs & API keys
-│   │   ├── logging_setup.py                       # Unified system logger setup
-│   │   └── exceptions.py                          # Core domain base exceptions
+aris/ (Workspace Root)
+├── AI-RECRUITMENT-MODEL/                          # Backend Engine & FastAPI Wrapper
+│   ├── app/
+│   │   ├── API/                                   # FastAPI REST API wrapper
+│   │   │   ├── __init__.py
+│   │   │   └── main.py                            # API endpoints definition
+│   │   │
+│   │   ├── core/                                  # Shared foundation layer
+│   │   │   ├── config.py                          # Environment configs & API keys
+│   │   │   ├── logging_setup.py                   # Unified system logger setup
+│   │   │   └── exceptions.py                      # Core domain base exceptions
 │   │
 │   ├── ingestion/                                 # Stage 1 — Ingestion parsing
 │   │   └── resume_parser.py                       # Concurrent dual-engine PDF extractor
@@ -379,7 +386,11 @@ AI-RECRUITMENT-MODEL/
 │   ├── test_complexity_calculator.py             # Verifies experience complexity math
 │   ├── test_confidence_calculator.py             # Verifies confidence level thresholds
 │   └── ...                                        # (261+ tests total)
-└── phase3.py                                      # Role classification validation suite script
+│
+└── frontend/                                      # React + Vite Frontend client
+    ├── src/                                       # UI components & pages
+    ├── package.json
+    └── vite.config.js
 ```
 
 ---
@@ -639,6 +650,40 @@ Validates the classification rules logic against expected specializations and se
 ```bash
 python phase3.py
 ```
+
+### FastAPI Web API
+The platform includes a FastAPI web service wrapper located in `app/API/`. The API exposes the recruitment pipeline endpoints to enable client integrations, such as the React frontend.
+
+#### API Endpoints
+* **`POST /analyze`**: Accepts a resume file (PDF) and a job description file (TXT or PDF), executes the end-to-end recruitment intelligence pipeline, and returns the complete serialized match report including scores, skill confidence profiles, standout achievements, and gap analysis.
+
+#### Running the API Server
+Ensure `uvicorn` and `fastapi` are installed in your virtual environment (they are already included in the workspace setup), then run the server from the `AI-RECRUITMENT-MODEL/` directory:
+```bash
+# 1. Activate the environment (if not already activated)
+source ../.venv/bin/activate
+
+# 2. Run the Uvicorn development server
+PYTHONPATH=. uvicorn app.API.main:app --reload --host 127.0.0.1 --port 8000
+```
+The server will start at `http://127.0.0.1:8000`. You can access interactive API documentation at `http://127.0.0.1:8000/docs`.
+
+### React Frontend Client
+A modern, responsive React web interface is available under the `frontend/` directory to interact with the ARIS API visually. It enables recruiters to upload candidate resume files and job descriptions, submit them for analysis, and view rich visuals of candidate scoring breakdowns, hard requirements compliance, skill gap charts, confidence levels, and standout achievements.
+
+#### Setup & Running the Frontend
+The frontend requires [Node.js](https://nodejs.org/). Run the following commands from the `frontend/` directory:
+```bash
+# 1. Navigate to the frontend directory
+cd ../frontend
+
+# 2. Install dependencies
+npm install
+
+# 3. Start the development server
+npm run dev
+```
+The web app will run locally at `http://localhost:5173`.
 
 ---
 
