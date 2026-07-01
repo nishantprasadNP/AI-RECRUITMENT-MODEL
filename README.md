@@ -397,18 +397,42 @@ aris/ (Workspace Root)
 
 ## Setup & Installation
 
+Follow these steps to set up the virtual environment, install requirements, and configure environment variables.
+
+### 1. Navigate to the project root
 ```bash
-# 1. Clone the repository and navigate to root
-git clone <repository_url>
 cd AI-RECRUITMENT-MODEL
+```
 
-# 2. Activate the virtual environment
-source ../.venv/bin/activate
-# Note: If .venv is placed in the project root, activate via:
-# source .venv/bin/activate
+### 2. Create the Python virtual environment
+```bash
+python3 -m venv .venv
+```
 
-# 3. Install packages
+### 3. Activate the virtual environment
+- On macOS / Linux:
+  ```bash
+  source .venv/bin/activate
+  ```
+- On Windows:
+  ```bash
+  .venv\Scripts\activate
+  ```
+
+### 4. Install backend dependencies
+```bash
+pip install --upgrade pip
 pip install -r requirements.txt
+```
+
+### 5. Configure environment variables
+Create a `.env` file in the root directory:
+```bash
+touch .env
+```
+And add your Google Gemini API key:
+```env
+GEMINI_API_KEY=your_gemini_api_key_here
 ```
 
 ---
@@ -655,13 +679,14 @@ python phase3.py
 The platform includes a FastAPI web service wrapper located in `app/API/`. The API exposes the recruitment pipeline endpoints to enable client integrations, such as the React frontend.
 
 #### API Endpoints
-* **`POST /analyze`**: Accepts a resume file (PDF) and a job description file (TXT or PDF), executes the end-to-end recruitment intelligence pipeline, and returns the complete serialized match report including scores, skill confidence profiles, standout achievements, and gap analysis.
+* **`POST /analyze`**: Accepts a single resume file (PDF) and a job description file (TXT or PDF), executes the end-to-end recruitment intelligence pipeline, and returns the complete serialized match report including scores, skill confidence profiles, standout achievements, and gap analysis.
+* **`POST /analyze/multiple`**: Accepts a job description file (TXT or PDF) and multiple candidate resume files (PDF), runs the evaluation pipeline independently for each candidate, aggregates the results, ranks them deterministically using the Candidate Ranking Engine's tie-breakers, and generates recruiter recommendations.
 
 #### Running the API Server
-Ensure `uvicorn` and `fastapi` are installed in your virtual environment (they are already included in the workspace setup), then run the server from the `AI-RECRUITMENT-MODEL/` directory:
+Ensure your Python virtual environment is activated, then run the server from the `AI-RECRUITMENT-MODEL/` directory:
 ```bash
 # 1. Activate the environment (if not already activated)
-source ../.venv/bin/activate
+source .venv/bin/activate
 
 # 2. Run the Uvicorn development server
 PYTHONPATH=. uvicorn app.API.main:app --reload --host 127.0.0.1 --port 8000
@@ -669,13 +694,13 @@ PYTHONPATH=. uvicorn app.API.main:app --reload --host 127.0.0.1 --port 8000
 The server will start at `http://127.0.0.1:8000`. You can access interactive API documentation at `http://127.0.0.1:8000/docs`.
 
 ### React Frontend Client
-A modern, responsive React web interface is available under the `frontend/` directory to interact with the ARIS API visually. It enables recruiters to upload candidate resume files and job descriptions, submit them for analysis, and view rich visuals of candidate scoring breakdowns, hard requirements compliance, skill gap charts, confidence levels, and standout achievements.
+A modern, responsive React web interface is available under the `frontend/` directory to interact with the ARIS API visually. It enables recruiters to upload candidate resume files and job descriptions, submit them for analysis, and view Candidate Rankings, Recruiter Recommendations, and Candidate Details.
 
 #### Setup & Running the Frontend
 The frontend requires [Node.js](https://nodejs.org/). Run the following commands from the `frontend/` directory:
 ```bash
 # 1. Navigate to the frontend directory
-cd ../frontend
+cd frontend
 
 # 2. Install dependencies
 npm install
