@@ -122,10 +122,44 @@ Located in the [achievement_analysis](file:///Users/navinprasad/aris/AI-RECRUITM
 Located in the [matching](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/matching) and [embeddings](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/embeddings) folders. Resolves parsed candidate profiles and job criteria into cohesive text structures. It generates vector embeddings locally using `SentenceTransformer` (`all-mpnet-base-v2`) in [embedding_generator.py](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/embeddings/embedding_generator.py) and computes cosine similarity match scores in [semantic_matcher.py](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/matching/semantic_matcher.py).
 
 ### 11. Candidate Scoring Engine
-Located in the [candidate_scoring](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/candidate_scoring) folder. Combines all candidate evaluation signals (semantic similarity score, skills confidence, experience duration vs. required, standout achievements, project relevance, and leadership) into a unified role-aware candidate score (0.0 to 100.0). It consumes weights defined by the `EvaluationStrategy` for the target role in [scoring_engine.py](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/candidate_scoring/scoring_engine.py), ensuring a dynamically parameterized scoring system without hardcoded constants.
+Located in the [candidate_scoring](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/candidate_scoring) folder. Combines all candidate evaluation signals (semantic similarity score, skills confidence, experience duration vs. required, standout achievements, project relevance, and leadership) into a unified role-aware candidate score (0.0 to 100.0). It consumes weights defined by the `EvaluationStrategy` for the target role in [scoring_engine.py](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/candidate_scoring/scoring_engine.py), ensuring a dynamically parameterized scoring system.
+
+#### Scoring Formulation
+The **Overall Candidate Score** is computed as the weighted average of active scoring components:
+$$\text{Overall Score} = \text{round}\left( \frac{\sum (S_c \times W_c)}{\sum W_c}, 1 \right)$$
+Where:
+- $S_c$ is the component score (scaled to $[0.0, 100.0]$).
+- $W_c$ is the component weight configured by the target role's `EvaluationStrategy`.
+
+Component scores ($S_c$) are computed as follows:
+- **Skill Strength ($S_{skills}$)**: Filters out tool/IDE/editor profiles and calculates the average of the candidate's top $K$ (up to 10) verified skills:
+  $$S_{skills} = \text{round}\left( \frac{\sum_{i=1}^{K} \text{confidence\_score}_i}{K}, 1 \right)$$
+- **Experience Quality ($S_{experience}$)**: Compares the total parsed candidate experience (in years, where months are scaled by $1/12$) against the job's minimum required experience ($Y_{req}$):
+  $$S_{experience} = \text{round}\left( \min\left(100.0, \frac{\text{total\_years}}{\max(1.0, Y_{req})} \times 100.0\right), 1 \right)$$
+- **Achievement Impact ($S_{achievements}$)**: Normalizes the raw achievement score ($A_{raw}$, scale $[0.0, 10.0]$) to a percentage:
+  $$S_{achievements} = \text{round}\left( \max(0.0, \min(10.0, A_{raw})) \times 10.0, 1 \right)$$
+- **Projects Strength ($S_{projects}$)**: Evaluates project quantity and technical alignment. Scores 20 points per project plus 20 points for each project utilizing a required skill:
+  $$S_{projects} = \min\left(100.0, (\text{total\_projects} \times 20) + (\text{relevant\_projects} \times 20)\right)$$
+- **Leadership Strength ($S_{leadership}$)**: Evaluates lead roles and leadership achievements:
+  - If the candidate has held an explicit leadership role (e.g. manager, lead, CTO, founder), $S_{leadership} = 100.0$.
+  - Otherwise, scales based on leadership achievements:
+    $$S_{leadership} = \min\left(100.0, \text{leadership\_achievements} \times 50.0\right)$$
+- **Hard Requirements Compliance ($S_{hard\_requirements}$)**: Derived from the compliance coverage score:
+  $$S_{hard\_requirements} = \text{round}\left( \text{coverage\_score} \times 100.0, 1 \right)$$
 
 ### 12. Candidate Ranking Engine
-Located in the [candidate_ranking](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/candidate_ranking) folder. Ranks multiple candidate results deterministically in [ranking_engine.py](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/candidate_ranking/ranking_engine.py). It sorts candidates by their overall score (descending) and breaks ties using a strict 4-tier hierarchy: Hard Requirement Coverage, Semantic Match Score, Skill Confidence Score, Achievement Score, and an ascending alphabetical name fallback defined in [tie_breakers.py](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/candidate_ranking/tie_breakers.py). It also auto-extracts bulleted strengths and concerns for recruiter review based on component score thresholds.
+Located in the [candidate_ranking](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/candidate_ranking) folder. Ranks multiple candidate results deterministically in [ranking_engine.py](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/candidate_ranking/ranking_engine.py). It sorts candidates by their overall score (descending) and breaks ties using a strict deterministic priority hierarchy in [tie_breakers.py](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/candidate_ranking/tie_breakers.py).
+
+#### Ranking Priority Hierarchy (Deterministic Tie-Breaker)
+If two candidates have identical overall scores, the ranking engine evaluates criteria in the following order:
+1. **Overall Score** (descending)
+2. **Hard Requirements Coverage** (descending)
+3. **Semantic Match Score** (descending)
+4. **Average Skill Confidence Score** (descending)
+5. **Achievement Score** (descending)
+6. **Candidate Name** (ascending alphabetical fallback as a strict tie-breaker)
+
+The engine also extracts key **Strengths** (components scoring $\ge 80.0\%$) and **Concerns** (failed compliance or components scoring $< 50.0\%$) for high-level recruiter review.
 
 ### 13. Skill Gap Engine
 Located in the [skill_gap](file:///Users/navinprasad/aris/AI-RECRUITMENT-MODEL/app/skill_gap) folder. It evaluates candidate capabilities against job profile specifications, identifying missing required/preferred skills, weak skills (confidence score < 50), and strong skills (confidence score >= 75). It generates deterministic, actionable recommendations and computes a unified overall gap score and decision summary.
