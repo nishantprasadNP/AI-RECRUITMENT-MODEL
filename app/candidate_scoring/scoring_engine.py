@@ -65,14 +65,16 @@ class CandidateScoringEngine:
             candidate_name = resume_profile.name or "Unknown Candidate"
             logger.info("Scoring candidate: %s", candidate_name)
 
-            req_skills = job_profile.required_skills if job_profile else []
+            # Use normalized (canonical) required skills so matching aligns with the
+            # HardRequirementEngine and with the canonical keys in confidence_profiles.
+            # Example: JD "React" + Resume "ReactJS" both normalize to "React.js" —
+            # only canonical matching finds the confidence entry.
+            # Falls back to raw required_skills if normalization was not run
+            # (e.g. in unit tests that bypass the orchestrator).
+            normalized = job_profile.normalized_required_skills if job_profile else []
+            req_skills = normalized if normalized else (job_profile.required_skills if job_profile else [])
             exp_req = job_profile.experience_required if job_profile else 0
 
-            # 1. Semantic Alignment
-            if "semantic" in weights:
-                score = ComponentScoreCalculators.calculate_semantic_score(semantic_score)
-                component_scores["semantic"] = score
-                explanation.append(f"Semantic Alignment: {score}/100.0 (Weight: {weights['semantic']:.2f})")
 
             # 2. Skill Strength
             if "skills" in weights:
@@ -104,6 +106,16 @@ class CandidateScoringEngine:
                 component_scores["leadership"] = score
                 explanation.append(f"Leadership Strength: {score}/100.0 (Weight: {weights['leadership']:.2f})")
 
+            # Calculate compliance score derived from coverage score
+            hard_coverage = 0.0
+            missing_skills = []
+            if hard_requirement_result:
+                hard_coverage = getattr(hard_requirement_result, "coverage_score", 0.0)
+                missing_skills = getattr(hard_requirement_result, "missing_required", [])
+
+            compliance_score = round(hard_coverage * 100.0, 1)
+            component_scores["hard_requirements"] = compliance_score
+
             # Calculate overall weighted score
             total_weight = sum(weights[k] for k in weights if k in component_scores)
             if total_weight > 0:
@@ -115,15 +127,11 @@ class CandidateScoringEngine:
             explanation.insert(0, f"Overall candidate score calculated as {overall_score} using evaluation profile '{evaluation_strategy.evaluation_profile}'.")
 
             # Append hard requirements check details to explanation
-            hard_coverage = 0.0
             if hard_requirement_result:
-                hard_coverage = getattr(hard_requirement_result, "coverage_score", 0.0)
-                passed_hard = getattr(hard_requirement_result, "passed", False)
-                if passed_hard:
+                if not missing_skills:
                     explanation.append("Hard Requirements: Passed critical compliance requirements check.")
                 else:
-                    missing = getattr(hard_requirement_result, "missing_required", [])
-                    explanation.append(f"Hard Requirements: Failed compliance check. Missing required skills: {missing}")
+                    explanation.append(f"Hard Requirements: Failed compliance check. Missing required skills: {missing_skills}")
 
             # Compute skill confidence score tie-breaker metric (average of candidate's actual confidence scores)
             avg_skill_confidence = 0.0

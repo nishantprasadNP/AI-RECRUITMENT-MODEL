@@ -34,7 +34,7 @@ import re
 from pathlib import Path
 from dataclasses import dataclass, field
 from datetime import datetime
-from typing import Optional, List
+from typing import Optional, List, Dict, Any
 
 from app.embeddings.embedding_generator import EmbeddingGenerator
 from app.embeddings.text_builder import build_job_text, build_resume_text
@@ -42,7 +42,7 @@ from app.extraction.job_extractor import JobExtractor
 from app.extraction.resume_extractor import ResumeInformationExtractor
 from app.ingestion.resume_parser import ResumeParser
 from app.matching.semantic_matcher import SemanticMatcher
-from app.schemas.job_schema import JobProfile
+from app.schemas.job_schema import JobProfile, SkillRequirement
 from app.schemas.resume_schema import ResumeProfile
 from app.role_classification.role_classifier import RoleClassifier
 from app.role_classification.models import RoleProfile
@@ -59,9 +59,11 @@ from app.experience_analysis.complexity_calculator import ComplexityCalculator
 from app.experience_analysis.signal_calculator import SignalCalculator
 from app.experience_analysis.confidence_calculator import SkillConfidenceCalculator
 from app.experience_analysis.skill_confidence_engine import SkillConfidenceEngine
+from app.experience_analysis.propagation_engine import EvidencePropagationEngine
 from app.candidate_scoring import CandidateScoringEngine, CandidateScoreProfile
 from app.candidate_ranking import CandidateRankingEngine, RankedCandidateList
 from app.skill_gap import SkillGapEngine, SkillGapResult
+from app.skill_normalization import SkillNormalizer
 from app.storage.job_storage import save_job_profile
 from app.storage.profile_storage import save_profile
 
@@ -103,6 +105,9 @@ class OrchestratorResult:
     resume_profile_path: str = ""
     job_profile_path: str = ""
     match_report_path: str = ""
+    # Propagated confidence profiles computed by SkillConfidenceEngine.
+    # Stored here so API endpoints can consume them without a second evidence collection.
+    confidence_profiles: Dict[str, Any] = field(default_factory=dict)
 
 
 # ---------------------------------------------------------------------------
@@ -161,6 +166,7 @@ class RecruitmentOrchestrator:
         except Exception:
             pass
         skills_service = SkillGraphService(skills_repo)
+        self._skills_service = skills_service
         self._inference_engine = SkillInferenceEngine(skills_service)
         self._capability_resolver = CapabilityResolver(self._inference_engine)
         self._hard_requirement_engine = HardRequirementEngine()
@@ -170,6 +176,8 @@ class RecruitmentOrchestrator:
             signal_calculator=SignalCalculator(),
             confidence_calculator=SkillConfidenceCalculator()
         )
+        self._evidence_propagation_engine = EvidencePropagationEngine()
+        self._skill_normalizer = SkillNormalizer()
 
     # -----------------------------------------------------------------------
     # Public API
@@ -210,6 +218,18 @@ class RecruitmentOrchestrator:
         # ------------------------------------------------------------------
         logger.info("[Stage 2/7] Extracting structured resume profile via LLM...")
         resume_profile = self._resume_extractor.extract(resume_text)
+
+        # Skill Normalization for Resume Pipeline
+        logger.info("Normalizing candidate skills...")
+        normalized_skills, canonical_to_raw_map = self._skill_normalizer.normalize_list(resume_profile.skills)
+        resume_profile.normalized_skills = normalized_skills
+        resume_profile.canonical_to_raw_map = canonical_to_raw_map
+        logger.info(
+            "Candidate skills normalized. Raw: %d, Normalized: %d",
+            len(resume_profile.skills),
+            len(normalized_skills)
+        )
+
         result.resume_profile = resume_profile
         result.candidate_name = resume_profile.name or "Unknown Candidate"
         logger.info("Resume profile extracted for: %s", result.candidate_name)
@@ -219,6 +239,77 @@ class RecruitmentOrchestrator:
         # ------------------------------------------------------------------
         logger.info("[Stage 3/7] Extracting structured job profile via LLM...")
         job_profile = self._job_extractor.extract(jd_text)
+
+        # Skill Normalization for Job Description Pipeline
+        logger.info("Normalizing job description required and preferred skills...")
+        
+        # 1. Normalize Required Skills
+        normalized_req = []
+        for req in job_profile.required_skills:
+            normalized = self._skill_normalizer.normalize(str(req))
+            for norm_skill in normalized:
+                normalized_req.append(SkillRequirement(
+                    skill=norm_skill.canonical,
+                    importance=req.importance,
+                    reason=req.reason
+                ))
+        # Deduplicate required skills by skill name
+        seen_req = set()
+        deduped_req = []
+        for req in normalized_req:
+            if req.skill not in seen_req:
+                seen_req.add(req.skill)
+                deduped_req.append(req)
+        job_profile.normalized_required_skills = deduped_req
+
+        # 2. Normalize Preferred Skills
+        normalized_pref = []
+        for req in job_profile.preferred_skills:
+            normalized = self._skill_normalizer.normalize(str(req))
+            for norm_skill in normalized:
+                normalized_pref.append(SkillRequirement(
+                    skill=norm_skill.canonical,
+                    importance=req.importance,
+                    reason=req.reason
+                ))
+        # Deduplicate preferred skills by skill name
+        seen_pref = set()
+        deduped_pref = []
+        for req in normalized_pref:
+            if req.skill not in seen_pref:
+                seen_pref.add(req.skill)
+                deduped_pref.append(req)
+        job_profile.normalized_preferred_skills = deduped_pref
+
+        # 3. Build Job Profile canonical_to_raw_map
+        job_canonical_to_raw = {}
+        for req in job_profile.required_skills:
+            normalized = self._skill_normalizer.normalize(str(req))
+            for norm_skill in normalized:
+                if norm_skill.confidence == 100:
+                    job_canonical_to_raw[norm_skill.canonical] = str(req)
+                else:
+                    job_canonical_to_raw[norm_skill.canonical] = (str(req), norm_skill.confidence)
+        
+        for req in job_profile.preferred_skills:
+            normalized = self._skill_normalizer.normalize(str(req))
+            for norm_skill in normalized:
+                if norm_skill.canonical not in job_canonical_to_raw:
+                    if norm_skill.confidence == 100:
+                        job_canonical_to_raw[norm_skill.canonical] = str(req)
+                    else:
+                        job_canonical_to_raw[norm_skill.canonical] = (str(req), norm_skill.confidence)
+        job_profile.canonical_to_raw_map = job_canonical_to_raw
+
+        logger.info(
+            "Job skills normalized. Required: %d -> %d, Preferred: %d -> %d, Mapped canonicals: %d",
+            len(job_profile.required_skills),
+            len(deduped_req),
+            len(job_profile.preferred_skills),
+            len(deduped_pref),
+            len(job_canonical_to_raw)
+        )
+
         result.job_profile = job_profile
         logger.info("Job profile extracted (seniority: %s)", job_profile.seniority_level)
 
@@ -295,8 +386,11 @@ class RecruitmentOrchestrator:
         # Evaluate compliance
         hard_requirement_result = self._hard_requirement_engine.evaluate_compliance(job_profile, role_profile, resolved_caps)
         result.hard_requirement_result = hard_requirement_result
-        # Calculate skills confidence
-        confidence_profiles = self._skill_confidence_engine.analyze(resume_profile)
+        # Calculate skills confidence with concepts-aware evidence propagation
+        raw_evidence = self._skill_confidence_engine._evidence_collector.collect(resume_profile)
+        propagated_evidence = self._evidence_propagation_engine.propagate(raw_evidence, self._skills_service)
+        confidence_profiles = self._skill_confidence_engine.analyze(resume_profile, evidence_map=propagated_evidence)
+        result.confidence_profiles = confidence_profiles
         # Stage 12: Skill Gap Engine — identify skill gaps
         logger.info("[Stage 12] Analyzing skill gaps...")
         skill_gap_result = self._skill_gap_engine.analyze_gaps(

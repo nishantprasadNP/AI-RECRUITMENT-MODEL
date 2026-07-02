@@ -130,17 +130,14 @@ async def analyze_candidate_fit(
         )
         logger.info("Orchestrator completed successfully")
 
-        # 5. Extract additional confidence profiles (without modifying orchestrator.py)
-        confidence_profiles = {}
-        if result.resume_profile:
-            try:
-                confidence_profiles = orchestrator._skill_confidence_engine.analyze(result.resume_profile)
-            except Exception as e:
-                logger.warning(f"Failed to calculate skill confidence profiles: {e}")
+        # 5. Use propagated confidence profiles already stored by orchestrator.run().
+        # Calling analyze() again here would bypass EvidencePropagationEngine and
+        # return raw (unpropagated) evidence — which is exactly the bug we are fixing.
+        confidence_profiles = result.confidence_profiles
 
         # 6. Build response object and serialize Pydantic models
         serialized_confidence = {
-            skill: serialize_model(prof) 
+            skill: serialize_model(prof)
             for skill, prof in confidence_profiles.items()
         }
 
@@ -187,10 +184,15 @@ def generate_recruiter_recommendation_data(
     
     # 1. Hard requirements evaluation
     if result.hard_requirement_result:
-        if result.hard_requirement_result.passed:
-            why_score.append("✓ Passed all hard requirements")
+        coverage_pct = result.hard_requirement_result.coverage_score * 100.0
+        tolerance = 20.0
+        if result.evaluation_strategy and result.evaluation_strategy.hard_requirement_tolerance is not None:
+            tolerance = result.evaluation_strategy.hard_requirement_tolerance
+        min_coverage_pct = 100.0 - tolerance
+        if coverage_pct >= min_coverage_pct:
+            why_score.append(f"✓ Hard Requirement Coverage: {coverage_pct:.1f}%")
         else:
-            why_score.append(f"✗ Failed hard requirements: {result.hard_requirement_result.decision_reason}")
+            why_score.append(f"✗ Hard Requirement Coverage below threshold: {coverage_pct:.1f}% (Required: {min_coverage_pct:.1f}%)")
     
     # 2. Semantic alignment
     if hasattr(result, "semantic_score"):
@@ -257,9 +259,13 @@ def generate_recruiter_recommendation_data(
         
     # 8. Recommendation
     score = result.candidate_score.overall_score if result.candidate_score else 0.0
-    passed_hard = result.hard_requirement_result.passed if result.hard_requirement_result else False
+    coverage = result.hard_requirement_result.coverage_score if result.hard_requirement_result else 0.0
+    tolerance = 20.0
+    if result.evaluation_strategy and result.evaluation_strategy.hard_requirement_tolerance is not None:
+        tolerance = result.evaluation_strategy.hard_requirement_tolerance
+    min_coverage = (100.0 - tolerance) / 100.0
     
-    if not passed_hard:
+    if coverage < min_coverage:
         recommendation = "Reject"
     elif score >= 85.0:
         recommendation = "Proceed to Technical Interview"
@@ -383,13 +389,9 @@ async def analyze_multiple_candidates(
                 logger.warning(f"Could not find matching orchestrator result for candidate: {rc.candidate_name}")
                 continue
 
-            # Extract additional confidence profiles
-            confidence_profiles = {}
-            if orig_res.resume_profile:
-                try:
-                    confidence_profiles = orchestrator._skill_confidence_engine.analyze(orig_res.resume_profile)
-                except Exception as e:
-                    logger.warning(f"Failed to calculate skill confidence profiles: {e}")
+            # Use propagated confidence profiles already stored by orchestrator.run().
+            # Calling analyze() again without evidence_map would discard propagation.
+            confidence_profiles = orig_res.confidence_profiles
 
             # Generate Recruiter Recommendation DTO
             rec_data = generate_recruiter_recommendation_data(orig_res, confidence_profiles)
@@ -404,7 +406,7 @@ async def analyze_multiple_candidates(
                 "strengths": rc.strengths,
                 "concerns": rc.concerns,
                 "recommendation": rec_data["recommendation"],
-                "hard_requirement_status": "Passed" if (orig_res.hard_requirement_result and orig_res.hard_requirement_result.passed) else "Failed",
+                "hard_requirement_status": f"{round(orig_res.hard_requirement_result.coverage_score * 100.0, 1)}%" if orig_res.hard_requirement_result else "0.0%",
                 "semantic_score": round(orig_res.semantic_score * 100, 1),
                 "recruiter_recommendation": rec_data,
                 "component_scores": orig_res.candidate_score.component_scores if orig_res.candidate_score else {},
@@ -417,8 +419,20 @@ async def analyze_multiple_candidates(
 
         # 8. Compute recruiter summary metrics
         total_evaluated = len(results)
-        passed_hard_count = sum(1 for r in results if r.hard_requirement_result and r.hard_requirement_result.passed)
-        failed_hard_count = total_evaluated - passed_hard_count
+        coverages = []
+        passed_threshold_count = 0
+        for r in results:
+            if r.hard_requirement_result:
+                coverage_pct = r.hard_requirement_result.coverage_score * 100.0
+                coverages.append(r.hard_requirement_result.coverage_score)
+                tolerance = 20.0
+                if r.evaluation_strategy and r.evaluation_strategy.hard_requirement_tolerance is not None:
+                    tolerance = r.evaluation_strategy.hard_requirement_tolerance
+                if coverage_pct >= (100.0 - tolerance):
+                    passed_threshold_count += 1
+                    
+        avg_hard_coverage = round((sum(coverages) / len(coverages)) * 100.0, 1) if coverages else 0.0
+        failed_threshold_count = total_evaluated - passed_threshold_count
 
         recommendation_counts = {
             "Proceed to Technical Interview": 0,
@@ -433,8 +447,9 @@ async def analyze_multiple_candidates(
 
         recruiter_summary = {
             "total_evaluated": total_evaluated,
-            "passed_hard_requirements": passed_hard_count,
-            "failed_hard_requirements": failed_hard_count,
+            "average_hard_requirements_coverage": avg_hard_coverage,
+            "passed_hard_requirements": passed_threshold_count,
+            "failed_hard_requirements": failed_threshold_count,
             "recommendations_breakdown": recommendation_counts
         }
 

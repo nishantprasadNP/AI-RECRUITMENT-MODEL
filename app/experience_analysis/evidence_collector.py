@@ -2,9 +2,6 @@ import re
 from typing import Dict, List, Set, Optional
 from app.schemas.resume_schema import ResumeProfile
 from app.experience_analysis.models import SkillEvidence
-from app.knowledge_graph.services.skill_graph_service import SkillGraphService
-
-DEPENDENCY_PROPAGATION_WEIGHT = 0.5
 
 
 class SkillEvidenceCollector:
@@ -12,8 +9,8 @@ class SkillEvidenceCollector:
     Analyzes a ResumeProfile to collect qualitative and quantitative evidence for each skill.
     """
 
-    def __init__(self, graph_service: Optional[SkillGraphService] = None) -> None:
-        self._graph_service = graph_service
+    def __init__(self) -> None:
+        pass
 
     def _is_matched(self, skill: str, text: str) -> bool:
         """
@@ -159,30 +156,6 @@ class SkillEvidenceCollector:
                 dependency_mentions=0.0,
                 dependency_sources=[]
             )
-
-        # 5. Dependency Propagation (One-Hop)
-        if self._graph_service is not None:
-            for s in unique_skills:
-                if not self._graph_service.skill_exists(s):
-                    continue
-
-                sources_set: Set[str] = set()
-                dep_mentions_sum = 0.0
-
-                for dep_skill in unique_skills:
-                    if dep_skill == s:
-                        continue
-                    if not self._graph_service.skill_exists(dep_skill):
-                        continue
-
-                    # Check REQUIRES relation: dep_skill -> s (dep requires s)
-                    if self._graph_service.has_relationship(dep_skill, s, relation_type="REQUIRES"):
-                        dep_name = self._graph_service.get_canonical_name(dep_skill) or dep_skill
-                        sources_set.add(dep_name)
-                        dep_mentions_sum += evidence_map[dep_skill].direct_mentions * DEPENDENCY_PROPAGATION_WEIGHT
-
-                evidence_map[s].dependency_mentions = dep_mentions_sum
-                evidence_map[s].dependency_sources = sorted(list(sources_set))
 
         return evidence_map
 

@@ -25,9 +25,9 @@ class HardRequirementEngine:
 
     def evaluate_compliance(
         self,
-        job_profile: JobProfile,
-        role_profile: RoleProfile,
-        capabilities: CapabilityResolutionResult
+        job_profile: Optional[JobProfile],
+        role_profile: Optional[RoleProfile],
+        capabilities: Optional[CapabilityResolutionResult]
     ) -> HardRequirementResult:
         """
         Evaluates candidate capability compliance against job requirements.

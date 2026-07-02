@@ -3,9 +3,9 @@ Skill confidence engine for orchestrating evidence and signal calculators into f
 """
 
 import logging
-from typing import Dict, Any
+from typing import Dict, Any, Optional
 from app.schemas.resume_schema import ResumeProfile
-from app.experience_analysis.models import SkillConfidenceProfile
+from app.experience_analysis.models import SkillConfidenceProfile, SkillEvidence
 from app.experience_analysis.evidence_collector import SkillEvidenceCollector
 from app.experience_analysis.complexity_calculator import ComplexityCalculator
 from app.experience_analysis.signal_calculator import SignalCalculator
@@ -42,12 +42,17 @@ class SkillConfidenceEngine:
         self._signal_calculator = signal_calculator
         self._confidence_calculator = confidence_calculator
 
-    def analyze(self, profile: ResumeProfile) -> Dict[str, SkillConfidenceProfile]:
+    def analyze(
+        self,
+        profile: ResumeProfile,
+        evidence_map: Optional[Dict[str, SkillEvidence]] = None
+    ) -> Dict[str, SkillConfidenceProfile]:
         """
         Runs the end-to-end skill confidence evaluation pipeline on a ResumeProfile.
 
         Args:
             profile: Candidate ResumeProfile object.
+            evidence_map: Optional pre-collected and pre-propagated evidence map.
 
         Returns:
             A dictionary mapping skill names to their computed SkillConfidenceProfile.
@@ -58,8 +63,10 @@ class SkillConfidenceEngine:
             logger.info("Resume profile or skills list is empty. Returning empty confidence profiles.")
             return {}
 
-        # 1. Collect raw evidence (handles safe processing and case-insensitive skill deduplication)
-        evidence_map = self._evidence_collector.collect(profile)
+        # 1. Collect raw evidence if not provided
+        if evidence_map is None:
+            evidence_map = self._evidence_collector.collect(profile)
+
         if not evidence_map:
             logger.info("No skill evidence collected. Returning empty confidence profiles.")
             return {}

@@ -4,6 +4,14 @@
     "Python",
     "React"
   ],
+  "normalized_skills": [
+    "Python",
+    "React.js"
+  ],
+  "canonical_to_raw_map": {
+    "Python": "Python",
+    "React.js": "React"
+  },
   "experience": [],
   "projects": [],
   "education": [],

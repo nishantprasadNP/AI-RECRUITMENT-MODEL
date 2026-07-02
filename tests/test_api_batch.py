@@ -110,14 +110,15 @@ def test_analyze_multiple_endpoint_success(mock_orchestrator_class):
     assert json_resp["ranked_candidates"][0]["candidate_name"] == "ALICE SMITH"
     assert json_resp["ranked_candidates"][0]["rank"] == 1
     assert json_resp["ranked_candidates"][0]["recommendation"] == "Proceed to Technical Interview"
-    assert json_resp["ranked_candidates"][0]["hard_requirement_status"] == "Passed"
+    assert json_resp["ranked_candidates"][0]["hard_requirement_status"] == "100.0%"
 
     assert json_resp["ranked_candidates"][1]["candidate_name"] == "BOB JONES"
     assert json_resp["ranked_candidates"][1]["rank"] == 2
     assert json_resp["ranked_candidates"][1]["recommendation"] == "Reject"
-    assert json_resp["ranked_candidates"][1]["hard_requirement_status"] == "Failed"
+    assert json_resp["ranked_candidates"][1]["hard_requirement_status"] == "0.0%"
 
     assert json_resp["recruiter_summary"]["total_evaluated"] == 2
+    assert json_resp["recruiter_summary"]["average_hard_requirements_coverage"] == 50.0
     assert json_resp["recruiter_summary"]["passed_hard_requirements"] == 1
     assert json_resp["recruiter_summary"]["failed_hard_requirements"] == 1
     assert json_resp["recruiter_summary"]["recommendations_breakdown"]["Reject"] == 1

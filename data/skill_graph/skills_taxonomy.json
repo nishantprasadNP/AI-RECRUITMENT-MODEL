@@ -1715,13 +1715,11 @@
         },
         {
             "id": "dsa",
-            "name": "DSA",
+            "name": "Data Structures and Algorithms",
             "type": "category",
             "description": "Data Structures and Algorithms, the fundamental building blocks of efficient programming.",
             "synonyms": [
-                "Algorithms",
-                "Data Structures",
-                "Data Structures and Algorithms"
+                "DSA"
             ]
         },
         {
@@ -1731,7 +1729,9 @@
             "description": "Object-Oriented Programming, a paradigm based on objects containing data and code.",
             "synonyms": [
                 "Object Oriented Programming",
-                "Object-Oriented Programming"
+                "Object-Oriented Programming",
+                "OOPs",
+                "OOPS"
             ]
         },
         {

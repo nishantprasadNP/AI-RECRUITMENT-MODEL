@@ -6,6 +6,7 @@ import re
 import logging
 from typing import Dict, List, Any, Optional
 from app.schemas.resume_schema import ResumeProfile
+from app.schemas.job_schema import SkillRequirementString
 from app.achievement_analysis.models import AchievementProfile
 from app.experience_analysis.models import SkillConfidenceProfile
 
@@ -56,42 +57,247 @@ class ComponentScoreCalculators:
         normalized = max(0.0, min(1.0, float(semantic_score))) * 100.0
         return round(normalized, 1)
 
+    _dry_run_executed = False
+    _skills_taxonomy_type_cache = None
+
+    @staticmethod
+    def _load_taxonomy_types() -> Dict[str, str]:
+        if ComponentScoreCalculators._skills_taxonomy_type_cache is not None:
+            return ComponentScoreCalculators._skills_taxonomy_type_cache
+
+        type_map = {}
+        import os
+        import json
+
+        curr_dir = os.path.dirname(os.path.abspath(__file__))
+        candidate_paths = [
+            os.path.join(curr_dir, "..", "..", "data", "skill_graph", "skills_taxonomy.json"),
+            os.path.join(curr_dir, "data", "skill_graph", "skills_taxonomy.json"),
+            "data/skill_graph/skills_taxonomy.json",
+            "AI-RECRUITMENT-MODEL/data/skill_graph/skills_taxonomy.json",
+        ]
+
+        taxonomy_path = None
+        for path in candidate_paths:
+            if os.path.exists(path):
+                taxonomy_path = path
+                break
+
+        if taxonomy_path and os.path.exists(taxonomy_path):
+            try:
+                with open(taxonomy_path, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                    raw_nodes = data.get("nodes", [])
+                    raw_edges = data.get("edges", [])
+
+                    # BFS to find all database-related nodes
+                    database_ids = {"databases", "sql", "nosql", "database_design", "database_management"}
+                    db_keywords = {
+                        "postgresql", "postgres", "mysql", "sqlite", "redis", "mongodb", "mongo",
+                        "cassandra", "oracle", "dynamodb", "mariadb", "neo4j", "elasticsearch",
+                        "db2", "influxdb", "couchdb", "hbase", "firebase", "firestore", "supabase",
+                        "cockroachdb", "memcached", "snowflake", "redshift", "bigquery", "clickhouse",
+                        "scylladb"
+                    }
+                    database_ids.update(db_keywords)
+
+                    requires_map = {}
+                    parent_of_map = {}
+                    for edge in raw_edges:
+                        src = edge.get("source", "").lower().strip()
+                        tgt = edge.get("target", "").lower().strip()
+                        rel = edge.get("relation_type", "").upper().strip()
+                        if rel == "REQUIRES":
+                            requires_map.setdefault(tgt, []).append(src)
+                        elif rel == "PARENT_OF":
+                            parent_of_map.setdefault(src, []).append(tgt)
+
+                    queue = list(database_ids)
+                    visited_databases = set(database_ids)
+                    while queue:
+                        curr = queue.pop(0)
+                        for node in requires_map.get(curr, []):
+                            if node not in visited_databases:
+                                visited_databases.add(node)
+                                queue.append(node)
+                        for node in parent_of_map.get(curr, []):
+                            if node not in visited_databases:
+                                visited_databases.add(node)
+                                queue.append(node)
+
+                    # Populate type_map with force-overridden types for databases
+                    for node in raw_nodes:
+                        node_type = node.get("type", "").lower().strip()
+                        node_id = node.get("id", "").lower().strip()
+                        node_name = node.get("name", "").lower().strip()
+                        
+                        if node_id in visited_databases:
+                            node_type = "databases"
+                            
+                        if node_id:
+                            type_map[node_id] = node_type
+                        if node_name:
+                            type_map[node_name] = node_type
+                        for syn in node.get("synonyms", []):
+                            syn_cleaned = syn.lower().strip()
+                            if syn_cleaned:
+                                type_map[syn_cleaned] = node_type
+            except Exception:
+                pass
+
+        ComponentScoreCalculators._skills_taxonomy_type_cache = type_map
+        return type_map
+
+    @staticmethod
+    def _get_skills_taxonomy_types() -> Dict[str, str]:
+        return ComponentScoreCalculators._load_taxonomy_types()
+
+    @staticmethod
+    def _run_dry_run() -> None:
+        ComponentScoreCalculators._dry_run_executed = True
+        mock_data = {
+            "VS Code": 95.0,
+            "PyCharm": 92.0,
+            "Android Studio": 90.0,
+            "IntelliJ IDEA": 88.0,
+            "Git": 85.0,
+            "Kubernetes": 82.0,
+            "Docker": 80.0,
+            "PostgreSQL": 90.0,
+            "TypeScript": 88.0,
+            "Django": 85.0,
+            "FastAPI": 80.0,
+            "MongoDB": 78.0,
+            "Flask": 75.0,
+            "Python": 70.0,
+            "React.js": 68.0,
+            "CSS": 65.0,
+            "HTML": 60.0,
+        }
+
+        profiles = {}
+        for skill_name, score in mock_data.items():
+            profiles[skill_name] = SkillConfidenceProfile(
+                skill=skill_name,
+                confidence_score=score,
+                confidence_level="Expert" if score >= 75 else "Medium",
+                professional_signal=0.0,
+                depth_signal=0.0,
+                complexity_signal=0.0,
+                skill_tier="Tier 3",
+                evidence_summary={}
+            )
+
+        type_map = ComponentScoreCalculators._load_taxonomy_types()
+        common_excluded = {
+            "vs code", "vs_code", "visual studio code", "vscode",
+            "intellij", "intellij idea", "intellij_idea",
+            "google colab", "google_colab", "colab",
+            "pycharm",
+            "android studio", "android_studio",
+            "sublime text", "sublime",
+            "atom",
+            "vim",
+            "emacs",
+            "eclipse",
+            "xcode",
+            "notepad++",
+            "webstorm",
+            "jupyter notebook", "jupyter", "jupyter_notebook",
+        }
+
+        removed_skills = []
+        remaining_skills = []
+        for name, score in mock_data.items():
+            name_lower = name.lower().strip()
+            tax_type = type_map.get(name_lower)
+            if tax_type in {"tool", "ide", "editor"} or name_lower in common_excluded:
+                resolved_type = tax_type if tax_type else "editor/ide/tool fallback"
+                removed_skills.append(f"{name} (type: {resolved_type})")
+            else:
+                remaining_skills.append((name, score))
+
+        remaining_skills.sort(key=lambda x: x[1], reverse=True)
+        sorted_scores_str = [f"{name}: {score}" for name, score in remaining_skills]
+
+        top_k = min(10, len(remaining_skills))
+        selected = remaining_skills[:top_k]
+        selected_str = [f"{name}: {score}" for name, score in selected]
+
+        final_score = round(sum(score for name, score in selected) / top_k, 1) if top_k > 0 else 0.0
+
+        print("\n=== SKILLS SCORE DRY RUN ===")
+        print("Original confidence profiles:")
+        for name, score in mock_data.items():
+            print(f"  - {name}: {score}")
+        print("\nSkills removed because they are tools/IDEs/editors:")
+        for rem in removed_skills:
+            print(f"  - {rem}")
+        print("\nRemaining skills:")
+        for rem_n, rem_s in remaining_skills:
+            print(f"  - {rem_n}: {rem_s}")
+        print("\nSorted scores:")
+        for s_str in sorted_scores_str:
+            print(f"  - {s_str}")
+        print("\nSelected Top K:")
+        for sel in selected_str:
+            print(f"  - {sel}")
+        print(f"\nFinal Skills Score: {final_score}")
+        print("============================\n")
+
     @staticmethod
     def calculate_skills_score(
         confidence_profiles: Dict[str, SkillConfidenceProfile],
-        required_skills: List[str]
+        required_skills: Optional[List[Any]] = None
     ) -> float:
         """
-        Calculates the normalized Skill Strength score based on candidate confidence
-        profiles for required skills. Missing required skills are penalized with 0.0.
+        Calculates the normalized Skill Strength score using the new algorithm.
         """
+        if not ComponentScoreCalculators._dry_run_executed:
+            ComponentScoreCalculators._run_dry_run()
+
         if not confidence_profiles:
             return 0.0
 
-        # Clean/normalize required skills for comparison
-        req_clean = [s.lower().strip() for s in required_skills if s and s.strip()]
+        type_map = ComponentScoreCalculators._load_taxonomy_types()
+        common_excluded = {
+            "vs code", "vs_code", "visual studio code", "vscode",
+            "intellij", "intellij idea", "intellij_idea",
+            "google colab", "google_colab", "colab",
+            "pycharm",
+            "android studio", "android_studio",
+            "sublime text", "sublime",
+            "atom",
+            "vim",
+            "emacs",
+            "eclipse",
+            "xcode",
+            "notepad++",
+            "webstorm",
+            "jupyter notebook", "jupyter", "jupyter_notebook",
+        }
 
-        if not req_clean:
-            # Fallback to averaging all skills possessed by candidate if no requirements are specified
-            scores = [p.confidence_score for p in confidence_profiles.values()]
-            if not scores:
-                return 0.0
-            return round(sum(scores) / len(scores), 1)
+        remaining_profiles = []
+        for name, profile in confidence_profiles.items():
+            name_lower = name.lower().strip()
+            tax_type = type_map.get(name_lower)
+            if tax_type in {"tool", "ide", "editor"} or name_lower in common_excluded:
+                continue
+            remaining_profiles.append(profile)
 
-        # Average the confidence scores of the required skills
-        total_score = 0.0
-        # Map lowercased candidate skill names to their profiles for robust lookup
-        profile_lookup = {k.lower().strip(): p for k, p in confidence_profiles.items()}
+        if not remaining_profiles:
+            return 0.0
 
-        for skill in req_clean:
-            if skill in profile_lookup:
-                total_score += profile_lookup[skill].confidence_score
-            else:
-                # Skill is missing: contributes 0.0 to the average
-                total_score += 0.0
+        remaining_profiles.sort(key=lambda p: p.confidence_score, reverse=True)
 
-        normalized = total_score / len(req_clean)
-        return round(normalized, 1)
+        top_k = min(10, len(remaining_profiles))
+        if top_k == 0:
+            return 0.0
+
+        selected_profiles = remaining_profiles[:top_k]
+        score_sum = sum(p.confidence_score for p in selected_profiles)
+        
+        return round(score_sum / top_k, 1)
 
     @staticmethod
     def calculate_experience_score(

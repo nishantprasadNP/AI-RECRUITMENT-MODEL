@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from typing import List, Optional
+from typing import List, Optional, Dict, Any
 
 
 class Skill(BaseModel):
@@ -63,6 +63,8 @@ class ResumeProfile(BaseModel):
     """
     name: Optional[str] = Field(default=None, description="Candidate's full name.")
     skills: List[str] = Field(default_factory=list, description="Unique, normalized list of candidate skills.")
+    normalized_skills: List[str] = Field(default_factory=list, description="Unique list of normalized, canonical candidate skills.")
+    canonical_to_raw_map: Dict[str, Any] = Field(default_factory=dict, description="Maps canonical skills back to original raw names and confidence.")
     experience: List[Experience] = Field(default_factory=list, description="List of professional work experience entries.")
     projects: List[Project] = Field(default_factory=list, description="List of projects completed by the candidate.")
     education: List[Education] = Field(default_factory=list, description="List of educational qualifications.")

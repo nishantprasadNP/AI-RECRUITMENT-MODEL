@@ -1,5 +1,50 @@
-from pydantic import BaseModel, Field
-from typing import List, Optional
+from pydantic import BaseModel, Field, field_validator
+from typing import List, Optional, Dict, Any
+
+
+class SkillRequirementString(str):
+    """
+    Backward-compatible string subclass for SkillRequirement.
+    Behaves like a normal string for downstream engines but carries
+    importance and reason attributes.
+    """
+    def __new__(cls, skill: str, importance: float, reason: str):
+        obj = super().__new__(cls, skill)
+        obj.importance = importance
+        obj.reason = reason
+        return obj
+
+    def __reduce__(self):
+        return (self.__class__, (str(self), self.importance, self.reason))
+
+    def __repr__(self):
+        return f"SkillRequirement(skill={str(self)!r}, importance={self.importance}, reason={self.reason!r})"
+
+
+class SkillRequirement(BaseModel):
+    """
+    Structured skill requirement model containing importance and reason.
+    """
+    skill: str = Field(..., description="The name of the skill.")
+    importance: float = Field(..., description="Weight / importance score between 1.0 and 10.0.")
+    reason: str = Field(..., description="The reason why this skill is required or preferred.")
+
+    @field_validator("skill", mode="before")
+    @classmethod
+    def validate_skill(cls, v):
+        if not isinstance(v, str):
+            raise ValueError("skill must be a string")
+        v = v.strip()
+        if not v:
+            raise ValueError("skill cannot be empty")
+        return v
+
+    @field_validator("importance")
+    @classmethod
+    def validate_importance(cls, v):
+        if not (1.0 <= v <= 10.0):
+            raise ValueError("importance must be between 1.0 and 10.0")
+        return v
 
 
 class EducationRequirement(BaseModel):
@@ -27,8 +72,11 @@ class JobProfile(BaseModel):
     The complete extracted and validated job description hiring profile.
     """
     title: Optional[str] = None
-    required_skills: List[str] = Field(default_factory=list, description="List of mandatory skills for performing the role.")
-    preferred_skills: List[str] = Field(default_factory=list, description="List of preferred or beneficial skills (nice-to-have).")
+    required_skills: List[SkillRequirement] = Field(default_factory=list, description="List of mandatory skills for performing the role.")
+    preferred_skills: List[SkillRequirement] = Field(default_factory=list, description="List of preferred or beneficial skills (nice-to-have).")
+    normalized_required_skills: List[SkillRequirement] = Field(default_factory=list, description="Normalized list of mandatory skills for performing the role.")
+    normalized_preferred_skills: List[SkillRequirement] = Field(default_factory=list, description="Normalized list of preferred or beneficial skills.")
+    canonical_to_raw_map: Dict[str, Any] = Field(default_factory=dict, description="Maps canonical skills back to original raw names and confidence.")
     critical_skills: List[str] = Field(default_factory=list, description="Top 5 most important skills for ranking candidates.")
     experience_required: Optional[int] = Field(default=None, description="Minimum years of experience required.")
     education: Optional[EducationRequirement] = Field(default=None, description="Academic degree and field of study requirements.")
@@ -42,3 +90,63 @@ class JobProfile(BaseModel):
     role_complexity_score: int = Field(description="Role complexity score from 1 (simple) to 10 (highly strategic).")
     future_potential_signals: List[str] = Field(default_factory=list, description="Employer values indicators (adaptability, curiosity, growth potential).")
     job_summary: str = Field(description="A concise summary of the job and core objectives.")
+
+    @field_validator("required_skills", mode="before")
+    @classmethod
+    def validate_required_skills(cls, v):
+        if not isinstance(v, list):
+            return v
+        validated = []
+        for item in v:
+            if isinstance(item, str):
+                validated.append({
+                    "skill": item,
+                    "importance": 5.0,
+                    "reason": "Required skill"
+                })
+            elif isinstance(item, dict):
+                validated.append({
+                    "skill": item.get("skill"),
+                    "importance": item.get("importance", 5.0),
+                    "reason": item.get("reason", "Required skill")
+                })
+            else:
+                validated.append(item)
+        return validated
+
+    @field_validator("preferred_skills", mode="before")
+    @classmethod
+    def validate_preferred_skills(cls, v):
+        if not isinstance(v, list):
+            return v
+        validated = []
+        for item in v:
+            if isinstance(item, str):
+                validated.append({
+                    "skill": item,
+                    "importance": 5.0,
+                    "reason": "Preferred skill"
+                })
+            elif isinstance(item, dict):
+                validated.append({
+                    "skill": item.get("skill"),
+                    "importance": item.get("importance", 5.0),
+                    "reason": item.get("reason", "Preferred skill")
+                })
+            else:
+                validated.append(item)
+        return validated
+
+    def __getattribute__(self, name):
+        val = super().__getattribute__(name)
+        if name in ("required_skills", "preferred_skills", "normalized_required_skills", "normalized_preferred_skills"):
+            try:
+                if isinstance(val, list):
+                    return [
+                        SkillRequirementString(req.skill, req.importance, req.reason)
+                        if isinstance(req, SkillRequirement) else req
+                        for req in val
+                    ]
+            except Exception:
+                pass
+        return val

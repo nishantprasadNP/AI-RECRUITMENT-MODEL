@@ -51,12 +51,13 @@ class RequirementMatcher:
             else:
                 missing_preferred.append(skill)
 
-        # 4. Coverage score
-        total_required = len(job_profile.required_skills)
-        if total_required == 0:
+        # 4. Coverage score (weighted)
+        sum_importance = sum(getattr(skill, "importance", 5.0) for skill in job_profile.required_skills)
+        if sum_importance == 0.0:
             coverage_score = 1.0
         else:
-            coverage_score = len(matched_required) / total_required
+            sum_matched_importance = sum(getattr(skill, "importance", 5.0) for skill in matched_required)
+            coverage_score = sum_matched_importance / sum_importance
 
         # 5. critical_failures = missing_required
         critical_failures = list(missing_required)

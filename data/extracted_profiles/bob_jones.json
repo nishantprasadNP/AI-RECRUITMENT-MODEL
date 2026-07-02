@@ -3,6 +3,12 @@
   "skills": [
     "Python"
   ],
+  "normalized_skills": [
+    "Python"
+  ],
+  "canonical_to_raw_map": {
+    "Python": "Python"
+  },
   "experience": [
     {
       "role": "Junior Developer",

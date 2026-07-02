@@ -1,0 +1,1730 @@
+{
+    "software engineering": {
+        "canonical": "Software Engineering"
+    },
+    "software development": {
+        "canonical": "Software Engineering"
+    },
+    "swe": {
+        "canonical": "Software Engineering"
+    },
+    "app development": {
+        "canonical": "Mobile Development"
+    },
+    "data science": {
+        "canonical": "Data Science"
+    },
+    "data analytics": {
+        "canonical": "Data Science"
+    },
+    "ds": {
+        "canonical": [
+            "Data Science",
+            "Data Structures and Algorithms"
+        ]
+    },
+    "programming": {
+        "canonical": "Programming"
+    },
+    "coding": {
+        "canonical": "Programming"
+    },
+    "software construction": {
+        "canonical": "Programming"
+    },
+    "python": {
+        "canonical": "Python"
+    },
+    "python3": {
+        "canonical": "Python"
+    },
+    "py": {
+        "canonical": "Python"
+    },
+    "java": {
+        "canonical": "Java"
+    },
+    "java se": {
+        "canonical": "Java"
+    },
+    "java ee": {
+        "canonical": "Java"
+    },
+    "c++": {
+        "canonical": "C++"
+    },
+    "cpp": {
+        "canonical": "C++"
+    },
+    "c plus plus": {
+        "canonical": "C++"
+    },
+    "web development": {
+        "canonical": "Web Development"
+    },
+    "web dev": {
+        "canonical": "Web Development"
+    },
+    "web engineering": {
+        "canonical": "Web Development"
+    },
+    "frontend": {
+        "canonical": "Frontend"
+    },
+    "frontend development": {
+        "canonical": "Frontend"
+    },
+    "client-side": {
+        "canonical": "Frontend"
+    },
+    "backend": {
+        "canonical": "Backend"
+    },
+    "backend development": {
+        "canonical": "Backend"
+    },
+    "server-side": {
+        "canonical": "Backend"
+    },
+    "databases": {
+        "canonical": "Databases"
+    },
+    "database management systems": {
+        "canonical": "DBMS"
+    },
+    "dbms": {
+        "canonical": "Databases"
+    },
+    "rdbms": {
+        "canonical": "DBMS"
+    },
+    "nosql": {
+        "canonical": "Databases"
+    },
+    "cloud computing": {
+        "canonical": "Cloud Computing"
+    },
+    "cloud infrastructure": {
+        "canonical": "Cloud Computing"
+    },
+    "cloud services": {
+        "canonical": "Cloud Computing"
+    },
+    "devops": {
+        "canonical": "DevOps"
+    },
+    "site reliability engineering": {
+        "canonical": "DevOps"
+    },
+    "sre": {
+        "canonical": "DevOps"
+    },
+    "platform engineering": {
+        "canonical": "DevOps"
+    },
+    "machine learning": {
+        "canonical": "Machine Learning"
+    },
+    "ml": {
+        "canonical": "Machine Learning"
+    },
+    "statistical learning": {
+        "canonical": "Machine Learning"
+    },
+    "deep learning": {
+        "canonical": "Deep Learning"
+    },
+    "dl": {
+        "canonical": "Deep Learning"
+    },
+    "neural networks": {
+        "canonical": "Deep Learning"
+    },
+    "computer vision": {
+        "canonical": "Computer Vision"
+    },
+    "cv": {
+        "canonical": "Computer Vision"
+    },
+    "image processing": {
+        "canonical": "Computer Vision"
+    },
+    "nlp": {
+        "canonical": "NLP"
+    },
+    "natural language processing": {
+        "canonical": "NLP"
+    },
+    "computational linguistics": {
+        "canonical": "NLP"
+    },
+    "generative ai": {
+        "canonical": "Generative AI"
+    },
+    "genai": {
+        "canonical": "Generative AI"
+    },
+    "large language models": {
+        "canonical": "Generative AI"
+    },
+    "llms": {
+        "canonical": "Generative AI"
+    },
+    "generative artificial intelligence": {
+        "canonical": "Generative AI"
+    },
+    "cnn": {
+        "canonical": "CNN"
+    },
+    "convolutional neural network": {
+        "canonical": "CNN"
+    },
+    "cnns": {
+        "canonical": "CNN"
+    },
+    "yolo": {
+        "canonical": "YOLO"
+    },
+    "you only look once": {
+        "canonical": "YOLO"
+    },
+    "mobile development": {
+        "canonical": "Mobile Development"
+    },
+    "android development": {
+        "canonical": "Mobile Development"
+    },
+    "mobile dev": {
+        "canonical": "Mobile Development"
+    },
+    "ios development": {
+        "canonical": "Mobile Development"
+    },
+    "api engineering": {
+        "canonical": "API Engineering"
+    },
+    "api design": {
+        "canonical": "API Engineering"
+    },
+    "api development": {
+        "canonical": "API Engineering"
+    },
+    "graphql apis": {
+        "canonical": "API Engineering"
+    },
+    "restful apis": {
+        "canonical": "REST APIs"
+    },
+    "web apis": {
+        "canonical": "API Engineering"
+    },
+    "distributed systems": {
+        "canonical": "Distributed Systems"
+    },
+    "distributed architecture": {
+        "canonical": "Distributed Systems"
+    },
+    "distributed computing": {
+        "canonical": "Distributed Systems"
+    },
+    "security": {
+        "canonical": "Security"
+    },
+    "application security": {
+        "canonical": "Security"
+    },
+    "cybersecurity": {
+        "canonical": "Security"
+    },
+    "infosec": {
+        "canonical": "Security"
+    },
+    "information security": {
+        "canonical": "Cybersecurity"
+    },
+    "network security": {
+        "canonical": "Security"
+    },
+    "computer science fundamentals": {
+        "canonical": "Computer Science Fundamentals"
+    },
+    "cs fundamentals": {
+        "canonical": "Computer Science Fundamentals"
+    },
+    "computer science": {
+        "canonical": "Computer Science Fundamentals"
+    },
+    "software testing": {
+        "canonical": "Software Testing"
+    },
+    "integration testing": {
+        "canonical": "Software Testing"
+    },
+    "qa": {
+        "canonical": "Software Testing"
+    },
+    "quality assurance": {
+        "canonical": "Software Testing"
+    },
+    "testing": {
+        "canonical": "Software Testing"
+    },
+    "unit testing": {
+        "canonical": "Software Testing"
+    },
+    "data engineering": {
+        "canonical": "Data Engineering"
+    },
+    "big data engineering": {
+        "canonical": "Data Engineering"
+    },
+    "data pipelines": {
+        "canonical": "Data Engineering"
+    },
+    "mlops": {
+        "canonical": "MLOps"
+    },
+    "ml devops": {
+        "canonical": "MLOps"
+    },
+    "ml operations": {
+        "canonical": "MLOps"
+    },
+    "machine learning operations": {
+        "canonical": "MLOps"
+    },
+    "llm engineering": {
+        "canonical": "LLM Engineering"
+    },
+    "llm dev": {
+        "canonical": "LLM Engineering"
+    },
+    "large language model engineering": {
+        "canonical": "LLM Engineering"
+    },
+    "c": {
+        "canonical": "C"
+    },
+    "ansi c": {
+        "canonical": "C"
+    },
+    "c programming": {
+        "canonical": "C"
+    },
+    "javascript": {
+        "canonical": "JavaScript"
+    },
+    "ecmascript": {
+        "canonical": "JavaScript"
+    },
+    "es6": {
+        "canonical": "JavaScript"
+    },
+    "js": {
+        "canonical": "JavaScript"
+    },
+    "typescript": {
+        "canonical": "TypeScript"
+    },
+    "ts": {
+        "canonical": "TypeScript"
+    },
+    "go": {
+        "canonical": "Go"
+    },
+    "go language": {
+        "canonical": "Go"
+    },
+    "golang": {
+        "canonical": "Go"
+    },
+    "rust": {
+        "canonical": "Rust"
+    },
+    "rustlang": {
+        "canonical": "Rust"
+    },
+    "kotlin": {
+        "canonical": "Kotlin"
+    },
+    "kotlinlang": {
+        "canonical": "Kotlin"
+    },
+    "swift": {
+        "canonical": "Swift"
+    },
+    "swiftlang": {
+        "canonical": "Swift"
+    },
+    "php": {
+        "canonical": "PHP"
+    },
+    "php hypertext preprocessor": {
+        "canonical": "PHP"
+    },
+    "ruby": {
+        "canonical": "Ruby"
+    },
+    "ruby programming": {
+        "canonical": "Ruby"
+    },
+    "scala": {
+        "canonical": "Scala"
+    },
+    "scala programming": {
+        "canonical": "Scala"
+    },
+    "r": {
+        "canonical": "R"
+    },
+    "r language": {
+        "canonical": "R"
+    },
+    "r project": {
+        "canonical": "R"
+    },
+    "html": {
+        "canonical": "HTML"
+    },
+    "html/css": {
+        "canonical": "HTML"
+    },
+    "html5": {
+        "canonical": "HTML"
+    },
+    "css": {
+        "canonical": "CSS"
+    },
+    "css3": {
+        "canonical": "CSS"
+    },
+    "react.js": {
+        "canonical": "React.js"
+    },
+    "react": {
+        "canonical": "React.js"
+    },
+    "react.js library": {
+        "canonical": "React.js"
+    },
+    "reactjs": {
+        "canonical": "React.js"
+    },
+    "next.js": {
+        "canonical": "Next.js"
+    },
+    "next.js framework": {
+        "canonical": "Next.js"
+    },
+    "nextjs": {
+        "canonical": "Next.js"
+    },
+    "redux": {
+        "canonical": "Redux"
+    },
+    "redux state management": {
+        "canonical": "Redux"
+    },
+    "redux.js": {
+        "canonical": "Redux"
+    },
+    "tailwind css": {
+        "canonical": "Tailwind CSS"
+    },
+    "tailwind": {
+        "canonical": "Tailwind CSS"
+    },
+    "tailwindcss": {
+        "canonical": "Tailwind CSS"
+    },
+    "bootstrap": {
+        "canonical": "Bootstrap"
+    },
+    "bootstrap css": {
+        "canonical": "Bootstrap"
+    },
+    "vite": {
+        "canonical": "Vite"
+    },
+    "vite.js": {
+        "canonical": "Vite"
+    },
+    "vitejs": {
+        "canonical": "Vite"
+    },
+    "webpack": {
+        "canonical": "Webpack"
+    },
+    "webpack bundler": {
+        "canonical": "Webpack"
+    },
+    "zustand": {
+        "canonical": "Zustand"
+    },
+    "zustand state management": {
+        "canonical": "Zustand"
+    },
+    "react query": {
+        "canonical": "React Query"
+    },
+    "react query library": {
+        "canonical": "React Query"
+    },
+    "tanstack query": {
+        "canonical": "React Query"
+    },
+    "node.js": {
+        "canonical": "Node.js"
+    },
+    "node": {
+        "canonical": "Node.js"
+    },
+    "nodejs": {
+        "canonical": "Node.js"
+    },
+    "express.js": {
+        "canonical": "Express.js"
+    },
+    "express": {
+        "canonical": "Express.js"
+    },
+    "expressjs": {
+        "canonical": "Express.js"
+    },
+    "fastapi": {
+        "canonical": "FastAPI"
+    },
+    "fastapi framework": {
+        "canonical": "FastAPI"
+    },
+    "flask": {
+        "canonical": "Flask"
+    },
+    "flask framework": {
+        "canonical": "Flask"
+    },
+    "django": {
+        "canonical": "Django"
+    },
+    "django framework": {
+        "canonical": "Django"
+    },
+    "spring boot": {
+        "canonical": "Spring Boot"
+    },
+    "spring": {
+        "canonical": "Spring Boot"
+    },
+    "springboot": {
+        "canonical": "Spring Boot"
+    },
+    "nestjs": {
+        "canonical": "NestJS"
+    },
+    "nest": {
+        "canonical": "NestJS"
+    },
+    "nestjs framework": {
+        "canonical": "NestJS"
+    },
+    "asp.net core": {
+        "canonical": "ASP.NET Core"
+    },
+    ".net core": {
+        "canonical": "ASP.NET Core"
+    },
+    "asp.net": {
+        "canonical": "ASP.NET Core"
+    },
+    "c# asp.net": {
+        "canonical": "ASP.NET Core"
+    },
+    "gin": {
+        "canonical": "Gin"
+    },
+    "gin gonic": {
+        "canonical": "Gin"
+    },
+    "gin web framework": {
+        "canonical": "Gin"
+    },
+    "laravel": {
+        "canonical": "Laravel"
+    },
+    "laravel framework": {
+        "canonical": "Laravel"
+    },
+    "ruby on rails": {
+        "canonical": "Ruby on Rails"
+    },
+    "rails": {
+        "canonical": "Ruby on Rails"
+    },
+    "ror": {
+        "canonical": "Ruby on Rails"
+    },
+    "rest apis": {
+        "canonical": "REST APIs"
+    },
+    "rest": {
+        "canonical": "REST APIs"
+    },
+    "rest api": {
+        "canonical": "REST APIs"
+    },
+    "restful api": {
+        "canonical": "REST APIs"
+    },
+    "graphql": {
+        "canonical": "GraphQL"
+    },
+    "graphql api": {
+        "canonical": "GraphQL"
+    },
+    "webhooks": {
+        "canonical": "Webhooks"
+    },
+    "http webhooks": {
+        "canonical": "Webhooks"
+    },
+    "webhook": {
+        "canonical": "Webhooks"
+    },
+    "grpc": {
+        "canonical": "gRPC"
+    },
+    "grpc remote procedure call": {
+        "canonical": "gRPC"
+    },
+    "openapi": {
+        "canonical": "OpenAPI"
+    },
+    "oas": {
+        "canonical": "OpenAPI"
+    },
+    "openapi specification": {
+        "canonical": "OpenAPI"
+    },
+    "swagger": {
+        "canonical": "Swagger"
+    },
+    "swagger api": {
+        "canonical": "Swagger"
+    },
+    "swagger ui": {
+        "canonical": "Swagger"
+    },
+    "api gateway": {
+        "canonical": "API Gateway"
+    },
+    "api gateways": {
+        "canonical": "API Gateway"
+    },
+    "jwt authentication": {
+        "canonical": "JWT Authentication"
+    },
+    "json web token": {
+        "canonical": "JWT Authentication"
+    },
+    "jwt": {
+        "canonical": "JWT Authentication"
+    },
+    "jwt auth": {
+        "canonical": "JWT Authentication"
+    },
+    "jwt tokens": {
+        "canonical": "JWT Authentication"
+    },
+    "oauth": {
+        "canonical": "OAuth"
+    },
+    "oauth1": {
+        "canonical": "OAuth"
+    },
+    "oauth 2.0": {
+        "canonical": "OAuth 2.0"
+    },
+    "oauth 2.0 protocol": {
+        "canonical": "OAuth 2.0"
+    },
+    "oauth2": {
+        "canonical": "OAuth 2.0"
+    },
+    "openid connect": {
+        "canonical": "OpenID Connect"
+    },
+    "oidc": {
+        "canonical": "OpenID Connect"
+    },
+    "mysql": {
+        "canonical": "MySQL"
+    },
+    "mysql server": {
+        "canonical": "MySQL"
+    },
+    "sql (mysql)": {
+        "canonical": "MySQL"
+    },
+    "postgresql": {
+        "canonical": "PostgreSQL"
+    },
+    "postgresql database": {
+        "canonical": "PostgreSQL"
+    },
+    "postgres": {
+        "canonical": "PostgreSQL"
+    },
+    "mongodb": {
+        "canonical": "MongoDB"
+    },
+    "mongo": {
+        "canonical": "MongoDB"
+    },
+    "mongodb database": {
+        "canonical": "MongoDB"
+    },
+    "redis": {
+        "canonical": "Redis"
+    },
+    "redis cache": {
+        "canonical": "Redis"
+    },
+    "sql": {
+        "canonical": "SQL"
+    },
+    "structured query language": {
+        "canonical": "SQL"
+    },
+    "nosql database": {
+        "canonical": "NoSQL"
+    },
+    "non-relational database": {
+        "canonical": "NoSQL"
+    },
+    "database design": {
+        "canonical": "Database Design"
+    },
+    "db design": {
+        "canonical": "Database Design"
+    },
+    "schema design": {
+        "canonical": "Database Design"
+    },
+    "query optimization": {
+        "canonical": "Query Optimization"
+    },
+    "query tuning": {
+        "canonical": "Query Optimization"
+    },
+    "sql tuning": {
+        "canonical": "Query Optimization"
+    },
+    "database indexing": {
+        "canonical": "Database Indexing"
+    },
+    "db indexing": {
+        "canonical": "Database Indexing"
+    },
+    "indexing": {
+        "canonical": "Database Indexing"
+    },
+    "prisma": {
+        "canonical": "Prisma"
+    },
+    "prisma orm": {
+        "canonical": "Prisma"
+    },
+    "hibernate": {
+        "canonical": "Hibernate"
+    },
+    "hibernate orm": {
+        "canonical": "Hibernate"
+    },
+    "orm": {
+        "canonical": "ORM"
+    },
+    "object-relational mapping": {
+        "canonical": "ORM"
+    },
+    "android": {
+        "canonical": "Android"
+    },
+    "android app dev": {
+        "canonical": "Android"
+    },
+    "android os": {
+        "canonical": "Android"
+    },
+    "ios": {
+        "canonical": "iOS"
+    },
+    "ios dev": {
+        "canonical": "iOS"
+    },
+    "iphone os": {
+        "canonical": "iOS"
+    },
+    "react native": {
+        "canonical": "React Native"
+    },
+    "react-native": {
+        "canonical": "React Native"
+    },
+    "reactnative": {
+        "canonical": "React Native"
+    },
+    "flutter": {
+        "canonical": "Flutter"
+    },
+    "flutter framework": {
+        "canonical": "Flutter"
+    },
+    "flutter sdk": {
+        "canonical": "Flutter"
+    },
+    "expo": {
+        "canonical": "Expo"
+    },
+    "expo cli": {
+        "canonical": "Expo"
+    },
+    "docker": {
+        "canonical": "Docker"
+    },
+    "containerization": {
+        "canonical": "Docker"
+    },
+    "docker containers": {
+        "canonical": "Docker"
+    },
+    "kubernetes": {
+        "canonical": "Kubernetes"
+    },
+    "k8s": {
+        "canonical": "Kubernetes"
+    },
+    "kube": {
+        "canonical": "Kubernetes"
+    },
+    "terraform": {
+        "canonical": "Terraform"
+    },
+    "terraform iac": {
+        "canonical": "Terraform"
+    },
+    "ansible": {
+        "canonical": "Ansible"
+    },
+    "ansible provisioning": {
+        "canonical": "Ansible"
+    },
+    "jenkins": {
+        "canonical": "Jenkins"
+    },
+    "jenkins ci": {
+        "canonical": "Jenkins"
+    },
+    "github actions": {
+        "canonical": "GitHub Actions"
+    },
+    "gh actions": {
+        "canonical": "GitHub Actions"
+    },
+    "github ci/cd": {
+        "canonical": "GitHub Actions"
+    },
+    "prometheus": {
+        "canonical": "Prometheus"
+    },
+    "prometheus monitoring": {
+        "canonical": "Prometheus"
+    },
+    "grafana": {
+        "canonical": "Grafana"
+    },
+    "grafana dashboards": {
+        "canonical": "Grafana"
+    },
+    "nginx": {
+        "canonical": "Nginx"
+    },
+    "nginx server": {
+        "canonical": "Nginx"
+    },
+    "monitoring": {
+        "canonical": "Monitoring"
+    },
+    "it monitoring": {
+        "canonical": "Monitoring"
+    },
+    "system monitoring": {
+        "canonical": "Monitoring"
+    },
+    "observability": {
+        "canonical": "Observability"
+    },
+    "system observability": {
+        "canonical": "Observability"
+    },
+    "linux administration": {
+        "canonical": "Linux Administration"
+    },
+    "linux admin": {
+        "canonical": "Linux Administration"
+    },
+    "sysadmin": {
+        "canonical": "Linux Administration"
+    },
+    "aws": {
+        "canonical": "AWS"
+    },
+    "amazon aws": {
+        "canonical": "AWS"
+    },
+    "amazon web services": {
+        "canonical": "AWS"
+    },
+    "azure": {
+        "canonical": "Azure"
+    },
+    "azure cloud": {
+        "canonical": "Azure"
+    },
+    "microsoft azure": {
+        "canonical": "Azure"
+    },
+    "gcp": {
+        "canonical": "GCP"
+    },
+    "google cloud": {
+        "canonical": "GCP"
+    },
+    "google cloud platform": {
+        "canonical": "GCP"
+    },
+    "amazon ec2": {
+        "canonical": "Amazon EC2"
+    },
+    "amazon elastic compute cloud": {
+        "canonical": "Amazon EC2"
+    },
+    "ec2": {
+        "canonical": "Amazon EC2"
+    },
+    "amazon s3": {
+        "canonical": "Amazon S3"
+    },
+    "amazon simple storage service": {
+        "canonical": "Amazon S3"
+    },
+    "s3": {
+        "canonical": "Amazon S3"
+    },
+    "amazon ecs": {
+        "canonical": "Amazon ECS"
+    },
+    "ecs": {
+        "canonical": "Amazon ECS"
+    },
+    "elastic container service": {
+        "canonical": "Amazon ECS"
+    },
+    "amazon eks": {
+        "canonical": "Amazon EKS"
+    },
+    "eks": {
+        "canonical": "Amazon EKS"
+    },
+    "elastic kubernetes service": {
+        "canonical": "Amazon EKS"
+    },
+    "aws lambda": {
+        "canonical": "AWS Lambda"
+    },
+    "aws lambda functions": {
+        "canonical": "AWS Lambda"
+    },
+    "lambda": {
+        "canonical": "AWS Lambda"
+    },
+    "google cloud run": {
+        "canonical": "Google Cloud Run"
+    },
+    "cloud run": {
+        "canonical": "Google Cloud Run"
+    },
+    "gcp cloud run": {
+        "canonical": "Google Cloud Run"
+    },
+    "google cloud storage": {
+        "canonical": "Google Cloud Storage"
+    },
+    "gcs": {
+        "canonical": "Google Cloud Storage"
+    },
+    "google cloud storage bucket": {
+        "canonical": "Google Cloud Storage"
+    },
+    "azure functions": {
+        "canonical": "Azure Functions"
+    },
+    "azure functions app": {
+        "canonical": "Azure Functions"
+    },
+    "serverless": {
+        "canonical": "Serverless"
+    },
+    "faas": {
+        "canonical": "Serverless"
+    },
+    "serverless computing": {
+        "canonical": "Serverless"
+    },
+    "microservices": {
+        "canonical": "Microservices"
+    },
+    "microservice": {
+        "canonical": "Microservices"
+    },
+    "microservice architecture": {
+        "canonical": "Microservices"
+    },
+    "event-driven architecture": {
+        "canonical": "Event-Driven Architecture"
+    },
+    "eda": {
+        "canonical": "Event-Driven Architecture"
+    },
+    "event driven architecture": {
+        "canonical": "Event-Driven Architecture"
+    },
+    "message queues": {
+        "canonical": "Message Queues"
+    },
+    "mq": {
+        "canonical": "Message Queues"
+    },
+    "message queue": {
+        "canonical": "Message Queues"
+    },
+    "apache kafka": {
+        "canonical": "Apache Kafka"
+    },
+    "kafka": {
+        "canonical": "Apache Kafka"
+    },
+    "rabbitmq": {
+        "canonical": "RabbitMQ"
+    },
+    "rabbitmq broker": {
+        "canonical": "RabbitMQ"
+    },
+    "apache spark": {
+        "canonical": "Apache Spark"
+    },
+    "spark": {
+        "canonical": "Apache Spark"
+    },
+    "apache flink": {
+        "canonical": "Apache Flink"
+    },
+    "flink": {
+        "canonical": "Apache Flink"
+    },
+    "numpy": {
+        "canonical": "NumPy"
+    },
+    "numerical python": {
+        "canonical": "NumPy"
+    },
+    "pandas": {
+        "canonical": "Pandas"
+    },
+    "matplotlib": {
+        "canonical": "Matplotlib"
+    },
+    "seaborn": {
+        "canonical": "Seaborn"
+    },
+    "etl": {
+        "canonical": "ETL"
+    },
+    "extract transform load": {
+        "canonical": "ETL"
+    },
+    "elt": {
+        "canonical": "ELT"
+    },
+    "extract load transform": {
+        "canonical": "ELT"
+    },
+    "data warehousing": {
+        "canonical": "Data Warehousing"
+    },
+    "dwh": {
+        "canonical": "Data Warehousing"
+    },
+    "data warehouse": {
+        "canonical": "Data Warehousing"
+    },
+    "apache airflow": {
+        "canonical": "Apache Airflow"
+    },
+    "airflow": {
+        "canonical": "Apache Airflow"
+    },
+    "apache airflow workflow": {
+        "canonical": "Apache Airflow"
+    },
+    "dbt": {
+        "canonical": "dbt"
+    },
+    "data build tool": {
+        "canonical": "dbt"
+    },
+    "dbt core": {
+        "canonical": "dbt"
+    },
+    "apache hadoop": {
+        "canonical": "Apache Hadoop"
+    },
+    "hadoop": {
+        "canonical": "Apache Hadoop"
+    },
+    "hadoop ecosystem": {
+        "canonical": "Apache Hadoop"
+    },
+    "apache hive": {
+        "canonical": "Apache Hive"
+    },
+    "hive": {
+        "canonical": "Apache Hive"
+    },
+    "spark sql": {
+        "canonical": "Spark SQL"
+    },
+    "apache spark sql": {
+        "canonical": "Spark SQL"
+    },
+    "scikit-learn": {
+        "canonical": "Scikit-learn"
+    },
+    "scikit learn": {
+        "canonical": "Scikit-learn"
+    },
+    "sklearn": {
+        "canonical": "Scikit-learn"
+    },
+    "xgboost": {
+        "canonical": "XGBoost"
+    },
+    "extreme gradient boosting": {
+        "canonical": "XGBoost"
+    },
+    "lightgbm": {
+        "canonical": "LightGBM"
+    },
+    "light gradient boosting machine": {
+        "canonical": "LightGBM"
+    },
+    "pytorch": {
+        "canonical": "PyTorch"
+    },
+    "pytorch library": {
+        "canonical": "PyTorch"
+    },
+    "tensorflow": {
+        "canonical": "TensorFlow"
+    },
+    "tf": {
+        "canonical": "TensorFlow"
+    },
+    "keras": {
+        "canonical": "Keras"
+    },
+    "keras api": {
+        "canonical": "Keras"
+    },
+    "mlflow": {
+        "canonical": "MLflow"
+    },
+    "kubeflow": {
+        "canonical": "Kubeflow"
+    },
+    "kubeflow pipelines": {
+        "canonical": "Kubeflow"
+    },
+    "feature store": {
+        "canonical": "Feature Store"
+    },
+    "ml feature store": {
+        "canonical": "Feature Store"
+    },
+    "model monitoring": {
+        "canonical": "Model Monitoring"
+    },
+    "ml monitoring": {
+        "canonical": "Model Monitoring"
+    },
+    "model drift detection": {
+        "canonical": "Model Monitoring"
+    },
+    "model deployment": {
+        "canonical": "Model Deployment"
+    },
+    "ml deployment": {
+        "canonical": "Model Deployment"
+    },
+    "model serving": {
+        "canonical": "Model Deployment"
+    },
+    "opencv": {
+        "canonical": "OpenCV"
+    },
+    "opencv library": {
+        "canonical": "OpenCV"
+    },
+    "object detection": {
+        "canonical": "Object Detection"
+    },
+    "object recognition": {
+        "canonical": "Object Detection"
+    },
+    "target detection": {
+        "canonical": "Object Detection"
+    },
+    "image classification": {
+        "canonical": "Image Classification"
+    },
+    "image labeling": {
+        "canonical": "Image Classification"
+    },
+    "image segmentation": {
+        "canonical": "Image Segmentation"
+    },
+    "segmentation": {
+        "canonical": "Image Segmentation"
+    },
+    "semantic segmentation": {
+        "canonical": "Image Segmentation"
+    },
+    "ocr": {
+        "canonical": "OCR"
+    },
+    "optical character recognition": {
+        "canonical": "OCR"
+    },
+    "text extraction": {
+        "canonical": "OCR"
+    },
+    "vit": {
+        "canonical": "ViT"
+    },
+    "vits": {
+        "canonical": "ViT"
+    },
+    "vision transformer": {
+        "canonical": "ViT"
+    },
+    "resnet": {
+        "canonical": "ResNet"
+    },
+    "resnet-101": {
+        "canonical": "ResNet"
+    },
+    "resnet-50": {
+        "canonical": "ResNet"
+    },
+    "residual network": {
+        "canonical": "ResNet"
+    },
+    "transformers": {
+        "canonical": "Transformers"
+    },
+    "attention mechanism": {
+        "canonical": "Transformers"
+    },
+    "transformer models": {
+        "canonical": "Transformers"
+    },
+    "bert": {
+        "canonical": "BERT"
+    },
+    "bidirectional encoder representations from transformers": {
+        "canonical": "BERT"
+    },
+    "tokenization": {
+        "canonical": "Tokenization"
+    },
+    "text tokenization": {
+        "canonical": "Tokenization"
+    },
+    "tokenizing": {
+        "canonical": "Tokenization"
+    },
+    "named entity recognition": {
+        "canonical": "Named Entity Recognition"
+    },
+    "entity extraction": {
+        "canonical": "Named Entity Recognition"
+    },
+    "ner": {
+        "canonical": "Named Entity Recognition"
+    },
+    "sentiment analysis": {
+        "canonical": "Sentiment Analysis"
+    },
+    "opinion mining": {
+        "canonical": "Sentiment Analysis"
+    },
+    "sentiment detection": {
+        "canonical": "Sentiment Analysis"
+    },
+    "text classification": {
+        "canonical": "Text Classification"
+    },
+    "document classification": {
+        "canonical": "Text Classification"
+    },
+    "text categorization": {
+        "canonical": "Text Classification"
+    },
+    "gemini ai": {
+        "canonical": "Gemini AI"
+    },
+    "gemini": {
+        "canonical": "Gemini AI"
+    },
+    "geminiai": {
+        "canonical": "Gemini AI"
+    },
+    "google gemini": {
+        "canonical": "Gemini AI"
+    },
+    "openai api": {
+        "canonical": "OpenAI API"
+    },
+    "chatgpt api": {
+        "canonical": "OpenAI API"
+    },
+    "gpt-4 api": {
+        "canonical": "OpenAI API"
+    },
+    "openai": {
+        "canonical": "OpenAI API"
+    },
+    "langchain": {
+        "canonical": "LangChain"
+    },
+    "langchain framework": {
+        "canonical": "LangChain"
+    },
+    "langgraph": {
+        "canonical": "LangGraph"
+    },
+    "langgraph framework": {
+        "canonical": "LangGraph"
+    },
+    "rag": {
+        "canonical": "RAG"
+    },
+    "retrieval augmented generation": {
+        "canonical": "RAG"
+    },
+    "retrieval-augmented generation": {
+        "canonical": "RAG"
+    },
+    "prompt engineering": {
+        "canonical": "Prompt Engineering"
+    },
+    "prompt design": {
+        "canonical": "Prompt Engineering"
+    },
+    "prompts": {
+        "canonical": "Prompt Engineering"
+    },
+    "agentic ai": {
+        "canonical": "Agentic AI"
+    },
+    "ai agents": {
+        "canonical": "Agentic AI"
+    },
+    "autonomous agents": {
+        "canonical": "Agentic AI"
+    },
+    "multi-agent systems": {
+        "canonical": "Multi-Agent Systems"
+    },
+    "multi-agent ai": {
+        "canonical": "Multi-Agent Systems"
+    },
+    "multi-agent orchestration": {
+        "canonical": "Multi-Agent Systems"
+    },
+    "vector databases": {
+        "canonical": "Vector Databases"
+    },
+    "vector database": {
+        "canonical": "Vector Databases"
+    },
+    "vector store": {
+        "canonical": "Vector Databases"
+    },
+    "vector stores": {
+        "canonical": "Vector Databases"
+    },
+    "pinecone": {
+        "canonical": "Pinecone"
+    },
+    "pinecone vector db": {
+        "canonical": "Pinecone"
+    },
+    "weaviate": {
+        "canonical": "Weaviate"
+    },
+    "weaviate db": {
+        "canonical": "Weaviate"
+    },
+    "chroma": {
+        "canonical": "Chroma"
+    },
+    "chroma db": {
+        "canonical": "Chroma"
+    },
+    "chromadb": {
+        "canonical": "Chroma"
+    },
+    "cyber security": {
+        "canonical": "Cybersecurity"
+    },
+    "authentication": {
+        "canonical": "Authentication"
+    },
+    "authn": {
+        "canonical": "Authentication"
+    },
+    "user authentication": {
+        "canonical": "Authentication"
+    },
+    "authorization": {
+        "canonical": "Authorization"
+    },
+    "access control": {
+        "canonical": "Authorization"
+    },
+    "authz": {
+        "canonical": "Authorization"
+    },
+    "owasp": {
+        "canonical": "OWASP"
+    },
+    "owasp top 10": {
+        "canonical": "OWASP"
+    },
+    "netsec": {
+        "canonical": "Network Security"
+    },
+    "appsec": {
+        "canonical": "Application Security"
+    },
+    "data structures and algorithms": {
+        "canonical": "Data Structures and Algorithms"
+    },
+    "dsa": {
+        "canonical": "Data Structures and Algorithms"
+    },
+    "oop": {
+        "canonical": "OOP"
+    },
+    "object oriented programming": {
+        "canonical": "OOP"
+    },
+    "object-oriented programming": {
+        "canonical": "OOP"
+    },
+    "oops": {
+        "canonical": "OOP"
+    },
+    "operating systems": {
+        "canonical": "Operating Systems"
+    },
+    "os": {
+        "canonical": "Operating Systems"
+    },
+    "operating system": {
+        "canonical": "Operating Systems"
+    },
+    "computer networks": {
+        "canonical": "Computer Networks"
+    },
+    "computer networking": {
+        "canonical": "Computer Networks"
+    },
+    "networks": {
+        "canonical": "Computer Networks"
+    },
+    "system design": {
+        "canonical": "System Design"
+    },
+    "software architecture": {
+        "canonical": "System Design"
+    },
+    "systems design": {
+        "canonical": "System Design"
+    },
+    "linux": {
+        "canonical": "Linux"
+    },
+    "gnu/linux": {
+        "canonical": "Linux"
+    },
+    "linux os": {
+        "canonical": "Linux"
+    },
+    "process management": {
+        "canonical": "Process Management"
+    },
+    "ipc": {
+        "canonical": "Process Management"
+    },
+    "processes": {
+        "canonical": "Process Management"
+    },
+    "threading": {
+        "canonical": "Threading"
+    },
+    "multithreading": {
+        "canonical": "Threading"
+    },
+    "threads": {
+        "canonical": "Threading"
+    },
+    "concurrency": {
+        "canonical": "Concurrency"
+    },
+    "concurrent programming": {
+        "canonical": "Concurrency"
+    },
+    "parallel computing": {
+        "canonical": "Parallel Computing"
+    },
+    "parallel programming": {
+        "canonical": "Parallel Computing"
+    },
+    "parallelism": {
+        "canonical": "Parallel Computing"
+    },
+    "memory management": {
+        "canonical": "Memory Management"
+    },
+    "ram management": {
+        "canonical": "Memory Management"
+    },
+    "virtual memory": {
+        "canonical": "Memory Management"
+    },
+    "tcp/ip": {
+        "canonical": "TCP/IP"
+    },
+    "ip": {
+        "canonical": "TCP/IP"
+    },
+    "tcp": {
+        "canonical": "TCP/IP"
+    },
+    "tcp/ip stack": {
+        "canonical": "TCP/IP"
+    },
+    "http": {
+        "canonical": "HTTP"
+    },
+    "http/1.1": {
+        "canonical": "HTTP"
+    },
+    "http/2": {
+        "canonical": "HTTP"
+    },
+    "https": {
+        "canonical": "HTTPS"
+    },
+    "http secure": {
+        "canonical": "HTTPS"
+    },
+    "dns": {
+        "canonical": "DNS"
+    },
+    "domain name system": {
+        "canonical": "DNS"
+    },
+    "websockets": {
+        "canonical": "WebSockets"
+    },
+    "ws": {
+        "canonical": "WebSockets"
+    },
+    "wss": {
+        "canonical": "WebSockets"
+    },
+    "websocket": {
+        "canonical": "WebSockets"
+    },
+    "network protocols": {
+        "canonical": "Network Protocols"
+    },
+    "networking protocols": {
+        "canonical": "Network Protocols"
+    },
+    "protocols": {
+        "canonical": "Network Protocols"
+    },
+    "load balancing": {
+        "canonical": "Load Balancing"
+    },
+    "load balancer": {
+        "canonical": "Load Balancing"
+    },
+    "load balancers": {
+        "canonical": "Load Balancing"
+    },
+    "high availability": {
+        "canonical": "High Availability"
+    },
+    "ha": {
+        "canonical": "High Availability"
+    },
+    "uptime": {
+        "canonical": "High Availability"
+    },
+    "caching": {
+        "canonical": "Caching"
+    },
+    "cache": {
+        "canonical": "Caching"
+    },
+    "distributed caching": {
+        "canonical": "Caching"
+    },
+    "cdn": {
+        "canonical": "CDN"
+    },
+    "content delivery network": {
+        "canonical": "CDN"
+    },
+    "database sharding": {
+        "canonical": "Database Sharding"
+    },
+    "sharding": {
+        "canonical": "Database Sharding"
+    },
+    "database replication": {
+        "canonical": "Database Replication"
+    },
+    "db replication": {
+        "canonical": "Database Replication"
+    },
+    "replication": {
+        "canonical": "Database Replication"
+    },
+    "consistency models": {
+        "canonical": "Consistency Models"
+    },
+    "consistency": {
+        "canonical": "Consistency Models"
+    },
+    "cap theorem": {
+        "canonical": "CAP Theorem"
+    },
+    "cap": {
+        "canonical": "CAP Theorem"
+    },
+    "component testing": {
+        "canonical": "Unit Testing"
+    },
+    "unit tests": {
+        "canonical": "Unit Testing"
+    },
+    "integration tests": {
+        "canonical": "Integration Testing"
+    },
+    "end-to-end testing": {
+        "canonical": "End-to-End Testing"
+    },
+    "e2e testing": {
+        "canonical": "End-to-End Testing"
+    },
+    "e2e tests": {
+        "canonical": "End-to-End Testing"
+    },
+    "end-to-end tests": {
+        "canonical": "End-to-End Testing"
+    },
+    "pytest": {
+        "canonical": "Pytest"
+    },
+    "pytest framework": {
+        "canonical": "Pytest"
+    },
+    "jest": {
+        "canonical": "Jest"
+    },
+    "jest framework": {
+        "canonical": "Jest"
+    },
+    "selenium": {
+        "canonical": "Selenium"
+    },
+    "selenium webdriver": {
+        "canonical": "Selenium"
+    },
+    "cypress": {
+        "canonical": "Cypress"
+    },
+    "cypress testing": {
+        "canonical": "Cypress"
+    },
+    "cypress.io": {
+        "canonical": "Cypress"
+    },
+    "playwright": {
+        "canonical": "Playwright"
+    },
+    "playwright automation": {
+        "canonical": "Playwright"
+    },
+    "git": {
+        "canonical": "Git"
+    },
+    "version control": {
+        "canonical": "Git"
+    },
+    "github": {
+        "canonical": "GitHub"
+    },
+    "postman": {
+        "canonical": "Postman"
+    },
+    "vs code": {
+        "canonical": "VS Code"
+    },
+    "visual studio code": {
+        "canonical": "VS Code"
+    },
+    "intellij idea": {
+        "canonical": "IntelliJ IDEA"
+    },
+    "intellij": {
+        "canonical": "IntelliJ IDEA"
+    },
+    "jupyter notebook": {
+        "canonical": "Jupyter Notebook"
+    },
+    "jupyter": {
+        "canonical": "Jupyter Notebook"
+    },
+    "google colab": {
+        "canonical": "Google Colab"
+    },
+    "colab": {
+        "canonical": "Google Colab"
+    }
+}

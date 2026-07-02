@@ -80,7 +80,7 @@ def test_generate_recruiter_recommendation_data_passed_hard():
     rec = generate_recruiter_recommendation_data(result, confidence_profiles)
     
     assert rec["overall_score"] == 87.5
-    assert "✓ Passed all hard requirements" in rec["why_score"]
+    assert "✓ Hard Requirement Coverage: 100.0%" in rec["why_score"]
     assert "✓ High semantic alignment with JD" in rec["why_score"]
     assert "✓ Strong Backend Engineer project experience" in rec["why_score"]
     assert "✓ Internship experience" in rec["why_score"]
@@ -119,4 +119,4 @@ def test_generate_recruiter_recommendation_data_failed_hard():
     rec = generate_recruiter_recommendation_data(result, {})
     
     assert rec["recommendation"] == "Reject"
-    assert "✗ Failed hard requirements: Missing Python skill" in rec["why_score"]
+    assert "✗ Hard Requirement Coverage below threshold: 0.0% (Required: 80.0%)" in rec["why_score"]

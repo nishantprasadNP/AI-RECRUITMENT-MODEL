@@ -132,9 +132,11 @@ JD:
 
 Output:
 [
-"Python",
-"SQL",
-"Docker"
+  {
+    "skill": "Python",
+    "importance": 5.0,
+    "reason": "Common for backend but not mentioned."
+  }
 ]
 
 Reason:
@@ -155,6 +157,16 @@ Indicators that a skill is required include:
 * minimum qualifications
 * required qualifications
 
+For each required skill, you must return a structured object with:
+- skill: The normalized name of the skill.
+- importance: A floating-point number between 1.0 and 10.0 indicating its importance according to the following guidelines:
+  * 10 = absolutely fundamental (e.g. core language/framework mentioned as must-have)
+  * 8-9 = core requirement
+  * 5-7 = important
+  * 3-4 = supporting
+  * 1-2 = nice to have
+- reason: A short reason for the assigned importance (exactly one sentence).
+
 Examples:
 
 JD:
@@ -162,8 +174,16 @@ JD:
 
 Output:
 [
-"Python",
-"SQL"
+  {
+    "skill": "Python",
+    "importance": 10.0,
+    "reason": "Directly stated as a must-know core programming language."
+  },
+  {
+    "skill": "SQL",
+    "importance": 10.0,
+    "reason": "Directly stated as a must-know core database language."
+  }
 ]
 
 JD:
@@ -171,8 +191,16 @@ JD:
 
 Output:
 [
-"PostgreSQL",
-"Docker"
+  {
+    "skill": "PostgreSQL",
+    "importance": 8.0,
+    "reason": "Stated as required database experience for the backend role."
+  },
+  {
+    "skill": "Docker",
+    "importance": 8.0,
+    "reason": "Stated as required containerization tool experience."
+  }
 ]
 
 When uncertain, do not extract the skill.
@@ -208,6 +236,16 @@ Do NOT create preferred skills based on:
 * common knowledge
 * hidden hiring signals
 
+For each preferred skill, you must return a structured object with:
+- skill: The normalized name of the skill.
+- importance: A floating-point number between 1.0 and 10.0 indicating its importance according to the following guidelines:
+  * 10 = absolutely fundamental
+  * 8-9 = core requirement
+  * 5-7 = important
+  * 3-4 = supporting (e.g. typical nice-to-have auxiliary skill)
+  * 1-2 = nice to have
+- reason: A short reason for the assigned importance (exactly one sentence).
+
 Examples:
 
 JD:
@@ -215,7 +253,11 @@ JD:
 
 Output:
 [
-"Docker"
+  {
+    "skill": "Docker",
+    "importance": 2.0,
+    "reason": "Explicitly mentioned as a plus/nice-to-have tool."
+  }
 ]
 
 JD:
@@ -223,7 +265,11 @@ JD:
 
 Output:
 [
-"AWS"
+  {
+    "skill": "AWS",
+    "importance": 4.0,
+    "reason": "Explicitly mentioned as preferred cloud environment experience."
+  }
 ]
 
 JD:
@@ -231,7 +277,11 @@ JD:
 
 Output:
 [
-"Kubernetes"
+  {
+    "skill": "Kubernetes",
+    "importance": 2.0,
+    "reason": "Explicitly mentioned as nice-to-have container orchestration tool."
+  }
 ]
 
 Incorrect Example:
@@ -241,9 +291,11 @@ JD:
 
 Incorrect Output:
 [
-"Communication",
-"Leadership",
-"Product Management"
+  {
+    "skill": "Communication",
+    "importance": 3.0,
+    "reason": "Inferred from working with stakeholders."
+  }
 ]
 
 Reason:
@@ -1175,8 +1227,20 @@ Do NOT include code fences.
 
 {
   "title": null,
-  "required_skills": [],
-  "preferred_skills": [],
+  "required_skills": [
+    {
+      "skill": "string",
+      "importance": 5.0,
+      "reason": "string"
+    }
+  ],
+  "preferred_skills": [
+    {
+      "skill": "string",
+      "importance": 3.0,
+      "reason": "string"
+    }
+  ],
   "critical_skills": [],
   "experience_required": null,
   "education": null,

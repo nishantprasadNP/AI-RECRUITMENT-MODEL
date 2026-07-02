@@ -1,10 +1,35 @@
 {
   "title": "Lead Python Developer",
   "required_skills": [
-    "Python",
-    "FastAPI"
+    {
+      "skill": "Python",
+      "importance": 5.0,
+      "reason": "Required skill"
+    },
+    {
+      "skill": "FastAPI",
+      "importance": 5.0,
+      "reason": "Required skill"
+    }
   ],
   "preferred_skills": [],
+  "normalized_required_skills": [
+    {
+      "skill": "Python",
+      "importance": 5.0,
+      "reason": "Required skill"
+    },
+    {
+      "skill": "FastAPI",
+      "importance": 5.0,
+      "reason": "Required skill"
+    }
+  ],
+  "normalized_preferred_skills": [],
+  "canonical_to_raw_map": {
+    "Python": "Python",
+    "FastAPI": "FastAPI"
+  },
   "critical_skills": [],
   "experience_required": 5,
   "education": null,

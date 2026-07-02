@@ -13,111 +13,120 @@ DEFAULT_PROFILES: Dict[str, Dict[str, Any]] = {
         "evaluation_profile": "intern_backend",
         "strictness_level": "low",
         "component_weights": {
-            "skills": 0.35,
-            "projects": 0.40,
-            "experience": 0.20,
-            "achievements": 0.05
+            "skills": 0.30,
+            "projects": 0.30,
+            "experience": 0.15,
+            "hard_requirements": 0.15,
+            "achievements": 0.10
         },
         "minimum_skill_confidence": 30.0,
-        "hard_requirement_tolerance": 30.0
+        "hard_requirement_tolerance": 50.0
     },
     "new_grad_backend": {
         "evaluation_profile": "new_grad_backend",
         "strictness_level": "low",
         "component_weights": {
-            "skills": 0.40,
-            "projects": 0.35,
+            "skills": 0.30,
+            "projects": 0.30,
             "experience": 0.15,
+            "hard_requirements": 0.15,
             "achievements": 0.10
         },
         "minimum_skill_confidence": 40.0,
-        "hard_requirement_tolerance": 20.0
+        "hard_requirement_tolerance": 50.0
     },
     "mid_backend": {
         "evaluation_profile": "mid_backend",
         "strictness_level": "medium",
         "component_weights": {
-            "skills": 0.30,
-            "projects": 0.30,
-            "experience": 0.30,
+            "skills": 0.25,
+            "projects": 0.25,
+            "experience": 0.25,
+            "hard_requirements": 0.15,
             "achievements": 0.10
         },
         "minimum_skill_confidence": 60.0,
-        "hard_requirement_tolerance": 10.0
+        "hard_requirement_tolerance": 50.0
     },
     "senior_backend": {
         "evaluation_profile": "senior_backend",
         "strictness_level": "high",
         "component_weights": {
             "skills": 0.15,
-            "projects": 0.25,
-            "experience": 0.40,
-            "leadership": 0.20
+            "projects": 0.20,
+            "experience": 0.35,
+            "hard_requirements": 0.15,
+            "leadership": 0.15
         },
         "minimum_skill_confidence": 80.0,
-        "hard_requirement_tolerance": 0.0
+        "hard_requirement_tolerance": 50.0
     },
     "staff_backend": {
         "evaluation_profile": "staff_backend",
         "strictness_level": "high",
         "component_weights": {
             "skills": 0.10,
-            "projects": 0.20,
-            "experience": 0.45,
-            "leadership": 0.25
+            "projects": 0.15,
+            "experience": 0.40,
+            "hard_requirements": 0.15,
+            "leadership": 0.20
         },
         "minimum_skill_confidence": 85.0,
-        "hard_requirement_tolerance": 0.0
+        "hard_requirement_tolerance": 50.0
     },
     "intern_ml": {
         "evaluation_profile": "intern_ml",
         "strictness_level": "low",
         "component_weights": {
             "skills": 0.30,
-            "projects": 0.40,
-            "experience": 0.20,
+            "projects": 0.30,
+            "experience": 0.15,
+            "hard_requirements": 0.15,
             "achievements": 0.10
         },
         "minimum_skill_confidence": 35.0,
-        "hard_requirement_tolerance": 25.0
+        "hard_requirement_tolerance": 50.0
     },
     "mid_ml": {
         "evaluation_profile": "mid_ml",
         "strictness_level": "medium",
         "component_weights": {
-            "skills": 0.30,
-            "projects": 0.30,
-            "experience": 0.30,
+            "skills": 0.25,
+            "projects": 0.25,
+            "experience": 0.25,
+            "hard_requirements": 0.15,
             "achievements": 0.10
         },
         "minimum_skill_confidence": 65.0,
-        "hard_requirement_tolerance": 10.0
+        "hard_requirement_tolerance": 50.0
     },
     "senior_ml": {
         "evaluation_profile": "senior_ml",
         "strictness_level": "high",
         "component_weights": {
-            "skills": 0.20,
-            "projects": 0.30,
-            "experience": 0.35,
-            "leadership": 0.15,
+            "skills": 0.15,
+            "projects": 0.20,
+            "experience": 0.30,
+            "hard_requirements": 0.15,
+            "leadership": 0.10,
             "achievements": 0.10
         },
         "minimum_skill_confidence": 80.0,
-        "hard_requirement_tolerance": 0.0
+        "hard_requirement_tolerance": 50.0
     },
     "staff_ml": {
         "evaluation_profile": "staff_ml",
         "strictness_level": "high",
         "component_weights": {
-            "skills": 0.15,
-            "projects": 0.25,
-            "experience": 0.40,
-            "leadership": 0.20,
+            "skills": 0.10,
+            "projects": 0.15,
+            "experience": 0.35,
+            "hard_requirements": 0.15,
+            "leadership": 0.15,
             "achievements": 0.10
         },
         "minimum_skill_confidence": 85.0,
-        "hard_requirement_tolerance": 0.0
+        "hard_requirement_tolerance": 50.0
     }
 }
 

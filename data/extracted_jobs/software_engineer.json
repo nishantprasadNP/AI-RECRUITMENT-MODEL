@@ -1,30 +1,228 @@
 {
   "title": "Backend Software Engineer",
   "required_skills": [
-    "Python",
-    "FastAPI",
-    "Django",
-    "Flask",
-    "REST API Development",
-    "SQL",
-    "Git",
-    "Docker",
-    "Object-Oriented Programming",
-    "Data Structures & Algorithms"
+    {
+      "skill": "Python",
+      "importance": 10.0,
+      "reason": "Directly stated as a required core programming language."
+    },
+    {
+      "skill": "FastAPI",
+      "importance": 8.0,
+      "reason": "Explicitly listed as a required framework."
+    },
+    {
+      "skill": "Django",
+      "importance": 8.0,
+      "reason": "Explicitly listed as a required framework."
+    },
+    {
+      "skill": "Flask",
+      "importance": 8.0,
+      "reason": "Explicitly listed as a required framework."
+    },
+    {
+      "skill": "REST API Development",
+      "importance": 8.0,
+      "reason": "Explicitly stated as a required skill for API development."
+    },
+    {
+      "skill": "SQL",
+      "importance": 10.0,
+      "reason": "Directly stated as a required database language."
+    },
+    {
+      "skill": "PostgreSQL",
+      "importance": 9.0,
+      "reason": "Explicitly mentioned as a required database."
+    },
+    {
+      "skill": "MySQL",
+      "importance": 9.0,
+      "reason": "Explicitly mentioned as a required database."
+    },
+    {
+      "skill": "Git",
+      "importance": 8.0,
+      "reason": "Explicitly listed as a required version control system."
+    },
+    {
+      "skill": "Docker",
+      "importance": 8.0,
+      "reason": "Explicitly listed as a required containerization tool."
+    },
+    {
+      "skill": "Object-Oriented Programming",
+      "importance": 8.0,
+      "reason": "Explicitly listed as a required programming paradigm."
+    },
+    {
+      "skill": "Data Structures & Algorithms",
+      "importance": 8.0,
+      "reason": "Explicitly listed as required computer science fundamentals."
+    }
   ],
   "preferred_skills": [
-    "AWS",
-    "Azure",
-    "Redis",
-    "Kafka",
-    "Kubernetes",
-    "CI/CD",
-    "Microservices"
+    {
+      "skill": "AWS",
+      "importance": 4.0,
+      "reason": "Explicitly mentioned as a preferred cloud platform."
+    },
+    {
+      "skill": "Azure",
+      "importance": 4.0,
+      "reason": "Explicitly mentioned as a preferred cloud platform."
+    },
+    {
+      "skill": "Redis",
+      "importance": 3.0,
+      "reason": "Explicitly mentioned as a preferred caching or data structure store."
+    },
+    {
+      "skill": "Kafka",
+      "importance": 3.0,
+      "reason": "Explicitly mentioned as a preferred messaging queue."
+    },
+    {
+      "skill": "Kubernetes",
+      "importance": 3.0,
+      "reason": "Explicitly mentioned as a preferred container orchestration tool."
+    },
+    {
+      "skill": "CI/CD",
+      "importance": 3.0,
+      "reason": "Explicitly mentioned as a preferred development practice."
+    },
+    {
+      "skill": "Microservices",
+      "importance": 3.0,
+      "reason": "Explicitly mentioned as a preferred architectural style."
+    }
   ],
+  "normalized_required_skills": [
+    {
+      "skill": "Python",
+      "importance": 10.0,
+      "reason": "Directly stated as a required core programming language."
+    },
+    {
+      "skill": "FastAPI",
+      "importance": 8.0,
+      "reason": "Explicitly listed as a required framework."
+    },
+    {
+      "skill": "Django",
+      "importance": 8.0,
+      "reason": "Explicitly listed as a required framework."
+    },
+    {
+      "skill": "Flask",
+      "importance": 8.0,
+      "reason": "Explicitly listed as a required framework."
+    },
+    {
+      "skill": "REST API Development",
+      "importance": 8.0,
+      "reason": "Explicitly stated as a required skill for API development."
+    },
+    {
+      "skill": "SQL",
+      "importance": 10.0,
+      "reason": "Directly stated as a required database language."
+    },
+    {
+      "skill": "PostgreSQL",
+      "importance": 9.0,
+      "reason": "Explicitly mentioned as a required database."
+    },
+    {
+      "skill": "MySQL",
+      "importance": 9.0,
+      "reason": "Explicitly mentioned as a required database."
+    },
+    {
+      "skill": "Git",
+      "importance": 8.0,
+      "reason": "Explicitly listed as a required version control system."
+    },
+    {
+      "skill": "Docker",
+      "importance": 8.0,
+      "reason": "Explicitly listed as a required containerization tool."
+    },
+    {
+      "skill": "OOP",
+      "importance": 8.0,
+      "reason": "Explicitly listed as a required programming paradigm."
+    },
+    {
+      "skill": "Data Structures & Algorithms",
+      "importance": 8.0,
+      "reason": "Explicitly listed as required computer science fundamentals."
+    }
+  ],
+  "normalized_preferred_skills": [
+    {
+      "skill": "AWS",
+      "importance": 4.0,
+      "reason": "Explicitly mentioned as a preferred cloud platform."
+    },
+    {
+      "skill": "Azure",
+      "importance": 4.0,
+      "reason": "Explicitly mentioned as a preferred cloud platform."
+    },
+    {
+      "skill": "Redis",
+      "importance": 3.0,
+      "reason": "Explicitly mentioned as a preferred caching or data structure store."
+    },
+    {
+      "skill": "Apache Kafka",
+      "importance": 3.0,
+      "reason": "Explicitly mentioned as a preferred messaging queue."
+    },
+    {
+      "skill": "Kubernetes",
+      "importance": 3.0,
+      "reason": "Explicitly mentioned as a preferred container orchestration tool."
+    },
+    {
+      "skill": "CI/CD",
+      "importance": 3.0,
+      "reason": "Explicitly mentioned as a preferred development practice."
+    },
+    {
+      "skill": "Microservices",
+      "importance": 3.0,
+      "reason": "Explicitly mentioned as a preferred architectural style."
+    }
+  ],
+  "canonical_to_raw_map": {
+    "Python": "Python",
+    "FastAPI": "FastAPI",
+    "Django": "Django",
+    "Flask": "Flask",
+    "REST API Development": "REST API Development",
+    "SQL": "SQL",
+    "PostgreSQL": "PostgreSQL",
+    "MySQL": "MySQL",
+    "Git": "Git",
+    "Docker": "Docker",
+    "OOP": "Object-Oriented Programming",
+    "Data Structures & Algorithms": "Data Structures & Algorithms",
+    "AWS": "AWS",
+    "Azure": "Azure",
+    "Redis": "Redis",
+    "Apache Kafka": "Kafka",
+    "Kubernetes": "Kubernetes",
+    "CI/CD": "CI/CD",
+    "Microservices": "Microservices"
+  },
   "critical_skills": [
     "Python",
-    "REST API Development",
     "SQL",
+    "REST API Development",
     "Docker",
     "FastAPI"
   ],
@@ -38,13 +236,10 @@
   "responsibility_themes": [
     "Backend Development",
     "API Development",
-    "System Design",
-    "Cloud-Native Application Development",
     "Database Optimization",
-    "Code Quality",
+    "Cloud Services Deployment & Monitoring",
     "Cross-functional Collaboration",
-    "Deployment",
-    "Monitoring"
+    "Software Design"
   ],
   "domain_knowledge": [
     "Cloud Computing"
@@ -52,13 +247,16 @@
   "soft_skills": [
     "Problem Solving",
     "Communication",
-    "Teamwork"
+    "Teamwork",
+    "Collaboration"
   ],
   "tools_and_technologies": [
     "Python",
     "FastAPI",
     "Django",
     "Flask",
+    "REST API",
+    "SQL",
     "PostgreSQL",
     "MySQL",
     "Git",
@@ -81,5 +279,5 @@
   },
   "role_complexity_score": 6,
   "future_potential_signals": [],
-  "job_summary": "Backend Software Engineer to design, build, and maintain scalable backend services and APIs, focusing on cloud-native applications. This role requires 2-5 years of experience, a Bachelor's degree in Computer Science or a related field, and strong problem-solving, communication, and teamwork skills. Key technologies include Python, FastAPI/Django/Flask, SQL (PostgreSQL/MySQL), Git, and Docker. Preferred experience includes AWS/Azure, Redis, Kafka, Kubernetes, CI/CD, and Microservices."
+  "job_summary": "The Backend Software Engineer will design, build, and maintain scalable backend services and APIs, collaborating with frontend, product, and DevOps teams to deliver reliable cloud-native applications. Key responsibilities include developing scalable backend APIs, optimizing databases, writing clean code, deploying and monitoring cloud services. The role requires experience with Python, FastAPI/Django/Flask, SQL (PostgreSQL/MySQL), Git, Docker, OOP, Data Structures & Algorithms, and strong problem-solving, communication, and teamwork skills. Preferred skills include AWS/Azure, Redis, Kafka, Kubernetes, CI/CD, and Microservices."
 }

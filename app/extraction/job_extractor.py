@@ -170,6 +170,32 @@ class JobExtractor:
             logger.error(f"Invalid JSON response from LLM: {raw_response}")
             raise InvalidJSONResponseError(f"LLM did not return valid JSON: {str(e)}") from e
 
+        # Normalize required_skills and preferred_skills to SkillRequirement dictionaries
+        if isinstance(json_data, dict):
+            for skill_field, default_reason in [
+                ("required_skills", "Required skill"),
+                ("preferred_skills", "Preferred skill")
+            ]:
+                skills_list = json_data.get(skill_field)
+                if isinstance(skills_list, list):
+                    normalized_list = []
+                    for item in skills_list:
+                        if isinstance(item, str):
+                            normalized_list.append({
+                                "skill": item,
+                                "importance": 5.0,
+                                "reason": default_reason
+                            })
+                        elif isinstance(item, dict):
+                            normalized_list.append({
+                                "skill": item.get("skill"),
+                                "importance": item.get("importance", 5.0),
+                                "reason": item.get("reason", default_reason)
+                            })
+                        else:
+                            normalized_list.append(item)
+                    json_data[skill_field] = normalized_list
+
         # 6. Validate with Pydantic
         try:
             profile = JobProfile.model_validate(json_data)

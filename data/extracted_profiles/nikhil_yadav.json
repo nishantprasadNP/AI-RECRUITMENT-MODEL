@@ -1,0 +1,137 @@
+{
+  "name": "Nikhil Yadav",
+  "skills": [
+    "C",
+    "C++",
+    "Python",
+    "JavaScript",
+    "TypeScript",
+    "React.js",
+    "Vite",
+    "TailwindCSS",
+    "Node.js",
+    "Express.js",
+    "REST APIs",
+    "MongoDB",
+    "MySQL",
+    "PostgreSQL",
+    "Git",
+    "GitHub",
+    "Postman",
+    "Vercel",
+    "MongoDB Atlas"
+  ],
+  "normalized_skills": [
+    "C",
+    "C++",
+    "Python",
+    "JavaScript",
+    "TypeScript",
+    "React.js",
+    "Vite",
+    "Tailwind CSS",
+    "Node.js",
+    "Express.js",
+    "REST APIs",
+    "MongoDB",
+    "MySQL",
+    "PostgreSQL",
+    "Git",
+    "GitHub",
+    "Postman",
+    "Vercel",
+    "MongoDB Atlas"
+  ],
+  "canonical_to_raw_map": {
+    "C": "C",
+    "C++": "C++",
+    "Python": "Python",
+    "JavaScript": "JavaScript",
+    "TypeScript": "TypeScript",
+    "React.js": "React.js",
+    "Vite": "Vite",
+    "Tailwind CSS": "TailwindCSS",
+    "Node.js": "Node.js",
+    "Express.js": "Express.js",
+    "REST APIs": "REST APIs",
+    "MongoDB": "MongoDB",
+    "MySQL": "MySQL",
+    "PostgreSQL": "PostgreSQL",
+    "Git": "Git",
+    "GitHub": "GitHub",
+    "Postman": "Postman",
+    "Vercel": "Vercel",
+    "MongoDB Atlas": "MongoDB Atlas"
+  },
+  "experience": [
+    {
+      "role": "WEB DEVELOPMENT INTERN-Startup",
+      "company": "OOPS Natural",
+      "start_date": "June 2025",
+      "end_date": null,
+      "duration": null,
+      "description": "Contributed to the website development and UI/UX improvements, helping enhance user experience and brand visibility. Coordinated between teams, gaining hands-on experience in management, teamwork, and problem-solving."
+    },
+    {
+      "role": "Web Developer Intern",
+      "company": "Aggarwal Travel Associates Pvt. Ltd.",
+      "start_date": "June 2024",
+      "end_date": null,
+      "duration": null,
+      "description": "Engineered a responsive travel booking interface using React.js and Vite, developing 15+ reusable UI components and optimizing rendering performance to reduce page load time by 25%. Integrated 10+ RESTful APIs using Node.js and Express.js and managed structured data in MongoDB Atlas, implementing secure CRUD operations and improving data retrieval efficiency by 30%."
+    }
+  ],
+  "projects": [
+    {
+      "name": "Tomato – Full-Stack MERN Food Delivery Platform with Stripe Integration",
+      "technologies": [
+        "React.js",
+        "Vite",
+        "Node.js",
+        "Express.js",
+        "MongoDB Atlas",
+        "JWT Authentication",
+        "Stripe API",
+        "Multer"
+      ],
+      "description": "Architected a full-stack MERN application with JWT-based authentication and Stripe payment gateway integration. Designed 10+ RESTful APIs with Express.js supporting secure cart, order, and user management. Implemented secure user authentication and authorization using JWT, enabling protected routes and personalized user experiences."
+    },
+    {
+      "name": "Client-Server Chat Application",
+      "technologies": [
+        "Python"
+      ],
+      "description": "A Python socket-based chat app enabling real-time client-server communication using TCP/IP. Developed a multi-client TCP socket-based chat server supporting concurrent connections using threading. Implemented message broadcasting and error handling for reliable communication."
+    },
+    {
+      "name": "Aarogya - Club Website",
+      "technologies": [
+        "React.js",
+        "Node.js",
+        "Express.js",
+        "MongoDB",
+        "Mongoose",
+        "JWT",
+        "bcrypt",
+        "Tailwind CSS"
+      ],
+      "description": "Built the official website for Aarogya Club, NIT Jalandhar, serving as a centralized platform for announcements, events, and club activities. Developed a fully responsive and accessible UI using React.js and Tailwind CSS to ensure seamless experience across devices."
+    }
+  ],
+  "education": [
+    {
+      "degree": "B.Tech",
+      "institution": "National Institute of Technology(NIT), Jalandhar",
+      "field": "Information Technology",
+      "graduation_year": "2027"
+    }
+  ],
+  "certifications": [],
+  "achievements": [
+    "LeetCode: Solved 200+ algorithmic problems covering Data Structures, Graphs, Dynamic Programming, and Trees.",
+    "2nd Runner-up in Ideathon organized by IIC, NIT Jalandhar.",
+    "Winner - IPL Auction: Won inter-college IPL Auction competition among 50+ participants through strategic bidding.",
+    "Winner - Cricket Tournament: Secured 3rd position in Inter-College Cricket Tournament at MNNIT Jaipur (2025)",
+    "Leadership : Appointed CCA Captain in Grade 10 and Grade 12, leading and organizing cultural and co-curricular activities for the school."
+  ]
+}

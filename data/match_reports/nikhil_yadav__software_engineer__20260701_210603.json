@@ -1,0 +1,198 @@
+{
+  "candidate_name": "Nikhil Yadav",
+  "job_name": "Software Engineer",
+  "role_profile": {
+    "role_family": "software_engineering",
+    "specialization": "backend_engineer",
+    "seniority": "mid_level",
+    "evaluation_profile": "mid_backend"
+  },
+  "evaluation_strategy": {
+    "evaluation_profile": "mid_backend",
+    "strictness_level": "medium",
+    "component_weights": {
+      "skills": 0.3,
+      "projects": 0.3,
+      "experience": 0.3,
+      "achievements": 0.1
+    },
+    "minimum_skill_confidence": 60.0,
+    "hard_requirement_tolerance": 10.0
+  },
+  "achievement_profile": {
+    "achievement_score": 2.1,
+    "academic": [
+      {
+        "title": "Graduated from Tier-1 Institution: National Institute of Technology(NIT), Jalandhar",
+        "source_section": "education",
+        "source_detail": "B.Tech in Information Technology at National Institute of Technology(NIT), Jalandhar",
+        "score_contribution": 3.5,
+        "explanation": "Graduated from a top tier global or national academic institution."
+      }
+    ],
+    "technical": [],
+    "research": [],
+    "leadership": [],
+    "entrepreneurship": [],
+    "category_scores": {
+      "academic": 3.5,
+      "technical": 0.0,
+      "research": 0.0,
+      "leadership": 0.0,
+      "entrepreneurship": 0.0
+    },
+    "explanation_traces": [
+      "Academic Score: 3.5/10.0 based on 1 signal(s).",
+      "Overall Achievement Score: 2.1/10.0. Calculated as (Max Category Score 3.5 * 60%) + (Sum of other categories 0.0 * 40%), capped at 10.0.",
+      "Standout Academic Signal: 'Graduated from Tier-1 Institution: National Institute of Technology(NIT), Jalandhar' in education (B.Tech in Information Technology at National Institute of Technology(NIT), Jalandhar) contributing +3.5."
+    ]
+  },
+  "candidate_score": {
+    "candidate_name": "Nikhil Yadav",
+    "overall_score": 57.7,
+    "component_scores": {
+      "skills": 5.2,
+      "experience": 100.0,
+      "achievements": 21.0,
+      "projects": 80.0
+    },
+    "weight_breakdown": {
+      "skills": 0.3,
+      "projects": 0.3,
+      "experience": 0.3,
+      "achievements": 0.1
+    },
+    "explanation": [
+      "Overall candidate score calculated as 57.7 using evaluation profile 'mid_backend'.",
+      "Skill Strength: 5.2/100.0 (Weight: 0.30)",
+      "Experience Quality: 100.0/100.0 (Weight: 0.30)",
+      "Achievement Impact: 21.0/100.0 (Weight: 0.10)",
+      "Projects Strength: 80.0/100.0 (Weight: 0.30)",
+      "Hard Requirements: Failed compliance check. Missing required skills: ['FastAPI', 'Django', 'Flask', 'REST API', 'Docker', 'Object-Oriented Programming', 'Data Structures & Algorithms']"
+    ],
+    "hard_requirements_coverage": 0.4166666666666667,
+    "semantic_score": 0.6019,
+    "skill_confidence_score": 25.08,
+    "achievement_score": 2.1
+  },
+  "hard_requirement_result": {
+    "passed": false,
+    "coverage_score": 0.4166666666666667,
+    "matched_required": [
+      "Python",
+      "SQL",
+      "PostgreSQL",
+      "MySQL",
+      "Git"
+    ],
+    "missing_required": [
+      "FastAPI",
+      "Django",
+      "Flask",
+      "REST API",
+      "Docker",
+      "Object-Oriented Programming",
+      "Data Structures & Algorithms"
+    ],
+    "matched_preferred": [],
+    "missing_preferred": [
+      "AWS",
+      "Azure",
+      "Redis",
+      "Kafka",
+      "Kubernetes",
+      "CI/CD",
+      "Microservices"
+    ],
+    "critical_failures": [
+      "FastAPI",
+      "Django",
+      "Flask",
+      "REST API",
+      "Docker",
+      "Object-Oriented Programming",
+      "Data Structures & Algorithms"
+    ],
+    "decision_reason": "Missing required skills: FastAPI, Django, Flask, REST API, Docker, Object-Oriented Programming, Data Structures & Algorithms"
+  },
+  "skill_gap_result": {
+    "missing_required_skills": [
+      "FastAPI",
+      "Django",
+      "Flask",
+      "REST API",
+      "Docker",
+      "Object-Oriented Programming",
+      "Data Structures & Algorithms"
+    ],
+    "missing_preferred_skills": [
+      "AWS",
+      "Azure",
+      "Redis",
+      "Kafka",
+      "Kubernetes",
+      "CI/CD",
+      "Microservices"
+    ],
+    "weak_skills": [
+      "C",
+      "C++",
+      "Python",
+      "JavaScript",
+      "TypeScript",
+      "TailwindCSS",
+      "REST APIs",
+      "MySQL",
+      "PostgreSQL",
+      "Git",
+      "GitHub",
+      "Postman",
+      "Vercel",
+      "Data Structures and Algorithms",
+      "OOPs",
+      "DBMS",
+      "Computer Networks"
+    ],
+    "strong_skills": [],
+    "improvement_areas": [
+      "Improve proficiency in FastAPI",
+      "Improve proficiency in Django",
+      "Improve proficiency in Flask",
+      "Improve proficiency in REST API",
+      "Build deployment projects using Docker",
+      "Improve proficiency in Object-Oriented Programming",
+      "Improve proficiency in Data Structures & Algorithms",
+      "Gain cloud deployment experience",
+      "Improve proficiency in Azure",
+      "Improve proficiency in Redis",
+      "Gain experience with Kafka",
+      "Gain container orchestration experience",
+      "Improve proficiency in CI/CD",
+      "Improve proficiency in Microservices",
+      "Improve proficiency in C",
+      "Improve proficiency in C++",
+      "Improve proficiency in Python",
+      "Improve proficiency in JavaScript",
+      "Improve proficiency in TypeScript",
+      "Improve proficiency in TailwindCSS",
+      "Improve proficiency in REST APIs",
+      "Improve proficiency in MySQL",
+      "Improve proficiency in PostgreSQL",
+      "Improve proficiency in Git",
+      "Improve proficiency in GitHub",
+      "Improve proficiency in Postman",
+      "Improve proficiency in Vercel",
+      "Improve proficiency in Data Structures and Algorithms",
+      "Improve proficiency in OOPs",
+      "Improve proficiency in DBMS",
+      "Improve proficiency in Computer Networks"
+    ],
+    "overall_gap_score": 1.0,
+    "decision_summary": "Candidate satisfies most requirements but lacks FastAPI, Django, Flask, REST API, Docker, Object-Oriented Programming, Data Structures & Algorithms and has weak C, C++, Python, JavaScript, TypeScript, TailwindCSS, REST APIs, MySQL, PostgreSQL, Git, GitHub, Postman, Vercel, Data Structures and Algorithms, OOPs, DBMS, Computer Networks evidence."
+  },
+  "semantic_score": 0.6019,
+  "semantic_score_pct": 60.19,
+  "resume_profile_path": "data/extracted_profiles/nikhil_yadav.json",
+  "job_profile_path": "data/extracted_jobs/software_engineer.json",
+  "generated_at": "2026-07-01T21:06:03.535255"
+}

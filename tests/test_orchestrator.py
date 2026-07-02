@@ -81,6 +81,18 @@ def test_orchestrator_full_pipeline_run():
         assert result.job_profile == mock_job_profile
         assert result.semantic_score == 0.85
 
+        # Verify Skill Normalization and canonical_to_raw_map are populated on ResumeProfile
+        assert result.resume_profile.normalized_skills == ["Python", "React.js"]
+        assert result.resume_profile.canonical_to_raw_map["Python"] == "Python"
+        assert result.resume_profile.canonical_to_raw_map["React.js"] == "React"
+
+        # Verify Skill Normalization and canonical_to_raw_map are populated on JobProfile
+        normalized_req_skills = [str(r) for r in result.job_profile.normalized_required_skills]
+        assert normalized_req_skills == ["Python", "FastAPI", "SQL"]
+        assert result.job_profile.canonical_to_raw_map["Python"] == "Python"
+        assert result.job_profile.canonical_to_raw_map["FastAPI"] == "FastAPI"
+        assert result.job_profile.canonical_to_raw_map["SQL"] == "SQL"
+
         # Verify role classification occurred and was attached
         assert isinstance(result.role_profile, RoleProfile)
         assert result.role_profile.role_family == "software_engineering"

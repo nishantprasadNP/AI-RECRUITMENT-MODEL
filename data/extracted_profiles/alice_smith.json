@@ -4,6 +4,14 @@
     "Python",
     "FastAPI"
   ],
+  "normalized_skills": [
+    "Python",
+    "FastAPI"
+  ],
+  "canonical_to_raw_map": {
+    "Python": "Python",
+    "FastAPI": "FastAPI"
+  },
   "experience": [
     {
       "role": "Lead developer",

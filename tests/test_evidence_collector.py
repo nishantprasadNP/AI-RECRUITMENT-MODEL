@@ -237,7 +237,7 @@ class FakeSkillGraphService(SkillGraphService):
 
 
 def test_evidence_collector_dependency_propagation():
-    """Verify single dependency propagation: FastAPI (4 mentions) -> Python (2.0 dependency mentions)."""
+    """Verify single dependency propagation: FastAPI (4 mentions) -> Python (dependency mentions)."""
     profile = ResumeProfile(
         skills=["Python", "FastAPI"],
         projects=[
@@ -253,8 +253,12 @@ def test_evidence_collector_dependency_propagation():
     canonical_names = {"Python": "Python", "FastAPI": "FastAPI"}
     fake_service = FakeSkillGraphService(skills_dict, relationships, canonical_names)
 
-    collector = SkillEvidenceCollector(graph_service=fake_service)
-    evidence_map = collector.collect(profile)
+    collector = SkillEvidenceCollector()
+    raw_evidence = collector.collect(profile)
+    from app.experience_analysis.propagation_engine import EvidencePropagationEngine
+    propagator = EvidencePropagationEngine()
+    factor = propagator.propagation_factor
+    evidence_map = propagator.propagate(raw_evidence, fake_service)
 
     assert "FastAPI" in evidence_map
     assert evidence_map["FastAPI"].direct_mentions == 7
@@ -263,7 +267,7 @@ def test_evidence_collector_dependency_propagation():
 
     assert "Python" in evidence_map
     assert evidence_map["Python"].direct_mentions == 1
-    assert evidence_map["Python"].dependency_mentions == 3.5  # 7 * 0.5
+    assert evidence_map["Python"].dependency_mentions == pytest.approx(7 * factor)
     assert evidence_map["Python"].dependency_sources == ["FastAPI"]
 
 
@@ -287,11 +291,15 @@ def test_evidence_collector_multiple_dependency_sources():
     canonical_names = {"Python": "Python", "FastAPI": "FastAPI", "NumPy": "NumPy"}
     fake_service = FakeSkillGraphService(skills_dict, relationships, canonical_names)
 
-    collector = SkillEvidenceCollector(graph_service=fake_service)
-    evidence_map = collector.collect(profile)
+    collector = SkillEvidenceCollector()
+    raw_evidence = collector.collect(profile)
+    from app.experience_analysis.propagation_engine import EvidencePropagationEngine
+    propagator = EvidencePropagationEngine()
+    factor = propagator.propagation_factor
+    evidence_map = propagator.propagate(raw_evidence, fake_service)
 
     assert "Python" in evidence_map
-    assert evidence_map["Python"].dependency_mentions == 4.0  # (4 * 0.5) + (4 * 0.5)
+    assert evidence_map["Python"].dependency_mentions == pytest.approx((4 * factor) + (4 * factor))
     assert evidence_map["Python"].dependency_sources == ["FastAPI", "NumPy"]
 
 
@@ -316,13 +324,17 @@ def test_evidence_collector_one_hop_constraint():
     canonical_names = {"Python": "Python", "FastAPI": "FastAPI", "AwesomeAPI": "AwesomeAPI"}
     fake_service = FakeSkillGraphService(skills_dict, relationships, canonical_names)
 
-    collector = SkillEvidenceCollector(graph_service=fake_service)
-    evidence_map = collector.collect(profile)
+    collector = SkillEvidenceCollector()
+    raw_evidence = collector.collect(profile)
+    from app.experience_analysis.propagation_engine import EvidencePropagationEngine
+    propagator = EvidencePropagationEngine()
+    factor = propagator.propagation_factor
+    evidence_map = propagator.propagate(raw_evidence, fake_service)
 
-    assert evidence_map["FastAPI"].dependency_mentions == 2.0
+    assert evidence_map["FastAPI"].dependency_mentions == pytest.approx(4 * factor)
     assert evidence_map["FastAPI"].dependency_sources == ["AwesomeAPI"]
 
-    assert evidence_map["Python"].dependency_mentions == 0.5
+    assert evidence_map["Python"].dependency_mentions == pytest.approx(1 * factor)
     assert evidence_map["Python"].dependency_sources == ["FastAPI"]
 
 
@@ -346,13 +358,17 @@ def test_evidence_collector_loop_prevention():
     canonical_names = {"SkillA": "SkillA", "SkillB": "SkillB"}
     fake_service = FakeSkillGraphService(skills_dict, relationships, canonical_names)
 
-    collector = SkillEvidenceCollector(graph_service=fake_service)
-    evidence_map = collector.collect(profile)
+    collector = SkillEvidenceCollector()
+    raw_evidence = collector.collect(profile)
+    from app.experience_analysis.propagation_engine import EvidencePropagationEngine
+    propagator = EvidencePropagationEngine()
+    factor = propagator.propagation_factor
+    evidence_map = propagator.propagate(raw_evidence, fake_service)
 
-    assert evidence_map["SkillA"].dependency_mentions == 1.5
+    assert evidence_map["SkillA"].dependency_mentions == pytest.approx(3 * factor)
     assert evidence_map["SkillA"].dependency_sources == ["SkillB"]
 
-    assert evidence_map["SkillB"].dependency_mentions == 1.5
+    assert evidence_map["SkillB"].dependency_mentions == pytest.approx(3 * factor)
     assert evidence_map["SkillB"].dependency_sources == ["SkillA"]
 
 
@@ -377,9 +393,13 @@ def test_evidence_collector_edge_types_and_uniqueness():
     canonical_names = {"Python": "Python", "FastAPI": "FastAPI", "Django": "Django"}
     fake_service = FakeSkillGraphService(skills_dict, relationships, canonical_names)
 
-    collector = SkillEvidenceCollector(graph_service=fake_service)
-    evidence_map = collector.collect(profile)
+    collector = SkillEvidenceCollector()
+    raw_evidence = collector.collect(profile)
+    from app.experience_analysis.propagation_engine import EvidencePropagationEngine
+    propagator = EvidencePropagationEngine()
+    factor = propagator.propagation_factor
+    evidence_map = propagator.propagate(raw_evidence, fake_service)
 
-    assert evidence_map["Python"].dependency_mentions == 1.5
+    assert evidence_map["Python"].dependency_mentions == pytest.approx(3 * factor)
     assert evidence_map["Python"].dependency_sources == ["FastAPI"]
 

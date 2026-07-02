@@ -115,22 +115,62 @@ def test_hard_requirement_engine_missing_required_skill(basic_job_profile, basic
     assert result.decision_reason == "Missing required skills: Kafka"
 
 
-def test_hard_requirement_engine_coverage_score_calculation(basic_job_profile, basic_role_profile):
-    """Verify coverage score calculation for partial matches."""
+def test_hard_requirement_engine_weighted_coverage(basic_job_profile, basic_role_profile):
+    """
+    Verify weighted coverage calculation using skill importance.
+    """
+
+    from app.schemas.job_schema import SkillRequirement
+
     engine = HardRequirementEngine()
-    job = basic_job_profile.model_copy(update={
-        "required_skills": ["Python", "Kafka", "Docker", "AWS"]
-    })
-    # candidate has 2 out of 4 skills -> coverage = 0.5
-    caps = CapabilityResolutionResult(candidate_capabilities=["Python", "Docker"])
 
-    result = engine.evaluate_compliance(job, basic_role_profile, caps)
+    job = basic_job_profile.model_copy(
+        update={
+            "required_skills": [
+                SkillRequirement(
+                    skill="Python",
+                    importance=10.0,
+                    reason="Primary backend language",
+                ),
+                SkillRequirement(
+                    skill="FastAPI",
+                    importance=9.0,
+                    reason="Backend framework",
+                ),
+                SkillRequirement(
+                    skill="Docker",
+                    importance=6.0,
+                    reason="Deployment tool",
+                ),
+            ]
+        }
+    )
 
-    assert result.passed is False
-    assert result.coverage_score == 0.5
-    assert result.matched_required == ["Python", "Docker"]
-    assert result.missing_required == ["Kafka", "AWS"]
-    assert result.decision_reason == "Missing required skills: Kafka, AWS"
+    caps = CapabilityResolutionResult(
+        candidate_capabilities=[
+            "Python",
+            "Docker",
+        ]
+    )
+
+    result = engine.evaluate_compliance(
+        job,
+        basic_role_profile,
+        caps,
+    )
+
+    expected_weighted = (10.0 + 6.0) / (10.0 + 9.0 + 6.0)
+
+    assert abs(result.coverage_score - expected_weighted) < 1e-6
+
+    assert result.matched_required == [
+        "Python",
+        "Docker",
+    ]
+
+    assert result.missing_required == [
+        "FastAPI",
+    ]
 
 
 def test_capability_resolution_linkage(basic_job_profile, basic_role_profile, real_capability_resolver):
@@ -164,3 +204,102 @@ def test_capability_resolution_linkage(basic_job_profile, basic_role_profile, re
     assert "Python" in result.matched_required
     assert "Docker" in result.matched_required
     assert result.decision_reason == "All required skills satisfied."
+
+
+def test_weighted_coverage_perfect_match(basic_job_profile, basic_role_profile):
+    """
+    Verify weighted coverage returns 100% when all weighted skills are matched.
+    """
+    from app.schemas.job_schema import SkillRequirement
+
+    engine = HardRequirementEngine()
+
+    job = basic_job_profile.model_copy(
+        update={
+            "required_skills": [
+                SkillRequirement(skill="Python", importance=10.0, reason=""),
+                SkillRequirement(skill="FastAPI", importance=9.0, reason=""),
+                SkillRequirement(skill="Docker", importance=6.0, reason="")
+            ]
+        }
+    )
+
+    caps = CapabilityResolutionResult(
+        candidate_capabilities=[
+            "Python",
+            "FastAPI",
+            "Docker"
+        ]
+    )
+
+    result = engine.evaluate_compliance(
+        job,
+        basic_role_profile,
+        caps
+    )
+
+    assert result.coverage_score == pytest.approx(1.0)
+
+def test_weighted_coverage_missing_high_priority(basic_job_profile, basic_role_profile):
+    from app.schemas.job_schema import SkillRequirement
+
+    engine = HardRequirementEngine()
+
+    job = basic_job_profile.model_copy(update={
+        "required_skills": [
+            SkillRequirement(skill="Python", importance=10.0, reason=""),
+            SkillRequirement(skill="FastAPI", importance=9.0, reason=""),
+            SkillRequirement(skill="Docker", importance=6.0, reason="")
+        ]
+    })
+
+    caps = CapabilityResolutionResult(
+        candidate_capabilities=["FastAPI", "Docker"]
+    )
+
+    result = engine.evaluate_compliance(job, basic_role_profile, caps)
+
+    assert result.coverage_score == pytest.approx(15 / 25)
+
+
+def test_weighted_coverage_missing_low_priority(basic_job_profile, basic_role_profile):
+    from app.schemas.job_schema import SkillRequirement
+
+    engine = HardRequirementEngine()
+
+    job = basic_job_profile.model_copy(update={
+        "required_skills": [
+            SkillRequirement(skill="Python", importance=10.0, reason=""),
+            SkillRequirement(skill="FastAPI", importance=9.0, reason=""),
+            SkillRequirement(skill="Docker", importance=6.0, reason="")
+        ]
+    })
+
+    caps = CapabilityResolutionResult(
+        candidate_capabilities=["Python", "FastAPI"]
+    )
+
+    result = engine.evaluate_compliance(job, basic_role_profile, caps)
+
+    assert result.coverage_score == pytest.approx(19 / 25)
+
+def test_weighted_coverage_no_match(basic_job_profile, basic_role_profile):
+    from app.schemas.job_schema import SkillRequirement
+
+    engine = HardRequirementEngine()
+
+    job = basic_job_profile.model_copy(update={
+        "required_skills": [
+            SkillRequirement(skill="Python", importance=10.0, reason=""),
+            SkillRequirement(skill="FastAPI", importance=9.0, reason=""),
+            SkillRequirement(skill="Docker", importance=6.0, reason="")
+        ]
+    })
+
+    caps = CapabilityResolutionResult(
+        candidate_capabilities=[]
+    )
+
+    result = engine.evaluate_compliance(job, basic_role_profile, caps)
+
+    assert result.coverage_score == pytest.approx(0.0)

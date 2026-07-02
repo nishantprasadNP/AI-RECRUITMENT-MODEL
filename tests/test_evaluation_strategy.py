@@ -56,7 +56,7 @@ def test_strategy_rule_library():
     # Get config
     config = lib.get_profile_config("intern_backend")
     assert config["strictness_level"] == "low"
-    assert config["component_weights"]["skills"] == 0.35
+    assert config["component_weights"]["skills"] == 0.30
 
     # Get non-existent
     with pytest.raises(StrategyNotFoundError):
@@ -97,7 +97,7 @@ def test_evaluation_strategy_engine():
     strategy = engine.generate_strategy(role)
     assert strategy.evaluation_profile == "senior_backend"
     assert strategy.strictness_level == "high"
-    assert strategy.component_weights["experience"] == 0.40
+    assert strategy.component_weights["experience"] == 0.35
 
     # Fallback to senior_backend when staff_backend or staff_engineer is requested but not in rule library (we added staff_backend, let's test a brand new one like staff_frontend)
     role_fallback = RoleProfile(
